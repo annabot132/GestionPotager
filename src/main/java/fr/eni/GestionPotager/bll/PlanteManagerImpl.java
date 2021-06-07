@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import fr.eni.GestionPotager.bo.Plante;
 import fr.eni.GestionPotager.dal.PlanteDao;
-import fr.eni.LeCRM.bll.CrmManagerException;
 
 @Service
 public class PlanteManagerImpl implements PlanteManager {

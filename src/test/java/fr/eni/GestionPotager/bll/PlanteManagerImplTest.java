@@ -21,7 +21,7 @@ class PlanteManagerImplTest {
 
 	@Test
 	@Transactional
-	final void testCreatePlante() {
+	final void testCreatePlante() throws BllException {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
 		assertEquals(planteMg.findAll().size(), 1);
@@ -29,7 +29,7 @@ class PlanteManagerImplTest {
 
 	@Test
 	@Transactional
-	final void testFindAll() {
+	final void testFindAll() throws BllException {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
 		assertEquals(planteMg.findAll().size(), 1);
@@ -37,7 +37,7 @@ class PlanteManagerImplTest {
 
 	@Test
 	@Transactional
-	final void testFindPlanteById() {
+	final void testFindPlanteById() throws BllException {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
 		List<Plante> listePlantes = planteMg.findAll();
@@ -47,7 +47,7 @@ class PlanteManagerImplTest {
 
 	@Test
 	@Transactional
-	final void testUpdatePlante() {
+	final void testUpdatePlante() throws BllException {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
 		plante1.setVariete("Green");
@@ -57,7 +57,7 @@ class PlanteManagerImplTest {
 
 	@Test
 	@Transactional
-	final void testDeletePlante() {
+	final void testDeletePlante() throws BllException {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
 		planteMg.deletePlante(plante1);
@@ -67,7 +67,7 @@ class PlanteManagerImplTest {
 
 	@Test
 	@Transactional
-	final void testDeletePlanteById() {
+	final void testDeletePlanteById() throws BllException {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
 		List<Plante> listePlantes = planteMg.findAll();

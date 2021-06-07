@@ -1,6 +1,7 @@
 package fr.eni.GestionPotager.dal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
@@ -18,6 +19,17 @@ class PlanteDaoTest {
 
 	@Autowired
 	PlanteDao dao;
+	
+
+	@Test
+	@Transactional
+	final void findOnePlanteOneVariete() {
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		dao.save(plante1);
+		assertNotNull(dao.findOnePlanteOneVariete("tomate", "cerise"));
+	}
+	
+	
 
 	@Test
 	@Transactional

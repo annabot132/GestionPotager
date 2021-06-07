@@ -25,7 +25,7 @@ class PotagerManagerTest {
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		manager.addPotager(potager1);
 		System.err.println(potager1);
-		assertNotNull(manager.getPotagerById(1));
+		assertNotNull(manager.getPotagerById(potager1.getIdPotager()));
 	}
 
 	@Test

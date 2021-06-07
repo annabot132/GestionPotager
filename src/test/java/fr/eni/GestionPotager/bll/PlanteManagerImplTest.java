@@ -60,8 +60,7 @@ class PlanteManagerImplTest {
 	final void testDeletePlante() {
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		planteMg.createPlante(plante1);
-		List<Plante> listePlantes = planteMg.findAll();
-		planteMg.deletePlanteById(listePlantes.get(0).getIdPlante());
+		planteMg.deletePlante(plante1);
 		assertEquals(planteMg.findAll().size(), 0);
 
 	}

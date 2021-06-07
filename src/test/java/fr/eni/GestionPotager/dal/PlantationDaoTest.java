@@ -22,7 +22,7 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testSave() {
-		Plantation plantation1 = new Plantation(LocalDate.now(), LocalDate.now().plusWeeks(6), 1, null, null);
+		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
 		dao.save(plantation1);
 		List<Plantation> listePlantatuions = (List<Plantation>) dao.findAll();
 		assertEquals(listePlantatuions.size(), 1);
@@ -32,7 +32,7 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testFindById() {
-		Plantation plantation1 = new Plantation(LocalDate.now(), LocalDate.now().plusWeeks(6), 1, null, null);
+		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
 		dao.save(plantation1);
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
 		Plantation plantationTest = dao.findById(listePlantations.get(0).getIdPlantation()).orElse(null);
@@ -42,8 +42,8 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testFindAll() {
-		Plantation plantation1 = new Plantation(LocalDate.now(), LocalDate.now().plusWeeks(6), 1, null, null);
-		Plantation plantation2 = new Plantation(LocalDate.now(), LocalDate.now().plusWeeks(8), 2, null, null);
+		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
+		Plantation plantation2 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(8), 2, null, null);
 		dao.save(plantation1);
 		dao.save(plantation2);
 		List<Plantation> listePlantatuions = (List<Plantation>) dao.findAll();
@@ -54,7 +54,7 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testDeleteById() {
-		Plantation plantation1 = new Plantation(LocalDate.now(), LocalDate.now().plusWeeks(6), 1, null, null);
+		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
 		dao.save(plantation1);
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
 		dao.deleteById(listePlantations.get(0).getIdPlantation());
@@ -65,7 +65,7 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testDelete() {
-		Plantation plantation1 = new Plantation(LocalDate.now(), LocalDate.now().plusWeeks(6), 1, null, null);
+		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
 		dao.save(plantation1);
 		dao.delete(plantation1);
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();

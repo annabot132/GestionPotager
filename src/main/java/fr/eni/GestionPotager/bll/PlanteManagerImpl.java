@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import fr.eni.GestionPotager.bo.Plante;
 import fr.eni.GestionPotager.dal.PlanteDao;
+import fr.eni.LeCRM.bll.CrmManagerException;
 
 @Service
 public class PlanteManagerImpl implements PlanteManager {
@@ -20,8 +21,11 @@ public class PlanteManagerImpl implements PlanteManager {
 	@Override
 	@Transactional
 	public void createPlante(Plante plante) {
+//		if ("Dupont".equals(contact.getNom())) {
+//			throw new BllException("La plante existe déjà");
+//		}
 		planteDao.save(plante);
-		
+	
 	}
 
 	@Override

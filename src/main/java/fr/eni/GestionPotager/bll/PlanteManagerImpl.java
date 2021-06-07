@@ -20,8 +20,11 @@ public class PlanteManagerImpl implements PlanteManager {
 	@Override
 	@Transactional
 	public void createPlante(Plante plante) {
+//		if ("Dupont".equals(contact.getNom())) {
+//			throw new BllException("La plante existe déjà");
+//		}
 		planteDao.save(plante);
-		
+	
 	}
 
 	@Override

@@ -20,6 +20,7 @@ class CarreManagerImplTest {
 
 	@Autowired
 	private CarreManager carremgr;
+	
 
 	// pour test carré, sinon erreur de transient
 	@Autowired
@@ -112,5 +113,24 @@ class CarreManagerImplTest {
 		assertEquals(carremgr.findAll().size(), 3);
 
 	}
+	
+	@Test
+	@Transactional
+	void testajouterCarrePotager() {
+		System.out.println("__________testajouterCarrePotager()____________");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 5, "Quimper");
+		daoPotager.save(potagerTest);
+		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
+		
+		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
+		System.err.println(listePotagers.get(0).getIdPotager());
+		Carre carreTest = new Carre(20, "Argileux", Exposition.MI_OMBRE, null);
+	
+		
+		carremgr.ajouterCarrePotager(potagerTest, carreTest);
+		System.err.println(carremgr.findAll());
+	}
+	
+	
 
 }

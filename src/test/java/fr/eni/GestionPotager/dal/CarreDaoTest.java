@@ -12,12 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Exposition;
+import fr.eni.GestionPotager.bo.Potager;
 
 @SpringBootTest
 class CarreDaoTest {
 
 	@Autowired
 	CarreDao dao;
+
+	@Autowired
+	PotagerDao daoPotager;
 
 	@Test
 	@Transactional
@@ -73,6 +77,25 @@ class CarreDaoTest {
 
 		assertEquals(listeCarres2.size(), 0);
 
+	}
+
+	@Test
+	@Transactional
+	final void testSommeSurface() {
+		System.out.println("___________testSommeSurface()____________");
+		Potager potager = new Potager("STR", "STR", 25, "STR");
+		daoPotager.save(potager);
+
+		Carre carre1 = new Carre(2, "sableux", Exposition.MI_OMBRE, potager);
+		Carre carre2 = new Carre(10, "argileux", Exposition.SOLEIL, potager);
+		dao.save(carre1);
+		dao.save(carre2);
+
+		System.err.println(dao.findAll());
+		System.out.println(dao.countSurface(potager.getIdPotager()));
+
+		float sumSurface = (float) (carre1.getSurface() + carre2.getSurface());
+		assertEquals((float)dao.countSurface(potager.getIdPotager()), sumSurface );
 	}
 
 }

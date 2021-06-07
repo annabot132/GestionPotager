@@ -55,5 +55,8 @@ public interface PotagerManager {
 	 * @param id
 	 */
 	public void removePotagerById(Integer id);
+	
+	
+	
 
 }

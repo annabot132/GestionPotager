@@ -6,4 +6,6 @@ import fr.eni.GestionPotager.bo.Plante;
 
 public interface PlanteDao extends CrudRepository<Plante, Integer> {
 
+	
+
 }

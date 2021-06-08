@@ -51,13 +51,15 @@ public class CarreManagerImpl implements CarreManager {
 	@Override
 	@Transactional
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException {
-
+		System.err.println("potager id " + potager);
 		if (potagerManager.getPotagerById(potager.getIdPotager())== null){
 			potagerManager.addPotager(potager);
+			System.err.println(potager.getIdPotager());
 		}
-		if ((dao.countSurface(potager.getIdPotager()) + carre.getSurface()) > potager.getSurface() ) {
-			throw new BllException("Plus de place dans le potager");
-		}
+//		//dao.countSurface(potager.getIdPotager()) + 
+//		if ((carre.getSurface()) > potager.getSurface() ) {
+//			throw new BllException("Plus de place dans le potager");
+//		}
 		carre.setPotager(potager);
 		potager.getListeCarres().add(carre);
 		createCarre(carre);

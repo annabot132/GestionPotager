@@ -38,4 +38,21 @@ public class Plantation {
 		this.plante = plante;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Plantation [idPlantation=");
+		builder.append(idPlantation);
+		builder.append(", miseEnPlace=");
+		builder.append(miseEnPlace);
+		builder.append(", recolte=");
+		builder.append(recolte);
+		builder.append(", quantite=");
+		builder.append(quantite);
+		builder.append(", plante=");
+		builder.append(plante);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

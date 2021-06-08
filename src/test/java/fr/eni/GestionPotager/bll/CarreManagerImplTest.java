@@ -116,7 +116,7 @@ class CarreManagerImplTest {
 	
 	@Test
 	@Transactional
-	void testajouterCarrePotager() {
+	void testajouterCarrePotager() throws BllException {
 		System.out.println("__________testajouterCarrePotager()____________");
 		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 5, "Quimper");
 		daoPotager.save(potagerTest);

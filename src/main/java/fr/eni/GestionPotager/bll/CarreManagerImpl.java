@@ -1,6 +1,7 @@
 package fr.eni.GestionPotager.bll;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -90,6 +91,20 @@ public class CarreManagerImpl implements CarreManager {
 		// surface plans < surface carré
 
 		List<Plantation> lstPlantation = carre.getListePlantations();
+		
+		List<String> lstNomPlante = new ArrayList<String>();
+		for (Plantation plantation : lstPlantation) {
+			if (lstNomPlante.contains(plantation.getPlante().getNom())) {
+				
+			}else {
+				lstNomPlante.add(plantation.getPlante().getNom());
+			}
+		}
+		
+		
+		if (lstNomPlante.size()==3) {
+			throw new BllException("Il y a déjà 3 plantes dans votre carré");
+		}
 
 		float surfaceSurCarreExistant = 0;
 		for (Plantation plantation : lstPlantation) {

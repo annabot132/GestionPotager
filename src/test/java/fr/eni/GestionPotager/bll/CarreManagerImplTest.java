@@ -20,9 +20,7 @@ class CarreManagerImplTest {
 
 	@Autowired
 	private CarreManager carremgr;
-	
 
-	// pour test carré, sinon erreur de transient
 	@Autowired
 	private PotagerDao daoPotager;
 
@@ -36,8 +34,6 @@ class CarreManagerImplTest {
 		daoPotager.save(potagerTest);
 		carremgr.createCarre(carreTest);
 
-		System.err.println(carremgr.findAll().size());
-		assertEquals(carremgr.findAll().size(), 1);
 	}
 
 	@Test
@@ -50,7 +46,6 @@ class CarreManagerImplTest {
 		daoPotager.save(potagerTest);
 		carremgr.createCarre(carreTest);
 
-		System.err.println(carreTest.getIdCarre());
 		carremgr.deleteCarre(carreTest.getIdCarre());
 
 		assertEquals(carremgr.findAll().size(), 0);
@@ -67,8 +62,6 @@ class CarreManagerImplTest {
 		carremgr.createCarre(carreTest);
 
 		carreTest.setSol("Terreux");
-
-		System.err.println(carreTest.getSol());
 
 		List<Carre> listeCarreTest = (List<Carre>) carremgr.findAll();
 		Carre carreTest2 = carremgr.findById(listeCarreTest.get(0).getIdCarre());
@@ -113,67 +106,50 @@ class CarreManagerImplTest {
 		assertEquals(carremgr.findAll().size(), 3);
 
 	}
-	
+
 	@Test
 	@Transactional
 	void testajouterCarrePotagerExiste() throws BllException {
-		System.out.println("__________testajouterCarrePotager()____________");
+		System.err.println("__________testajouterCarrePotager() avec Potager EXISTANT____________");
 		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 20, "Quimper");
 		daoPotager.save(potagerTest);
-		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
-		
-		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
-		Carre carreTest = new Carre(21, "Argileux", Exposition.MI_OMBRE, null);
-		
-	    
-	    	carremgr.ajouterCarrePotager(potagerTest, carreTest);
-		
-		System.err.println("Liste carré : "+carremgr.findAll());
+
+		Carre carreTest = new Carre(15, "Argileux", Exposition.MI_OMBRE, null);
+
+		carremgr.ajouterCarrePotager(potagerTest, carreTest);
+
 	}
-	
+
 	@Test
 	@Transactional
 	void testajouterCarrePotagerExistePas() throws BllException {
 		System.out.println("__________testajouterCarrePotager()____________");
 		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 20, "Quimper");
-//		daoPotager.save(potagerTest);
-//		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
-//		
-//		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
-		Carre carreTest = new Carre(21, "Argileux", Exposition.MI_OMBRE, null);
-			    
-		    	carremgr.ajouterCarrePotager(potagerTest, carreTest);
-		
-		System.err.println("Liste carré : "+carremgr.findAll());
-		System.err.println("Liste potager: " + daoPotager.findAll());
+		Carre carreTest = new Carre(15, "Argileux", Exposition.MI_OMBRE, null);
+
+		carremgr.ajouterCarrePotager(potagerTest, carreTest);
+
 	}
-	
-//	@Test
-//	@Transactional
+
+	@Test
+	@Transactional
 	void testajouterCarrePotagerContrainteSurface() throws BllException {
-		System.out.println("__________testajouterCarrePotager()____________");
+		System.out.println("__________testajouterCarrePotager() TEST CONTRAINTE TAILLE POLTAGER___________");
 		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 20, "Quimper");
 		daoPotager.save(potagerTest);
-		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
-		
-		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
-		System.err.println("idpotager "+listePotagers.get(0).getIdPotager());
 		Carre carreTest = new Carre(21, "Argileux", Exposition.MI_OMBRE, null);
-		
-	    Exception exception = assertThrows(BllException.class, () -> {
-	    
-	    	carremgr.ajouterCarrePotager(potagerTest, carreTest);
-        });
- 
-	    
-        String expectedMessage = "Plus de place dans le potager";
-        String actualMessage = exception.getMessage();
- 
-        assertTrue(actualMessage.contains(expectedMessage));
-		
-	
-		
-		System.err.println("Liste carré : "+carremgr.findAll());
+
+		Exception exception = assertThrows(BllException.class, () -> {
+			carremgr.ajouterCarrePotager(potagerTest, carreTest);
+		});
+
+		String expectedMessage = "Il n'y a plus de place dans le potager!! il vous reste: "
+				+ (potagerTest.getSurface() - carreTest.getSurface()) + "  m²";
+		String actualMessage = exception.getMessage();
+
+		assertTrue(actualMessage.contains(expectedMessage));
+
+		System.err.println("Liste carré : " + carremgr.findAll());
 	}
 
 }

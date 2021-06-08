@@ -21,13 +21,15 @@ public class CarreManagerImpl implements CarreManager {
 	@Autowired
 	private CarreDao carreDao;
 
-	@Autowired
-	private PlantationDao plantationDao;
 
 	@Autowired
 	private PotagerManager potagerManager;
 
+	@Autowired
+	private PlantationDao plantationDao;
+
 	@Override
+	@Transactional
 	public void createCarre(Carre carre) {
 		carreDao.save(carre);
 
@@ -58,28 +60,28 @@ public class CarreManagerImpl implements CarreManager {
 	@Override
 	@Transactional
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException {
-		System.err.println("potager id " + potager);
-		if (potagerManager.getPotagerById(potager.getIdPotager()) == null) {
-			potagerManager.addPotager(potager);
-			System.err.println(potager.getIdPotager());
+
+		potagerManager.addPotager(potager);
+		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
+			float reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
+			throw new BllException("Il n'y a plus de place dans le potager!! il vous reste: " + reste + "  m²");
+
 		}
-//		//dao.countSurface(potager.getIdPotager()) + 
-//		if ((carre.getSurface()) > potager.getSurface() ) {
-//			throw new BllException("Plus de place dans le potager");
-//		}
 		carre.setPotager(potager);
 		potager.getListeCarres().add(carre);
 		createCarre(carre);
 
-		// @Override
-//		@Transactional
-//		public void addCarreInPotager(Potager potager, Carre carre) {
-//			carre.setPotager(potager);
-//			potager.getListeCarres().add(carre);
-//			addPotager(potager);
-//			carreMg.createCarre(carre);
-//		}
+
 	}
+
+	public float calculSurfaceCarre(Potager potager) {
+		if (carreDao.countSurface(potager.getIdPotager()) == null) {
+			return 0;
+		}
+		return carreDao.countSurface(potager.getIdPotager());
+
+	}
+
 
 	@Override
 	@Transactional

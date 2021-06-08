@@ -45,7 +45,23 @@ public interface CarreManager {
 	 */
 	public List<Carre> findAll();
 	
+	/**
+	 * ajouter un carre à un potager
+	 * @param potager
+	 * @param carre
+	 * @throws BllException
+	 */
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException;
 	
+
+	/**
+	 * ajouter une plantation à un carre
+	 * @param carre
+	 * @param plante
+	 * @param qte
+	 * @param dateMiseEnPlace
+	 * @param dateDeRecolte
+	 * @throws BllException
+	 */
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, int qte, LocalDate dateMiseEnPlace, LocalDate dateDeRecolte ) throws BllException;
 }

@@ -15,7 +15,7 @@ import fr.eni.GestionPotager.bo.TypePlante;
 
 @SpringBootTest
 class PlanteManagerImplTest {
-	
+
 	@Autowired
 	PlanteManager planteMg;
 
@@ -75,4 +75,6 @@ class PlanteManagerImplTest {
 		assertEquals(planteMg.findAll().size(), 0);
 	}
 
+	
+	
 }

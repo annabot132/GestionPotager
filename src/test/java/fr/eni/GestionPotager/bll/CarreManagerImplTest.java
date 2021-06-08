@@ -116,21 +116,64 @@ class CarreManagerImplTest {
 	
 	@Test
 	@Transactional
-	void testajouterCarrePotager() throws BllException {
+	void testajouterCarrePotagerExiste() throws BllException {
 		System.out.println("__________testajouterCarrePotager()____________");
-		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 5, "Quimper");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 20, "Quimper");
 		daoPotager.save(potagerTest);
 		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
 		
 		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
-		System.err.println(listePotagers.get(0).getIdPotager());
-		Carre carreTest = new Carre(20, "Argileux", Exposition.MI_OMBRE, null);
-	
+		Carre carreTest = new Carre(21, "Argileux", Exposition.MI_OMBRE, null);
 		
-		carremgr.ajouterCarrePotager(potagerTest, carreTest);
-		System.err.println(carremgr.findAll());
+	    
+	    	carremgr.ajouterCarrePotager(potagerTest, carreTest);
+		
+		System.err.println("Liste carré : "+carremgr.findAll());
 	}
 	
+	@Test
+	@Transactional
+	void testajouterCarrePotagerExistePas() throws BllException {
+		System.out.println("__________testajouterCarrePotager()____________");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 20, "Quimper");
+//		daoPotager.save(potagerTest);
+//		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
+//		
+//		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
+		Carre carreTest = new Carre(21, "Argileux", Exposition.MI_OMBRE, null);
+			    
+		    	carremgr.ajouterCarrePotager(potagerTest, carreTest);
+		
+		System.err.println("Liste carré : "+carremgr.findAll());
+		System.err.println("Liste potager: " + daoPotager.findAll());
+	}
 	
+//	@Test
+//	@Transactional
+	void testajouterCarrePotagerContrainteSurface() throws BllException {
+		System.out.println("__________testajouterCarrePotager()____________");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 20, "Quimper");
+		daoPotager.save(potagerTest);
+		List<Potager> listePotagers = (List<Potager>)daoPotager.findAll();
+		
+		potagerTest.setIdPotager(listePotagers.get(0).getIdPotager());
+		System.err.println("idpotager "+listePotagers.get(0).getIdPotager());
+		Carre carreTest = new Carre(21, "Argileux", Exposition.MI_OMBRE, null);
+		
+	    Exception exception = assertThrows(BllException.class, () -> {
+	    
+	    	carremgr.ajouterCarrePotager(potagerTest, carreTest);
+        });
+ 
+	    
+        String expectedMessage = "Plus de place dans le potager";
+        String actualMessage = exception.getMessage();
+ 
+        assertTrue(actualMessage.contains(expectedMessage));
+		
+	
+		
+		System.err.println("Liste carré : "+carremgr.findAll());
+	}
 
 }

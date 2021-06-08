@@ -49,6 +49,7 @@ public interface PotagerManager {
 	 */
 	public Potager getPotagerById(Integer id);
 
+	
 	/**
 	 * Supprime un potager par son identifiant
 	 * 

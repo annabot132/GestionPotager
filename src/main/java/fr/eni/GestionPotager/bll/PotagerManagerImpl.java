@@ -52,6 +52,4 @@ public class PotagerManagerImpl implements PotagerManager {
 
 	}
 
-	
-
 }

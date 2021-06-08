@@ -1,6 +1,7 @@
 package fr.eni.GestionPotager.bll;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,7 @@ public class CarreManagerImpl implements CarreManager {
 
 	@Autowired
 	private CarreDao carreDao;
+
 
 	@Autowired
 	private PotagerManager potagerManager;
@@ -59,14 +61,17 @@ public class CarreManagerImpl implements CarreManager {
 	@Override
 	@Transactional
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException {
+
 		potagerManager.addPotager(potager);
 		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
 			float reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
 			throw new BllException("Il n'y a plus de place dans le potager!! il vous reste: " + reste + "  m²");
+
 		}
 		carre.setPotager(potager);
 		potager.getListeCarres().add(carre);
 		createCarre(carre);
+
 
 	}
 
@@ -78,6 +83,7 @@ public class CarreManagerImpl implements CarreManager {
 
 	}
 
+
 	@Override
 	@Transactional
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, int qte, LocalDate dateMiseEnPlace,
@@ -85,13 +91,27 @@ public class CarreManagerImpl implements CarreManager {
 		// surface plans < surface carré
 
 		List<Plantation> lstPlantation = carre.getListePlantations();
+		
+		List<String> lstNomPlante = new ArrayList<String>();
+		for (Plantation plantation : lstPlantation) {
+			if (lstNomPlante.contains(plantation.getPlante().getNom())) {
+				
+			}else {
+				lstNomPlante.add(plantation.getPlante().getNom());
+			}
+		}
+		
+		
+		if (lstNomPlante.size()==3) {
+			throw new BllException("Il y a déjà 3 plantes dans votre carré");
+		}
 
 		float surfaceSurCarreExistant = 0;
 		for (Plantation plantation : lstPlantation) {
 			surfaceSurCarreExistant += (plantation.getPlante().getSurfaceOccupee() * plantation.getQuantite());
 		}
-
-		if (plante.getSurfaceOccupee() * qte + surfaceSurCarreExistant > carre.getSurface()) {
+		
+		if (plante.getSurfaceOccupee()*qte+surfaceSurCarreExistant > carre.getSurface()) {
 			throw new BllException("Pas assez de place dans le carré");
 		}
 
@@ -103,4 +123,5 @@ public class CarreManagerImpl implements CarreManager {
 		carreDao.save(carre);
 
 	}
+
 }

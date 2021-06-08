@@ -13,4 +13,6 @@ public interface PlanteDao extends CrudRepository<Plante, Integer> {
 //	@Query("select p from Plante p where p.nom=:nom and p.variete=:variete")
 //	List<Plante> findAllCLientDUneVille(@Param("nom") String nom, @Param("variete") String variete);
 
+	
+	
 }

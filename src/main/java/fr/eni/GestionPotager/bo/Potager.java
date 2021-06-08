@@ -35,4 +35,22 @@ public class Potager {
 		this.ville = ville;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Potager [idPotager=");
+		builder.append(idPotager);
+		builder.append(", localisation=");
+		builder.append(localisation);
+		builder.append(", nom=");
+		builder.append(nom);
+		builder.append(", surface=");
+		builder.append(surface);
+		builder.append(", ville=");
+		builder.append(ville);
+		builder.append("]");
+		return builder.toString();
+	}
+
+	
 }

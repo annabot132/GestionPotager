@@ -43,6 +43,6 @@ public interface CarreManager {
 	 */
 	public List<Carre> findAll();
 	
-	public void ajouterCarrePotager(Potager potager, Carre carre);
+	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException;
 	
 }

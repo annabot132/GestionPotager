@@ -31,6 +31,7 @@ class PlanteManagerImplContraintesTest {
 		String expectedMessage = "La plante existe déjà";
 		String actualMessage = exception.getMessage();
 
+		
 		assertTrue(actualMessage.contains(expectedMessage));
 		}
 		

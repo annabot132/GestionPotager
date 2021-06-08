@@ -21,6 +21,7 @@ public class CarreManagerImpl implements CarreManager {
 	@Autowired
 	private CarreDao carreDao;
 
+
 	@Autowired
 	private PotagerManager potagerManager;
 
@@ -59,14 +60,17 @@ public class CarreManagerImpl implements CarreManager {
 	@Override
 	@Transactional
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException {
+
 		potagerManager.addPotager(potager);
 		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
 			float reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
 			throw new BllException("Il n'y a plus de place dans le potager!! il vous reste: " + reste + "  m²");
+
 		}
 		carre.setPotager(potager);
 		potager.getListeCarres().add(carre);
 		createCarre(carre);
+
 
 	}
 
@@ -77,6 +81,7 @@ public class CarreManagerImpl implements CarreManager {
 		return carreDao.countSurface(potager.getIdPotager());
 
 	}
+
 
 	@Override
 	@Transactional
@@ -90,8 +95,8 @@ public class CarreManagerImpl implements CarreManager {
 		for (Plantation plantation : lstPlantation) {
 			surfaceSurCarreExistant += (plantation.getPlante().getSurfaceOccupee() * plantation.getQuantite());
 		}
-
-		if (plante.getSurfaceOccupee() * qte + surfaceSurCarreExistant > carre.getSurface()) {
+		
+		if (plante.getSurfaceOccupee()*qte+surfaceSurCarreExistant > carre.getSurface()) {
 			throw new BllException("Pas assez de place dans le carré");
 		}
 
@@ -103,4 +108,5 @@ public class CarreManagerImpl implements CarreManager {
 		carreDao.save(carre);
 
 	}
+
 }

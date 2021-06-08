@@ -53,6 +53,7 @@ public interface CarreManager {
 	 */
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException;
 	
+
 	/**
 	 * ajouter une plantation à un carre
 	 * @param carre

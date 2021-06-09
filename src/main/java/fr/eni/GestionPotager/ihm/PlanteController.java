@@ -54,6 +54,23 @@ public class PlanteController {
 	    return "redirect:/plante/add";
 	}
 	
+	@GetMapping("plante/edit/{id}")
+	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+		Plante plante = manager.findPlanteById(id);
+		model.addAttribute("plante", plante);
+		return "redirect:/plante/update/{id}";
+	}
+	
+	@PostMapping("plante/update/{id}")
+	public String updatePlante(@PathVariable("id") Integer id, @Valid Plante plante, BindingResult result,
+			Model model) {
+		plante.setIdPlante(id);
+		if (result.hasErrors()) {
+			return "vuPlantes";
+		}
+		manager.updatePlante(plante);
+		return "redirect:/plante/add";
+	}
 
 
 }

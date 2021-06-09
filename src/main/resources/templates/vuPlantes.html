@@ -8,7 +8,33 @@
 <h1>Mes plantes</h1>
 <h3>Ajouter une plante</h3>
 
+<<<<<<< HEAD
 
+=======
+<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+    <label for="nom">Nom</label>
+    <input type="text" th:field="*{nom}" id="nom" placeholder="nom">
+    <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+    
+    <label for="typePlante">Type</label>
+    <select th:field="*{typePlante}" id="typePlante" name="typePlante">
+    <option value="FRUIT">FRUIT</option>
+    <option value="FEUILLE">FEUILLE</option>
+    <option value="RACINE">RACINE</option>
+    </select>
+    <span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span>
+    
+    <label for="variete">Variété</label>
+    <input type="text" th:field="*{variete}" id="variete" placeholder="variete">
+    <span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+    
+    <label for="surfaceOccupee">Surface Occupée</label>
+    <input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee" placeholder="surfaceOccupee">
+    <span th:if="${#fields.hasErrors('surfaceOccupee')}" th:errors="*{surfaceOccupee}"></span>
+    
+    <input type="submit" value="Ajouter la plante">   
+</form>
+>>>>>>> master
 
 <div th:switch="${plantes}">
 		<h2 th:case="null">Pas de plantes pour l'instant !</h2>

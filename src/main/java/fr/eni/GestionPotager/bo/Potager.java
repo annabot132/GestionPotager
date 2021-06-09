@@ -25,6 +25,7 @@ public class Potager {
 	private float surface;
 	private String ville;
 
+	//@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER )
 	@OneToMany(mappedBy = "potager")
 	private List<Carre> listeCarres = new ArrayList<Carre>();
 

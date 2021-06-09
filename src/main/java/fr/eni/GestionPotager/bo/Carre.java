@@ -3,7 +3,9 @@ package fr.eni.GestionPotager.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +30,9 @@ public class Carre {
 	@ManyToOne
 	private Potager potager;
 
-	@OneToMany(mappedBy = "carre")
+	
+	//@OneToMany(mappedBy = "carre")
+	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL, fetch=FetchType.EAGER )
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();
 
 	public Carre(float surface, String sol, Exposition exposition, Potager potager) {

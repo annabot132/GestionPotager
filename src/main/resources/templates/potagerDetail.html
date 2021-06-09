@@ -32,21 +32,9 @@
 
 				<td th:text="${carre.sol}"></td>
 				<td th:text="${carre.exposition}"></td>
-				<!-- 					Quand on clique sur le bouton effacer => delete par id -->
-<!-- 				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idCarre=${carre.idCarre})}">Effacer</a></td> -->
 				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
-				<td><a th:href="@{/potager/{idPotager}/detail/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
-
 				
-				
-
-
-<!-- 	<a th:href="${'/blah1/' + {object1.id} + '/blah2/' + {object2.id}}">some link</a> -->
-		<!-- th:href="@{/classesTable/saveProfessor/{professorId}/{classesId} (professorId=${professor.id}, classesId=${classes.id})} -->
-		
-
-				
-
+				<td><a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -54,32 +42,29 @@
 
 
 	<H3>Mon carré</H3>
-	<!-- plantex (nom plante ,var, qté,date) modifier, supprimer -->
-<!-- TODO -->
 	<table>
 		<thead>
 			<tr>
 				<th>Plante</th>
 				<th>Variété</th>
 				<th>Quantité</th>
-				<th>Date</th>
+				<th>Date mise en place</th>
+				<th>Date récolte</th>
 			</tr>
 		</thead>
 		<tbody>
 <!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
 			<tr th:each="plantation : ${lstPlantations}">
-				<td th:text="${plantation.miseEnPlace}" ></td> 
-				<td th:text="${plantation.plante}" ></td>
-<!-- 				
-<!-- 				<td th:text="${plantation.plante}" ></td> -->
-<!-- 				<td th:text="${plantation.plante}" ></td> -->
+				
+				<td th:text="${plantation.plante.nom}" ></td> 
+				<td th:text="${plantation.plante.variete}" ></td> 	
+				<td th:text="${plantation.quantite}" ></td> 	
+				<td th:text="${plantation.miseEnPlace}" ></td>
+				<td th:text="${plantation.recolte}" ></td>
 			
 			
 			
 			</tr>
-		
-		
-		
 		</tbody>
 	</table>
 </body>

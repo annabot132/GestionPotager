@@ -25,24 +25,17 @@ public class PotagerController {
 	@Autowired
 	PotagerManager potagerMgr;
 
-	// @GetMapping("potager/{id}/detail")
 	@GetMapping("potager/{idPotager}")
 	public String afficherDetailPotager(@PathVariable("idPotager") Integer idPotager, Model model) {
 		// affichage détail potager => liste de carrés
-		// System.out.println(carreMgr.findAll());
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
-		
+
 		
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 
-		// model.addAttribute("lstCarres", carreMgr.findAll());//ressort la liste de
-		// TOUS les carrés => besoin de sortir la liste de tous les carré par idPotager
 		return "potagerDetail"; // on reste sur la meme page
 
 	}
-
-//	@GetMapping("/potager/deleteCarre/{idCarre}")
-//	public String supprimerCarre(@PathVariable("idCarre") Integer idCarre, Model model) {
 
 	@GetMapping("/potager/{idPotager}/deleteCarre/{idCarre}")
 	public String supprimerCarre(@PathVariable("idPotager") Integer idPotager, @PathVariable("idCarre") Integer idCarre,
@@ -50,32 +43,29 @@ public class PotagerController {
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 
 		carreMgr.deleteCarre(idCarre);
-		// System.err.println(idCarre);
-		// Integer idPotager = potagerMgr.getPotagerById(1).getIdPotager();
-
-		// quand on delete un carré avec des plantations qui lui sont lié => erreur
-		// contrainte (au niveau plantation) => cascade pour les plantations ?
 
 		return "redirect:/potager/{idPotager}";
-		// return "potagerDetail";
 
 	}
 
-	@GetMapping("/potager/{idPotager}/detail/{idCarre}")
+	@GetMapping("/potager/{idPotager}/carre/{idCarre}")
 	public String afficherDetailCarre(@PathVariable("idPotager") Integer idPotager,
 			@PathVariable("idCarre") Integer idCarre, Model model) {
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 
+		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+		
 		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
-		
-		
-		
-		System.err.println("////////////////////////////////////////////////");
-		//System.err.println(carreMgr.findById(idCarre));
-		System.err.println("////////////////////////////////////////////////");
-		System.err.println(carreMgr.findById(idCarre).getListePlantations());
-		System.err.println("////////////////////////////////////////////////");
-		return "redirect:/potager/{idPotager}";
+
+//		System.err.println("////////////////////////////////////////////////");
+//		// System.err.println(carreMgr.findById(idCarre));
+//		System.err.println("////////////////////////////////////////////////");
+//		System.err.println(carreMgr.findById(idCarre).getListePlantations());
+//		System.err.println("////////////////////////////////////////////////");
+
+		//return "redirect:/potager/{idPotager}/carre/{idCarre}"; // => mauvaise redirection => dois
+		// afficher page de "détail du carré"
+		 return "potagerDetail"; // => renvoi bien les plantations
 	}
 
 //	@PostMapping("/potager/detail/add/{id}")

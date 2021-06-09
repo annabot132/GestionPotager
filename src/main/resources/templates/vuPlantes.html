@@ -8,6 +8,9 @@
 <h1>Mes plantes</h1>
 <h3>Ajouter une plante</h3>
 
+<<<<<<< HEAD
+
+=======
 <form th:action="@{/plante/add}" th:object="${plante}" method="post">
     <label for="nom">Nom</label>
     <input type="text" th:field="*{nom}" id="nom" placeholder="nom">
@@ -31,6 +34,7 @@
     
     <input type="submit" value="Ajouter la plante">   
 </form>
+>>>>>>> master
 
 <div th:switch="${plantes}">
 		<h2 th:case="null">Pas de plantes pour l'instant !</h2>
@@ -62,6 +66,20 @@
 		</div>
 
 	</div>
-
+<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+    <label for="nom">Nom</label>
+    <input type="text"  id="nom" th:field="*{nom}" placeholder="Nom"> 
+		<br>
+    <label for="typePlante">Type</label>
+<!--     <input type="text" id="typePlante" placeholder="typePlante"> -->
+    <br>
+    <label for="variete">Variété</label>
+<!--     <input type="text"  id="variete" placeholder="variete"> -->
+    <br>
+    <label for="surfaceOccupee">Surface Occupée</label>
+<!--     <input type="text"  id="surfaceOccupee" placeholder="surfaceOccupee"> -->
+<!--     <br> -->
+    <input type="submit" value="Ajouter la plante">   
+</form>
 </body>
 </html>

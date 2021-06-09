@@ -113,6 +113,7 @@ public class CarreManagerImpl implements CarreManager {
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException {
 
 		potagerManager.addPotager(potager);
+		
 		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
 			float reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
 			throw new BllException("Il n'y a plus de place dans le potager!! il vous reste: " + reste + "  m²");
@@ -124,6 +125,8 @@ public class CarreManagerImpl implements CarreManager {
 
 
 	}
+	
+	
 
 	public float calculSurfaceCarre(Potager potager) {
 		if (carreDao.countSurface(potager.getIdPotager()) == null) {

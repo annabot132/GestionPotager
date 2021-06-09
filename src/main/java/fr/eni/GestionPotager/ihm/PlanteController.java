@@ -41,7 +41,7 @@ public class PlanteController {
 
 	}
 	@GetMapping("/plante/add")
-	public String findPlante(Model model) throws BllException{
+	public String findPlante(Model model, Plante plante) throws BllException{
 		model.addAttribute("plantes", manager.findAll());
 		
 		return "vuPlantes"; 

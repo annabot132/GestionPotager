@@ -2,6 +2,7 @@ package fr.eni.GestionPotager.bll;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,17 @@ public class PotagerManagerImpl implements PotagerManager {
 	CarreManager carreMg;
 	
 	
+
+
+	@PostConstruct
+	public void init() throws BllException {
+		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 10, "Quimper");
+		Potager potager2 = new Potager("derriere la maison", "ma serre de la maison", 20, "Quimper");
+		addPotager(potager2);
+		addPotager(potager1);
+	
+	}
+
 
 	@Override
 	public void addPotager(Potager potager) {

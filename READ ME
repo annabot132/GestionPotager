@@ -1,0 +1,34 @@
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+///////////////// GESTION DE MON POTAGER ////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+configurations necessaires:
+	java 1.8
+	Sql Server
+	un ide avec serveur TOMCAT
+
+A-MISE EN PLACE DE LA BASE DE DONNEES
+	1. Creer en local votre base de données dan Sql Server
+	2. paramétrer le fichier de configuration 
+
+	///////////////////////////////////
+	Configuration de la base de données
+	///////////////////////////////////
+	dans le fichier application.properties (GestionPotager\src\main\resources):
+	changer les paramètres d'accès à la base de données (Nom de la base, utilisateur et mot de passe)
+		- spring.datasource.url=jdbc:sqlserver://localhost;databaseName={MA_BASE DE_DONNEES}
+		- spring.datasource.username={USERNAME}
+		- spring.datasource.password={PASSWORD}
+
+B- Déployement dans l'ide
+	1. Ouvrir l'ide
+	2. importer un projet > type WAR > selectionner gestionPotager.war
+	3. une fois le projet importer : 
+			clic droit sur le projet
+				> configure
+				> add Gradle nature 
+
+
+
+C - Demarrer le server (clic droit> RUN AS > RUN ON SERVER)

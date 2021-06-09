@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mes Plantes</title>
+</head>
+<body>
+<h1>Mes plantes</h1>
+<h3>Ajouter une plante</h3>
+
+<<<<<<< HEAD
+
+=======
+<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+    <label for="nom">Nom</label>
+    <input type="text" th:field="*{nom}" id="nom" placeholder="nom">
+    <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+    
+    <label for="typePlante">Type</label>
+    <select th:field="*{typePlante}" id="typePlante" name="typePlante">
+    <option value="FRUIT">FRUIT</option>
+    <option value="FEUILLE">FEUILLE</option>
+    <option value="RACINE">RACINE</option>
+    </select>
+    <span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span>
+    
+    <label for="variete">Variété</label>
+    <input type="text" th:field="*{variete}" id="variete" placeholder="variete">
+    <span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+    
+    <label for="surfaceOccupee">Surface Occupée</label>
+    <input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee" placeholder="surfaceOccupee">
+    <span th:if="${#fields.hasErrors('surfaceOccupee')}" th:errors="*{surfaceOccupee}"></span>
+    
+    <input type="submit" value="Ajouter la plante">   
+</form>
+>>>>>>> master
+
+<div th:switch="${plantes}">
+		<h2 th:case="null">Pas de plantes pour l'instant !</h2>
+		<div th:case="*">
+			<table>
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Type</th>
+						<th>Variété</th>
+						<th>Surface Occupée</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="plante : ${plantes}">
+						<td th:text="${plante.nom}"></td>
+						<td th:text="${plante.typePlante}"></td>
+						<td th:text="${plante.variete}"></td>
+						<td th:text="${plante.surfaceOccupee}"></td>
+<!-- 						<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td> -->
+						<td><a th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
+<!-- 						<td><a th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Rechercher</a></td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+    <label for="nom">Nom</label>
+    <input type="text"  id="nom" th:field="*{nom}" placeholder="Nom"> 
+		<br>
+    <label for="typePlante">Type</label>
+<!--     <input type="text" id="typePlante" placeholder="typePlante"> -->
+    <br>
+    <label for="variete">Variété</label>
+<!--     <input type="text"  id="variete" placeholder="variete"> -->
+    <br>
+    <label for="surfaceOccupee">Surface Occupée</label>
+<!--     <input type="text"  id="surfaceOccupee" placeholder="surfaceOccupee"> -->
+<!--     <br> -->
+    <input type="submit" value="Ajouter la plante">   
+</form>
+</body>
+</html>

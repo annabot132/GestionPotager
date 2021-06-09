@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mes potager</title>
+</head>
+<body>
+	<h1>Mes Potagers</h1>
+	<br>
+	<div th:switch="${potagers}">
+		<!-- PROBLEME SUR LE TEST -->
+		<h2 th:case="${potagers.empty}">Aucun potager n'existe !</h2>
+		<div th:case="*">
+			<h2>Mes Potagers</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>NOM</th>
+						<th>Surface (m2)</th>
+						<th>Localisation</th>
+						<th>Ville</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="potager : ${potagers}">
+						<td th:text="${potager.nom}"></td>
+						<td th:text="${potager.surface}"></td>
+						<td th:text="${potager.localisation}"></td>
+						<td th:text="${potager.ville}"></td>
+						<td><a
+							th:href="@{/acceuil/show/{id}(id=${potager.idPotager})}">Visualiser</a></td>
+						<td><a
+							th:href="@{/acceuil/delete/{id}(id=${potager.idPotager})}">Supprimer</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	<h4>Ajouter un nouveau potager</h4>
+	<form th:action="@{/acceuil/add}" th:object="${potager}" method="post">
+		<label for="nom">nom du potager</label> 
+		<input type="text" th:field="*{nom}" id="nom"	placeholder="Nom"> 
+			
+		<br>
+		<label for="surface">surface (m2)</label> 
+		<input type="text" th:field="*{surface}" id="surface" placeholder="0"> <br>
+		<label for="localisation">localisation</label> 
+		<input type="text" th:field="*{localisation}"
+			id="localisation" placeholder="txt"> 
+			<br> 
+			<label
+			for="ville">Ville</label> 
+			<input type="text" id="ville" th:field="*{ville}"
+			placeholder="Ville"> 
+			<br>
+			<input type="submit" value="Ajouter un potager">
+	</form>
+	<p>
+		<a href="/acceuil/plante">Mes plantes</a>
+	</p>
+
+
+
+</body>
+</html>

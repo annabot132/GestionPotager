@@ -2,7 +2,9 @@ package fr.eni.GestionPotager.bo;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,8 @@ public class Plantation {
 
 	@ManyToOne
 	private Carre carre;
-	@OneToOne
+	
+	@OneToOne()//TODO GESTION DU DELETE cascade = CascadeType.ALL, mappedBy = "plantation")
 	private Plante plante;
 
 	public Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) {
@@ -49,10 +52,14 @@ public class Plantation {
 		builder.append(recolte);
 		builder.append(", quantite=");
 		builder.append(quantite);
+		builder.append(", carre=");
+		builder.append(carre);
 		builder.append(", plante=");
 		builder.append(plante);
 		builder.append("]");
 		return builder.toString();
 	}
+
+
 
 }

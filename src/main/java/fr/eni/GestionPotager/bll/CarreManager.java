@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import fr.eni.GestionPotager.bo.Carre;
+import fr.eni.GestionPotager.bo.Plantation;
 import fr.eni.GestionPotager.bo.Plante;
 import fr.eni.GestionPotager.bo.Potager;
 
@@ -64,4 +65,12 @@ public interface CarreManager {
 	 * @throws BllException
 	 */
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, int qte, LocalDate dateMiseEnPlace, LocalDate dateDeRecolte ) throws BllException;
+
+	/**
+	 * charche toutes les implantations d'une plante
+	 * @param Integer id
+	 * @return List<Plante>
+	 */
+	public List<Plantation> findAllImplantationsForOnePlante(Integer id);
+
 }

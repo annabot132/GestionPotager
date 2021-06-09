@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<th>Id carre</th>
-				
+
 				<th>Surface</th>
 				<th>Sol</th>
 				<th>Exposition</th>
@@ -25,16 +25,18 @@
 		<tbody>
 			<!-- Pour chaque carré on va afficher les attributs -->
 			<tr th:each="carre : ${lstCarres}">
-			
+
 				<td th:text="${carre.idCarre}"></td>
-			
+
 				<td th:text="${carre.surface}"></td>
 
 				<td th:text="${carre.sol}"></td>
 				<td th:text="${carre.exposition}"></td>
-				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
-				
-				<td><a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
+				<td><a
+					th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
+
+				<td><a
+					th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -53,19 +55,24 @@
 			</tr>
 		</thead>
 		<tbody>
-<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
+			<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
 			<tr th:each="plantation : ${lstPlantations}">
-				
-				<td th:text="${plantation.plante.nom}" ></td> 
-				<td th:text="${plantation.plante.variete}" ></td> 	
-				<td th:text="${plantation.quantite}" ></td> 	
-				<td th:text="${plantation.miseEnPlace}" ></td>
-				<td th:text="${plantation.recolte}" ></td>
-			
-			
-			
+
+				<td th:text="${plantation.plante.nom}"></td>
+				<td th:text="${plantation.plante.variete}"></td>
+				<td th:text="${plantation.quantite}"></td>
+				<td th:text="${plantation.miseEnPlace}"></td>
+				<td th:text="${plantation.recolte}"></td>
+
+
+
 			</tr>
 		</tbody>
 	</table>
+
+	<br>
+	<p>
+		<a href="/accueil">Accueil</a>
+	</p>
 </body>
 </html>

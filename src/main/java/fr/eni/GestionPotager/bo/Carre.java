@@ -42,5 +42,25 @@ public class Carre {
 		this.potager = potager;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Carre [idCarre=");
+		builder.append(idCarre);
+		builder.append(", surface=");
+		builder.append(surface);
+		builder.append(", sol=");
+		builder.append(sol);
+		builder.append(", exposition=");
+		builder.append(exposition);
+		builder.append(", potager=");
+		builder.append(potager);
+		builder.append("]");
+		return builder.toString();
+	}
+
+
+
+	
 	
 }

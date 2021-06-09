@@ -126,5 +126,30 @@ class PlantationTest {
 
 
 	}
+	
+	
+
+	@Test
+	@Transactional
+	void testFindAllImplantationsForOnePlante() throws BllException  {
+		System.out.println("_____________________");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 5, "Quimper");
+		Carre carreTest = new Carre(30, "Argileux", Exposition.MI_OMBRE, potagerTest);
+
+		Plante plante1 = new Plante("PlanteTest", TypePlante.FEUILLE, "var", 5);
+		Plante plante2 = new Plante("PlanteTest2", TypePlante.FRUIT, "var",6);
+		Plante plante3 = new Plante("PlanteTest3", TypePlante.FEUILLE, "var", 2);
+		Plante plante4 = new Plante("PlanteTest4", TypePlante.FEUILLE, "var", 2);
+		
+		planteMgr.createPlante(plante1);
+		
+		
+
+		daoPotager.save(potagerTest);
+		carremgr.createCarre(carreTest);
+		
+		assertEquals(carremgr.findAllImplantationsForOnePlante(planteMgr.findAll().get(0).getIdPlante()).size(),1);
+
+	}
 
 }

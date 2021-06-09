@@ -13,10 +13,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Id carre</th>
-				
+<!-- 				<th>Id carre</th> -->
+
 				<th>Surface</th>
-				<th>Sol</th>
+				<th>Type de sol</th>
 				<th>Exposition</th>
 				<th></th>
 				<th></th>
@@ -25,23 +25,45 @@
 		<tbody>
 			<!-- Pour chaque carré on va afficher les attributs -->
 			<tr th:each="carre : ${lstCarres}">
-			
-				<td th:text="${carre.idCarre}"></td>
-			
-				<td th:text="${carre.surface}"></td>
 
+<!-- 				<td th:text="${carre.idCarre}"></td> -->
+				<td th:text="${carre.surface}"></td>
 				<td th:text="${carre.sol}"></td>
 				<td th:text="${carre.exposition}"></td>
+
 				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
-				
+
 				<td><a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
 			</tr>
 		</tbody>
 	</table>
 
+	<!-- 	<form th:action="@{/potager/{idPotager}/addCarre}(idPotager=${IDPotager})" th:object="${carre}" method="post"> -->
+	<form th:action="@{/potager/{idPotager}/addCarre(idPotager=${IDPotager})}" th:object="${carre}" method="post">
+	
+		<h4>Ajouter un carré</h4>
+		
+		
+			<input  type="text" th:field="*{surface}" placeholder="Surface">
+			<input  type="text" th:field="*{sol}" placeholder="Type de sol">
+			
+			<select name="exposition">
+<!--    			Va chercher les valeurs de l'enum -->
+   			<option 
+   			th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}" 
+   			th:value="${exposition}" 
+   			th:text="${exposition.displayValue}">
+        	</option>
+			</select>
+			
+			
+			<input type="submit" value="Ajouter le carré">   
+		
+	</form>
 
 
-	<H3>Mon carré</H3>
+
+	<H3>Mes plantations dans mon carré	</H3>
 	<table>
 		<thead>
 			<tr>
@@ -53,17 +75,17 @@
 			</tr>
 		</thead>
 		<tbody>
-<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
+			<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
 			<tr th:each="plantation : ${lstPlantations}">
-				
-				<td th:text="${plantation.plante.nom}" ></td> 
-				<td th:text="${plantation.plante.variete}" ></td> 	
-				<td th:text="${plantation.quantite}" ></td> 	
-				<td th:text="${plantation.miseEnPlace}" ></td>
-				<td th:text="${plantation.recolte}" ></td>
-			
-			
-			
+
+				<td th:text="${plantation.plante.nom}"></td>
+				<td th:text="${plantation.plante.variete}"></td>
+				<td th:text="${plantation.quantite}"></td>
+				<td th:text="${plantation.miseEnPlace}"></td>
+				<td th:text="${plantation.recolte}"></td>
+
+
+
 			</tr>
 		</tbody>
 	</table>

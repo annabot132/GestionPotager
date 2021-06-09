@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Détail du potager</title>
+</head>
+<body>
+
+	<h2>Mon Potager</h2>
+
+	<h3>Liste des carrés de mon potager</h3>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id carre</th>
+				
+				<th>Surface</th>
+				<th>Sol</th>
+				<th>Exposition</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- Pour chaque carré on va afficher les attributs -->
+			<tr th:each="carre : ${lstCarres}">
+			
+				<td th:text="${carre.idCarre}"></td>
+			
+				<td th:text="${carre.surface}"></td>
+
+				<td th:text="${carre.sol}"></td>
+				<td th:text="${carre.exposition}"></td>
+				<!-- 					Quand on clique sur le bouton effacer => delete par id -->
+<!-- 				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idCarre=${carre.idCarre})}">Effacer</a></td> -->
+				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
+				<td><a th:href="@{/potager/{idPotager}/detail/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
+
+				
+				
+
+
+<!-- 	<a th:href="${'/blah1/' + {object1.id} + '/blah2/' + {object2.id}}">some link</a> -->
+		<!-- th:href="@{/classesTable/saveProfessor/{professorId}/{classesId} (professorId=${professor.id}, classesId=${classes.id})} -->
+		
+
+				
+
+			</tr>
+		</tbody>
+	</table>
+
+
+
+	<H3>Mon carré</H3>
+	<!-- plantex (nom plante ,var, qté,date) modifier, supprimer -->
+<!-- TODO -->
+	<table>
+		<thead>
+			<tr>
+				<th>Plante</th>
+				<th>Variété</th>
+				<th>Quantité</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
+			<tr th:each="plantation : ${lstPlantations}">
+				<td th:text="${plantation.miseEnPlace}" ></td> 
+				<td th:text="${plantation.plante}" ></td>
+<!-- 				
+<!-- 				<td th:text="${plantation.plante}" ></td> -->
+<!-- 				<td th:text="${plantation.plante}" ></td> -->
+			
+			
+			
+			</tr>
+		
+		
+		
+		</tbody>
+	</table>
+</body>
+</html>

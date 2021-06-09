@@ -4,17 +4,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.eni.GestionPotager.bo.Carre;
+import fr.eni.GestionPotager.bo.Exposition;
 import fr.eni.GestionPotager.bo.Plantation;
 import fr.eni.GestionPotager.bo.Plante;
 import fr.eni.GestionPotager.bo.Potager;
+import fr.eni.GestionPotager.bo.TypePlante;
 import fr.eni.GestionPotager.dal.CarreDao;
 import fr.eni.GestionPotager.dal.PlantationDao;
+import fr.eni.GestionPotager.dal.PlanteDao;
 
 @Service
 public class CarreManagerImpl implements CarreManager {
@@ -28,6 +32,52 @@ public class CarreManagerImpl implements CarreManager {
 
 	@Autowired
 	private PlantationDao plantationDao;
+	
+	@Autowired
+	private PlanteManager planteMgr;
+	
+	@Autowired
+	private CarreManager carreMgr;
+	
+
+	@PostConstruct
+	public void init() throws BllException {
+		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
+		Potager potager2 = new Potager("devant", "j'ai le carre3", 50, "Quimper");
+		Potager potager3 = new Potager("jardin", "j'ai rien ", 50, "Quimper");
+		Carre carre = new Carre(16, "j'ai des plantations", Exposition.SOLEIL, potager1);
+		Carre carre2 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+		Carre carre3 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+
+		
+		potagerManager.addPotager(potager2);
+		potagerManager.addPotager(potager3);
+		
+		
+		ajouterCarrePotager(potager1, carre);
+		ajouterCarrePotager(potager1, carre2);
+		ajouterCarrePotager(potager2, carre3);
+		
+		Plante plante = new Plante("Plante1", TypePlante.FEUILLE, "varPlante1", 2);
+		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
+		planteMgr.createPlante(plante);
+		planteMgr.createPlante(plante2);
+		
+		
+		ajouterPlantationAuCarre(carre, plante, 2, LocalDate.now(), LocalDate.now());
+		ajouterPlantationAuCarre(carre, plante2, 2, LocalDate.now(), LocalDate.now());
+		
+		
+//		System.err.println("______________INIT CarreMgrImpl________________");
+//		System.err.println(potagerManager.getAllPotager());
+//		System.err.println("______________________________");
+//		System.err.println(planteMgr.findAll());
+//		System.err.println("______________________________");
+//		System.err.println(carreMgr.findAll());
+		
+	}
+	
+	
 
 	@Override
 	@Transactional

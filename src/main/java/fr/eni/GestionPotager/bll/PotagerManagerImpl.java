@@ -2,12 +2,9 @@ package fr.eni.GestionPotager.bll;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Potager;
 import fr.eni.GestionPotager.dal.PotagerDao;
 
@@ -18,6 +15,8 @@ public class PotagerManagerImpl implements PotagerManager {
 	PotagerDao dao;
 	@Autowired
 	CarreManager carreMg;
+	
+	
 
 	@Override
 	public void addPotager(Potager potager) {

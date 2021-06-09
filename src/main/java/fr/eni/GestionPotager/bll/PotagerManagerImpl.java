@@ -2,13 +2,10 @@ package fr.eni.GestionPotager.bll;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Potager;
 import fr.eni.GestionPotager.dal.PotagerDao;
 
@@ -21,6 +18,8 @@ public class PotagerManagerImpl implements PotagerManager {
 	CarreManager carreMg;
 	
 	
+
+
 	@PostConstruct
 	public void init() throws BllException {
 		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 10, "Quimper");
@@ -29,6 +28,7 @@ public class PotagerManagerImpl implements PotagerManager {
 		addPotager(potager1);
 	
 	}
+
 
 	@Override
 	public void addPotager(Potager potager) {

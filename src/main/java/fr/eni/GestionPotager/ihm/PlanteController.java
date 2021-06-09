@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import fr.eni.GestionPotager.bll.BllException;
 import fr.eni.GestionPotager.bll.PlanteManager;
@@ -40,13 +39,14 @@ public class PlanteController {
 		return "redirect:/plante/add"; 
 
 	}
+	
 	@GetMapping("/plante/add")
-	public String findPlante(Model model) throws BllException{
+	public String findPlante(Model model, Plante plante) throws BllException{
 		model.addAttribute("plantes", manager.findAll());
-		
 		return "vuPlantes"; 
-
 	}
+	
+	
 	@GetMapping("/plante/delete/{id}")
 	public String deletePlante(@PathVariable("id") Integer id, Model model) {	
 		manager.deletePlanteById(id);

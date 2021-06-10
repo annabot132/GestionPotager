@@ -107,7 +107,7 @@ public class PlanteController {
 		model.addAttribute("plantations" , carreMg.findAllImplantationsForOnePlante(id));
 //		System.err.println(carreMg.findAllImplantationsForOnePlante(id).get(0).);
 	return "vuPlantes";
-
+	}
   
 	@PostMapping("plante/update/{id}")
 	public String updatePlante(@PathVariable("id") Integer id, @Valid Plante plante, BindingResult result,

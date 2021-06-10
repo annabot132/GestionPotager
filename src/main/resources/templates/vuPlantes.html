@@ -7,9 +7,15 @@
 </head>
 <body>
 	<h1>Mes plantes</h1>
-	<h3>Ajouter une plante</h3>
 
-	<br>
+	<p>
+		<a href="/accueil">Accueil</a>
+	</p>
+<div id="DivPrincipale">
+	<h4>Ajouter une plante</h4>
+
+	
+
 	<form th:action="@{/plante/add}" th:object="${plante}" method="post">
 		<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
 			id="nom" placeholder="nom"> <span
@@ -32,10 +38,9 @@
 			th:errors="*{surfaceOccupee}"></span> <input type="submit"
 			value="Ajouter la plante">
 	</form>
-
-	<br>
-	<br>
-
+</div>
+	<div id="DivPrincipale">
+	<h4>Mes Plantes</h4>
 	<div th:switch="${plantes}">
 		<h2 th:case="null">Pas de plantes pour l'instant !</h2>
 		<div th:case="*">
@@ -61,6 +66,7 @@
 
 						<td><a
 							th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
+
 						<td><a 
 							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
 
@@ -68,27 +74,51 @@
 						<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
 
  		
+
 					</tr>
 				</tbody>
 			</table>
 
 
+			<div id="popupForm" style="display: none">
+				<h2>Modifier plante</h2>
+				<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+					<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
+						id="nom" placeholder="nom"> <span
+						th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
+						for="typePlante">Type</label> <select th:field="*{typePlante}"
+						id="typePlante" name="typePlante">
+						<option value="FRUIT">FRUIT</option>
+						<option value="FEUILLE">FEUILLE</option>
+						<option value="RACINE">RACINE</option>
+					</select> <span th:if="${#fields.hasErrors('typePlante')}"
+						th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
+					<input type="text" th:field="*{variete}" id="variete"
+						placeholder="variete"> <span
+						th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
 
-			
+					<label for="surfaceOccupee">Surface Occupée</label> <input
+						type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
+						placeholder="surfaceOccupee"> <span
+						th:if="${#fields.hasErrors('surfaceOccupee')}"
+						th:errors="*{surfaceOccupee}"></span> <input type="submit"
+						value="Modifier la plante" th:onclick="closeForm()">
+				</form>
+				<!-- 					<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
+				<!-- 					<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
+			</div>
+
 		</div>
 	</div>
-	<br>
-	<p>
-		<a href="/accueil">Accueil</a>
-	</p>
-	<br>
-	
-	
-	
+	</div>
+	<div id="DivPrincipale">
+
+
+	<h4>Mes plantes aux potagers</h4>
 	<div th:switch="${plantations}">
-<!-- 		<h2 th:case="${plantations.empty}"> toto</h2> -->
+		<!-- 		<h2 th:case="${plantations.empty}"> toto</h2> -->
 		<div th:case="*">
-			
+
 			<table>
 				<thead>
 					<tr>
@@ -96,8 +126,8 @@
 						<th>le carré</th>
 						<th>quantité de plants</th>
 						<th></th>
-						<th></th>
-						<th></th>
+						
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -144,8 +174,9 @@
 
 	</div>
 
-	
-	
+</div>
+
+
 
 </body>
 </html>

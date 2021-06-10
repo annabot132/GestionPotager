@@ -18,26 +18,22 @@
 
 
 		<form th:action="@{/plante/add}" th:object="${plante}" method="post">
-			<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
-				id="nom" placeholder="nom"> <span
-				th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
-				for="typePlante">Type</label> <select th:field="*{typePlante}"
-				id="typePlante" name="typePlante">
-				<option value="FRUIT">FRUIT</option>
-				<option value="FEUILLE">FEUILLE</option>
-				<option value="RACINE">RACINE</option>
-			</select> <span th:if="${#fields.hasErrors('typePlante')}"
-				th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
-			<input type="text" th:field="*{variete}" id="variete"
-				placeholder="variete"> <span
-				th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
-
-			<label for="surfaceOccupee">Surface Occupée</label> <input
-				type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
-				placeholder="surfaceOccupee"> <span
-				th:if="${#fields.hasErrors('surfaceOccupee')}"
-				th:errors="*{surfaceOccupee}"></span><br> <br> <input
-				type="submit" value="Ajouter la plante">
+			<label for="nom">Nom</label> 
+			<input type="text" th:field="*{nom}" id="nom" placeholder="nom">
+			<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> 
+			<label for="typePlante">Type</label> 
+			<select th:field="*{typePlante}" id="typePlante" name="typePlante">
+			<option value="FRUIT">FRUIT</option>
+			<option value="FEUILLE">FEUILLE</option>
+			<option value="RACINE">RACINE</option>
+			</select>  <br> 
+		    <label for="variete">Variété</label> 
+		    <input type="text" th:field="*{variete}" id="variete" placeholder="variete"> 
+		    <span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span> <br> 
+			<label for="surfaceOccupee">Surface Occupée</label>
+			<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"	placeholder="surfaceOccupee"> 
+			<span th:if="${#fields.hasErrors('surfaceOccupee')}" th:errors="*{surfaceOccupee}"></span><br> <br> 
+			<input type="submit" value="Ajouter la plante">
 		</form>
 	</div>
 
@@ -53,9 +49,9 @@
 							<th>Type</th>
 							<th>Variété</th>
 							<th>Surface Occupée (m²)</th>
-							<th>Supprimer une plante</th>
-							<th>trouver où la plante est plantée</th>
+							<th>Où suis-plantée?</th>
 							<th>modifier la plante</th>
+							<th>Supprimer une plante</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,15 +60,15 @@
 							<td th:text="${plante.typePlante}"></td>
 							<td th:text="${plante.variete}"></td>
 							<td th:text="${plante.surfaceOccupee}"></td>
-
-
+							<td><a th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
+							<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
 							<td><a
 								th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
 
-							<td><a th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
 
 
-							<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
+
+
 
 
 
@@ -94,8 +90,8 @@
 
 		<h4>Mes plantes aux potagers :</h4>
 
-		<div th:if="${plantations.isEmpty()}">la plante n'est pas présente dans
-			les potagers</div>
+		<div th:if="${plantations.isEmpty()}">la plante n'est pas
+			présente dans les potagers</div>
 
 
 

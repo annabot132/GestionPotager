@@ -31,8 +31,7 @@ public class Carre {
 	private Potager potager;
 
 	
-	//@OneToMany(mappedBy = "carre")
-	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL, fetch=FetchType.EAGER )
+	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();
 
 	public Carre(float surface, String sol, Exposition exposition, Potager potager) {
@@ -42,5 +41,25 @@ public class Carre {
 		this.potager = potager;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Carre [idCarre=");
+		builder.append(idCarre);
+		builder.append(", surface=");
+		builder.append(surface);
+		builder.append(", sol=");
+		builder.append(sol);
+		builder.append(", exposition=");
+		builder.append(exposition);
+		builder.append(", potager=");
+		builder.append(potager);
+		builder.append("]");
+		return builder.toString();
+	}
+
+
+
+	
 	
 }

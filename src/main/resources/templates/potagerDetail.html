@@ -18,10 +18,6 @@
 		<table>
 			<thead>
 				<tr>
-
-					<!-- 				<th>Id carre</th> -->
-
-
 					<th>Surface</th>
 					<th>Type de sol</th>
 					<th>Exposition</th>
@@ -32,24 +28,14 @@
 			<tbody>
 				<!-- Pour chaque carré on va afficher les attributs -->
 				<tr th:each="carre : ${lstCarres}">
-
-
-					<!-- 				<td th:text="${carre.idCarre}"></td> -->
 					<td th:text="${carre.surface}"></td>
 					<td th:text="${carre.sol}"></td>
 					<td th:text="${carre.exposition}"></td>
+					<td>
+					<a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
 
-
-					<td><a
-						th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
-
-					<td><a
-						th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
-
-<!--ATTENTION MODIF -->
-	<!-- 	<form th:action="@{/potager/{idPotager}/addCarre}(idPotager=${IDPotager})" th:object="${carre}" method="post"> -->
-	<form th:action="@{/potager/{idPotager}/addCarre(idPotager=${idPotager})}" th:object="${carre}" method="post">
-
+					<td><a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
+					<form th:action="@{/potager/{idPotager}/addCarre(idPotager=${idPotager})}" th:object="${carre}" method="post">
 				</tr>
 			</tbody>
 		</table>
@@ -77,68 +63,37 @@
    			th:text="${exposition.displayValue}">
         	</option>
 			</select>
-			
-			
+						
 			<input type="submit" value="Ajouter le carré">   
 		
 	</form>
 	
 <h4>Ajouter une plantation au carré</h4>
 	
-	
 
-
-			
-			
-			
-	
 	<!-- Formulaire ajout plantation au carré -->
-	<form th:action="@{/potager/{idPotager}/carre/{idCarre}/addPlantation (idPotager=${idPotager}, idCarre=${carre.idCarre})}" th:object="${plantation}" method="post">
+	<form 
+	th:action="@{/potager/{idPotager}/carre/{idCarre}/addPlantation (idPotager=${idPotager}, idCarre=${carre.idCarre})}" 
+	th:object="${plantation}" 
+	method="post">
 	
-		<!-- 	lst plante -->
-			<select  >				
+			<!-- 	lst plante -->
+			<select th:name="planteID">				
 				<option 
 				th:each="plante : ${lstPlantes}"
-                
-                th:value="${plante}"
-                
-                th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}"
-                >
+                th:value="${plante.idPlante}"
+                th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}" >
                           
                 </option>
 			</select>
-
-			
-
-			
-			<input  type="text" th:field="*{quantite}" placeholder="Quantité">
-			
+			<input type="text" th:field="*{quantite}" placeholder="Quantité">
 			<label for="dateMiseEnPlace">Date de mise en place</label>
-			<input type ="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace">	
-			
+			<input type ="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" >	
 			<label for="dateDeRecolte">Date de récolte</label>
 			<input type ="date" th:field="*{recolte}"  id="dateDeRecolte">	
-
-		
-			
-			
-			
 			<input type="submit" value="Ajouter plantation">   
 		
 	</form>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	<H3>Mes plantations dans mon carré	</H3>
 	<table>
@@ -160,30 +115,31 @@
 				<td th:text="${plantation.quantite}"></td>
 				<td th:text="${plantation.miseEnPlace}"></td>
 				<td th:text="${plantation.recolte}"></td>
-
-
-
 			</tr>
 		</tbody>
 	</table>
-
 	<br>
 	<p>
 		<a href="/accueil">Accueil</a>
 	</p>
 
-				<!--    			Va chercher les valeurs de l'enum -->
-				<option
-					th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
-					th:value="${exposition}" th:text="${exposition.displayValue}">
-				</option>
-
-			</select> <br>
-			<br>
-			<input type="submit" value="Ajouter le carré">
-		</form>
-
 	</div>
+
+  
+  
+	<!--  >>>>>>> master Averif si il faut virer-->
+				<!--    			Va chercher les valeurs de l'enum -->
+	<!--  				<option
+	<!--  th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
+		<!--  				th:value="${exposition}" th:text="${exposition.displayValue}">
+		<!--  			</option>
+
+	<!--  			</select> <br>
+	<!--  			<br>
+	<!--  			<input type="submit" value="Ajouter le carré">
+	<!--  		</form>
+
+	<!--  	</div>-->
 
 
 
@@ -200,7 +156,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
 				<tr th:each="plantation : ${lstPlantations}">
 
 					<td th:text="${plantation.plante.nom}"></td>
@@ -208,9 +163,6 @@
 					<td th:text="${plantation.quantite}"></td>
 					<td th:text="${plantation.miseEnPlace}"></td>
 					<td th:text="${plantation.recolte}"></td>
-
-
-
 				</tr>
 			</tbody>
 		</table>

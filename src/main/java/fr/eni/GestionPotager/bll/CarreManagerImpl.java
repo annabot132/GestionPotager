@@ -1,6 +1,5 @@
 package fr.eni.GestionPotager.bll;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,10 @@ public class CarreManagerImpl implements CarreManager {
 
 	@Autowired
 	private PlantationDao plantationDao;
+
+
+	@Autowired
+	private PlanteManager planteMgr;
 
 	@Override
 	@Transactional
@@ -84,18 +87,22 @@ public class CarreManagerImpl implements CarreManager {
 
 	@Override
 	@Transactional
-	public void ajouterPlantationAuCarre(Carre carre, Plante plante, int qte, LocalDate dateMiseEnPlace,
-			LocalDate dateDeRecolte) throws BllException {
+	// TODO TEST + MODIF
+	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
 		// surface plans < surface carré
 
-		List<Plantation> lstPlantation = carre.getListePlantations();
+
+		List<Plantation> lstPlantation = findById(carre.getIdCarre()).getListePlantations();
 
 		List<String> lstNomPlante = new ArrayList<String>();
-		for (Plantation plantation : lstPlantation) {
-			if (lstNomPlante.contains(plantation.getPlante().getNom())) {
+
+		// contrainte nom ok
+		for (Plantation plantation2 : lstPlantation) {
+			if (lstNomPlante.contains(plantation2.getPlante().getNom())) {
 
 			} else {
-				lstNomPlante.add(plantation.getPlante().getNom());
+				lstNomPlante.add(plantation2.getPlante().getNom());
+
 			}
 		}
 
@@ -104,15 +111,28 @@ public class CarreManagerImpl implements CarreManager {
 		}
 
 		float surfaceSurCarreExistant = 0;
-		for (Plantation plantation : lstPlantation) {
-			surfaceSurCarreExistant += (plantation.getPlante().getSurfaceOccupee() * plantation.getQuantite());
+		for (Plantation plantation2 : lstPlantation) {
+			// surfaceSurCarreExistant += la surface de la plante * la qte
+			surfaceSurCarreExistant += ((plantation2.getPlante().getSurfaceOccupee()) * plantation.getQuantite());
+			System.err.println("____________DANS LA BLL POUR CONTRAINTE____________");
+			System.err.println("surfaceSurCarreExistant : " + surfaceSurCarreExistant);
+
 		}
 
-		if (plante.getSurfaceOccupee() * qte + surfaceSurCarreExistant > carre.getSurface()) {
+		// si la surface occupé par la plante (en cours) * sa qté + la surface occupé du
+		// carré qui existe > surface du carré
+		//Float surfaceOccupee =  plante.getSurfaceOccupee() * plantation.getQuantite();
+		Float surfaceOccupee =  planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee() * plantation.getQuantite();
+		if (surfaceOccupee + surfaceSurCarreExistant > carre.getSurface()) {
+
 			throw new BllException("Pas assez de place dans le carré");
 		}
 
-		Plantation plantation = new Plantation(dateMiseEnPlace, dateDeRecolte, qte, carre, plante);
+		plantation.setCarre(findById(carre.getIdCarre()));
+		plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
+
+		// Plantation plantation = new Plantation(dateMiseEnPlace, dateDeRecolte, qte,
+		// carre, plante);
 
 		carre.getListePlantations().add(plantation);
 

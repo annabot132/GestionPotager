@@ -1,6 +1,6 @@
 package fr.eni.GestionPotager.ihm;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -18,6 +18,7 @@ import fr.eni.GestionPotager.bll.CarreManager;
 import fr.eni.GestionPotager.bll.PlanteManager;
 import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Exposition;
+import fr.eni.GestionPotager.bo.Plantation;
 import fr.eni.GestionPotager.bo.Plante;
 import fr.eni.GestionPotager.bo.Potager;
 import fr.eni.GestionPotager.bo.TypePlante;
@@ -31,6 +32,35 @@ public class PlanteController {
 	@Autowired
 	CarreManager carreMg;
 
+//	@PostConstruct
+//	void init() throws BllException {
+//		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
+//		Potager potager2 = new Potager("devant", "j'ai le carre3", 50, "Quimper");
+//		Carre carre = new Carre(16, "j'ai des plantations", Exposition.SOLEIL, potager1);
+//		Carre carre2 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+//		Carre carre3 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+//
+//		carreMg.ajouterCarrePotager(potager1, carre);
+//		carreMg.ajouterCarrePotager(potager1, carre2);
+//		carreMg.ajouterCarrePotager(potager2, carre3);
+//
+//		Plante plante = new Plante("Plante1", TypePlante.FEUILLE, "varPlante1", 2);
+//		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
+//		manager.createPlante(plante);
+//		manager.createPlante(plante2);
+//
+//		carreMg.ajouterPlantationAuCarre(carre, plante, 2, LocalDate.now(), LocalDate.now());
+//		carreMg.ajouterPlantationAuCarre(carre, plante2, 2, LocalDate.now(), LocalDate.now());
+//
+//		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+//		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", (float) 0.75);
+//		manager.createPlante(plante1);
+//		manager.createPlante(plante3);
+//
+//		carreMg.ajouterPlantationAuCarre(carre3, plante3, 2, LocalDate.now().plusWeeks(1),
+//				LocalDate.now().plusWeeks(2));
+//
+//	}
 	@PostConstruct
 	void init() throws BllException {
 		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
@@ -47,20 +77,27 @@ public class PlanteController {
 		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
 		manager.createPlante(plante);
 		manager.createPlante(plante2);
-
-		carreMg.ajouterPlantationAuCarre(carre, plante, 2, LocalDate.now(), LocalDate.now());
-		carreMg.ajouterPlantationAuCarre(carre, plante2, 2, LocalDate.now(), LocalDate.now());
+		
+		
+		
+		Date date = new Date();
+		
+		Plantation plantation = new Plantation(date, date, 2, carre3, plante2);
+		Plantation plantation2 = new Plantation(date, date, 2, carre2, plante);
+		
+		
+		
+		carreMg.ajouterPlantationAuCarre(carre, plante, plantation);
+		carreMg.ajouterPlantationAuCarre(carre, plante2, plantation2);
 
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", (float) 0.75);
 		manager.createPlante(plante1);
 		manager.createPlante(plante3);
 
-		carreMg.ajouterPlantationAuCarre(carre3, plante3, 2, LocalDate.now().plusWeeks(1),
-				LocalDate.now().plusWeeks(2));
+		carreMg.ajouterPlantationAuCarre(carre3, plante3, plantation);
 
 	}
-
 	@GetMapping("/plante/add")
 	public String findPlante(Model model, Plante plante) throws BllException {
 		model.addAttribute("plantes", manager.findAll());

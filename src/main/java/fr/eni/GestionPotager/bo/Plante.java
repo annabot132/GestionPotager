@@ -37,4 +37,10 @@ public class Plante {
 		this.surfaceOccupee = surfaceOccupee;
 	}
 
+	@Override
+	public String toString() {
+		return "Plante [idPlante=" + idPlante + ", nom=" + nom + ", typePlante=" + typePlante + ", variete=" + variete
+				+ ", surfaceOccupee=" + surfaceOccupee + "]";
+	}
+
 }

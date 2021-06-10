@@ -44,7 +44,7 @@
 	</table>
 
 	<!-- 	<form th:action="@{/potager/{idPotager}/addCarre}(idPotager=${IDPotager})" th:object="${carre}" method="post"> -->
-	<form th:action="@{/potager/{idPotager}/addCarre(idPotager=${IDPotager})}" th:object="${carre}" method="post">
+	<form th:action="@{/potager/{idPotager}/addCarre(idPotager=${idPotager})}" th:object="${carre}" method="post">
 	
 		<h4>Ajouter un carré</h4>
 		
@@ -65,9 +65,64 @@
 			<input type="submit" value="Ajouter le carré">   
 		
 	</form>
+	
+<h4>Ajouter une plantation au carré</h4>
+	
+	
 
 
+			
+			
+			
+	
+	<!-- Formulaire ajout plantation au carré -->
+	<form th:action="@{/potager/{idPotager}/carre/{idCarre}/addPlantation (idPotager=${idPotager}, idCarre=${carre.idCarre})}" th:object="${plantation}" method="post">
+	
+		<!-- 	lst plante -->
+			<select  >				
+				<option 
+				th:each="plante : ${lstPlantes}"
+                
+                th:value="${plante}"
+                
+                th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}"
+                >
+                          
+                </option>
+			</select>
 
+			
+
+			
+			<input  type="text" th:field="*{quantite}" placeholder="Quantité">
+			
+			<label for="dateMiseEnPlace">Date de mise en place</label>
+			<input type ="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace">	
+			
+			<label for="dateDeRecolte">Date de récolte</label>
+			<input type ="date" th:field="*{recolte}"  id="dateDeRecolte">	
+
+		
+			
+			
+			
+			<input type="submit" value="Ajouter plantation">   
+		
+	</form>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<H3>Mes plantations dans mon carré	</H3>
 	<table>
 		<thead>

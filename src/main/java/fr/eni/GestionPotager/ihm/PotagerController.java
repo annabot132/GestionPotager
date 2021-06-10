@@ -30,6 +30,7 @@ public class PotagerController {
 
 	@Autowired
 	PotagerManager potagerMgr;
+
 	
 	@Autowired
 	PlanteManager planteMgr;
@@ -38,6 +39,7 @@ public class PotagerController {
 	public String afficherDetailPotager(@PathVariable("idPotager") Integer idPotager, Carre carre,Plante plante, Plantation plantation, Model model) {
 		// affichage détail potager => liste de carrés
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		model.addAttribute("IDPotager", idPotager);
 		model.addAttribute("lstPlantes",planteMgr.findAll());
@@ -79,6 +81,7 @@ public class PotagerController {
 	}
 
 	@PostMapping("/potager/{idPotager}/addCarre")
+
 	public String ajouterCarreAuPotager(@Valid Carre carre, @PathVariable("idPotager") Integer idPotager, Model model)
 			throws BllException {
 
@@ -92,7 +95,6 @@ public class PotagerController {
 		return "redirect:/potager/{idPotager}";
 
 	}
-
 	@PostMapping("/potager/{idPotager}/carre/{idCarre}/addPlantation")
 	public String ajouterPlantationAuCarre(@Valid Plantation plantation,@Valid Plante plante, @PathVariable("idPotager") Integer idPotager,
 			@PathVariable("idCarre") Integer idCarre, Carre carre, Model model) throws BllException {

@@ -72,7 +72,7 @@ public class PotagerController {
 //		System.err.println("////////////////////////////////////////////////");
 
 		
-		 return "potagerDetail"; 
+		 return "potagerDetail";
 	}
 
 	@PostMapping("/potager/{idPotager}/addCarre")
@@ -83,7 +83,7 @@ public class PotagerController {
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		
 		
-	
+		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		
 		carreMgr.ajouterCarrePotager(potagerMgr.getPotagerById(idPotager), carre);
 				

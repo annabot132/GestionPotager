@@ -96,6 +96,18 @@ public class PlanteController {
 		return "vuPlantes";
 	}
 
+
+	}
+	
+	@GetMapping("plante/edit/{id}")
+	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+		Plante plante = manager.findPlanteById(id);
+		model.addAttribute("plante", plante);
+		return "modifPlante";
+
+	}
+  
+
 	@PostMapping("plante/update/{id}")
 	public String updatePlante(@PathVariable("id") Integer id, @Valid Plante plante, BindingResult result,
 			Model model) {

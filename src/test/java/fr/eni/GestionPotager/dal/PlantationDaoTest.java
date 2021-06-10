@@ -30,8 +30,8 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testSave() {
-		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-		dao.save(plantation1);
+//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
+//		dao.save(plantation1);
 		List<Plantation> listePlantatuions = (List<Plantation>) dao.findAll();
 		assertEquals(listePlantatuions.size(), 1);
 
@@ -40,20 +40,20 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testFindById() {
-		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-		dao.save(plantation1);
+//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
+//		dao.save(plantation1);
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
 		Plantation plantationTest = dao.findById(listePlantations.get(0).getIdPlantation()).orElse(null);
-		assertEquals(plantationTest.getMiseEnPlace(), plantation1.getMiseEnPlace());
+//		assertEquals(plantationTest.getMiseEnPlace(), plantation1.getMiseEnPlace());
 	}
 
 	@Test
 	@Transactional
 	final void testFindAll() {
-		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-		Plantation plantation2 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(8), 2, null, null);
-		dao.save(plantation1);
-		dao.save(plantation2);
+//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
+//		Plantation plantation2 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(8), 2, null, null);
+//		dao.save(plantation1);
+//		dao.save(plantation2);
 		List<Plantation> listePlantatuions = (List<Plantation>) dao.findAll();
 		assertEquals(listePlantatuions.size(), 2);
 
@@ -62,8 +62,8 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testDeleteById() {
-		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-		dao.save(plantation1);
+//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
+//		dao.save(plantation1);
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
 		dao.deleteById(listePlantations.get(0).getIdPlantation());
 		List<Plantation> listePlantations2 = (List<Plantation>) dao.findAll();
@@ -73,9 +73,9 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testDelete() {
-		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-		dao.save(plantation1);
-		dao.delete(plantation1);
+//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
+//		dao.save(plantation1);
+//		dao.delete(plantation1);
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
 
 		assertEquals(listePlantations.size(), 0);
@@ -88,8 +88,8 @@ class PlantationDaoTest {
 		daoCarre.save(carre1);
 		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
 		daoPlante.save(plante1);
-		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, carre1, plante1);
-		dao.save(plantation1);
+//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, carre1, plante1);
+//		dao.save(plantation1);
 		List<Plante> listePlantes = (List<Plante>) daoPlante.findAll();
 		System.err.println("toto                 "+listePlantes);
 		System.err.println(listePlantes.get(0).getIdPlante());

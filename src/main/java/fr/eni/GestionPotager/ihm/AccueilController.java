@@ -75,22 +75,22 @@ public class AccueilController {
 		planteMg.createPlante(laitue);
 		planteMg.createPlante(radis);
 		
-		carreMg.ajouterPlantationAuCarre(carre4, tomate1, 2, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
-		carreMg.ajouterPlantationAuCarre(carre4, tomate2, 1, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(5));
-		carreMg.ajouterPlantationAuCarre(carre4, poivron, 3, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
-		carreMg.ajouterPlantationAuCarre(carre4, laitue, 3, LocalDate.now(), LocalDate.now().plusWeeks(4));
-		
-		carreMg.ajouterPlantationAuCarre(carre5, tomate1, 1, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
-		carreMg.ajouterPlantationAuCarre(carre5, tomates3, 2, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(6));
-		carreMg.ajouterPlantationAuCarre(carre5, carottes,5, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(4));
-		
-		carreMg.ajouterPlantationAuCarre(carre, courges, 4, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(12));
-		carreMg.ajouterPlantationAuCarre(carre, epinard, 1, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(3));
-		carreMg.ajouterPlantationAuCarre(carre, betterave, 1, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(6));
-		
-		carreMg.ajouterPlantationAuCarre(carre2, radis, 5, LocalDate.now(), LocalDate.now().plusWeeks(3));
-		carreMg.ajouterPlantationAuCarre(carre2, laitue, 5, LocalDate.now(), LocalDate.now().plusWeeks(4));
-		carreMg.ajouterPlantationAuCarre(carre2, carottes,5, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(6));
+//		carreMg.ajouterPlantationAuCarre(carre4, tomate1, 2, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
+//		carreMg.ajouterPlantationAuCarre(carre4, tomate2, 1, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(5));
+//		carreMg.ajouterPlantationAuCarre(carre4, poivron, 3, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
+//		carreMg.ajouterPlantationAuCarre(carre4, laitue, 3, LocalDate.now(), LocalDate.now().plusWeeks(4));
+//		
+//		carreMg.ajouterPlantationAuCarre(carre5, tomate1, 1, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
+//		carreMg.ajouterPlantationAuCarre(carre5, tomates3, 2, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(6));
+//		carreMg.ajouterPlantationAuCarre(carre5, carottes,5, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(4));
+//		
+//		carreMg.ajouterPlantationAuCarre(carre, courges, 4, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(12));
+//		carreMg.ajouterPlantationAuCarre(carre, epinard, 1, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(3));
+//		carreMg.ajouterPlantationAuCarre(carre, betterave, 1, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(6));
+//		
+//		carreMg.ajouterPlantationAuCarre(carre2, radis, 5, LocalDate.now(), LocalDate.now().plusWeeks(3));
+//		carreMg.ajouterPlantationAuCarre(carre2, laitue, 5, LocalDate.now(), LocalDate.now().plusWeeks(4));
+//		carreMg.ajouterPlantationAuCarre(carre2, carottes,5, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(6));
 	}
 
 	@GetMapping("/accueil")

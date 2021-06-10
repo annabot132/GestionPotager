@@ -27,7 +27,6 @@ public class CarreManagerImpl implements CarreManager {
 	@Autowired
 	private PlantationDao plantationDao;
 
-
 	@Autowired
 	private PlanteManager planteMgr;
 
@@ -91,7 +90,6 @@ public class CarreManagerImpl implements CarreManager {
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
 		// surface plans < surface carré
 
-
 		List<Plantation> lstPlantation = findById(carre.getIdCarre()).getListePlantations();
 
 		List<String> lstNomPlante = new ArrayList<String>();
@@ -121,8 +119,9 @@ public class CarreManagerImpl implements CarreManager {
 
 		// si la surface occupé par la plante (en cours) * sa qté + la surface occupé du
 		// carré qui existe > surface du carré
-		//Float surfaceOccupee =  plante.getSurfaceOccupee() * plantation.getQuantite();
-		Float surfaceOccupee =  planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee() * plantation.getQuantite();
+		// Float surfaceOccupee = plante.getSurfaceOccupee() * plantation.getQuantite();
+		Double surfaceOccupee = planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee()
+				* plantation.getQuantite();
 		if (surfaceOccupee + surfaceSurCarreExistant > carre.getSurface()) {
 
 			throw new BllException("Pas assez de place dans le carré");

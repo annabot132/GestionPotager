@@ -12,10 +12,9 @@ import fr.eni.GestionPotager.dal.ActionDao;
 @Service
 public class ActionManagerImpl implements ActionManager {
 
-	
 	@Autowired
 	ActionDao dao;
-	
+
 	@Override
 	public void addAction(Action action) throws BllException {
 		if (action.getDate().isBefore(LocalDate.now())) {

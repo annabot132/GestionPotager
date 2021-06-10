@@ -2,10 +2,9 @@
 
 body {
 	font-family: Tahoma, Verdana, sans-serif;
-	background: linear-gradient(45deg, #873600 0%,  #fbeee6 100%);
+	background: linear-gradient(45deg, #873600 0%, #fbeee6 100%);
 	min-height: 100vh;
 }
-
 
 h1 {
 	margin-top: 0;
@@ -66,7 +65,7 @@ form {
 
 h4 {
 	color: #145a32;
-	margin: 20px 10px ;
+	margin: 20px 10px;
 	font-size: 20px;
 	text-align: center;
 	background: #2ecc71;
@@ -117,44 +116,43 @@ a:hover, a:active {
 }
 
 table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 95%;
+	margin: auto;
 }
 
 table td, table th {
-  border: 1px solid #ddd;
-  padding: 8px;
+	border: 1px solid #ddd;
+	padding: 8px;
+	
 }
-/*  table tr:nth-child(even){background-color: #f2f2f2;}  */
 
-table tr:hover {background-color: #ddd;}
+table tr:hover {
+	background-color: #ddd;
+}
 
 table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #27ae60
-;
-  color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #27ae60;
+	color: white;
 }
+
 table tr {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center;
-  background-color: #eaecee;
-   
-  
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #eaecee;
 }
 
 #DivPrincipale {
 	border-radius: 25px;
-	max-width: 700px;
+	max-width: 800px;
 	min-height: 100px;
 	background: white;
-	padding: 1em;
+	padding: 0.5em;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 	margin: 3em auto 0;
 }
-
-

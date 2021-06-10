@@ -15,44 +15,42 @@ import fr.eni.GestionPotager.bll.PotagerManager;
 import fr.eni.GestionPotager.bo.Potager;
 
 @Controller
-public class AcceuilController {
+public class AccueilController {
 
 	@Autowired
 	PotagerManager potMg;
-	
+
 	@Autowired
 	PlanteManager planteMg;
-	
-	@GetMapping("/acceuil")
+
+	@GetMapping("/accueil")
 	public String listerPotagers(Model model, Potager potager) {
 		model.addAttribute("potagers", potMg.getAllPotager());
-		potager.setNom("pot");
-		return "acceuil";
+		//potager.setNom("pot");
+		return "accueil";
 	}
 
-	@GetMapping("/acceuil/delete/{id}")
+	@GetMapping("/accueil/delete/{id}")
 	public String supprimerPotager(@PathVariable("id") Integer id, Model model) {
 		potMg.removePotagerById(id);
-		
-		return "redirect:/acceuil";
+
+		return "redirect:/accueil";
 	}
-	
-	@GetMapping("/acceuil/show/{id}")
+
+	@GetMapping("/accueil/show/{id}")
 	public String visualiserPotager(@PathVariable("id") Integer id, Model model) {
 		potMg.removePotagerById(id);
-		return "redirect:/acceuil";
+		return "redirect:/accueil";
 	}
-	
-	@PostMapping("/acceuil/add")
+
+	@PostMapping("/accueil/add")
 	public String addPotager(@Valid Potager potager, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "acceuil";
+			return "accueil";
 		}
 		potMg.addPotager(potager);
-		return "redirect:/acceuil";
+		return "redirect:/accueil";
 
 	}
-	
-	
-	
+
 }

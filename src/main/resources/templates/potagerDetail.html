@@ -13,7 +13,9 @@
 	<table>
 		<thead>
 			<tr>
+
 <!-- 				<th>Id carre</th> -->
+
 
 				<th>Surface</th>
 				<th>Type de sol</th>
@@ -26,14 +28,17 @@
 			<!-- Pour chaque carré on va afficher les attributs -->
 			<tr th:each="carre : ${lstCarres}">
 
+
 <!-- 				<td th:text="${carre.idCarre}"></td> -->
 				<td th:text="${carre.surface}"></td>
 				<td th:text="${carre.sol}"></td>
 				<td th:text="${carre.exposition}"></td>
 
+
 				<td><a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a></td>
 
 				<td><a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a></td>
+
 			</tr>
 		</tbody>
 	</table>
@@ -89,5 +94,10 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<br>
+	<p>
+		<a href="/accueil">Accueil</a>
+	</p>
 </body>
 </html>

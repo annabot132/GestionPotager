@@ -3,21 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Mes Plantes</title>
-<!-- th:inLine="javascript" -->
-<script > 
-		function openForm() {​​​​​​​​
-			document.getElementById("popupForm").style.display="block";
-		}​​​​​​​​
-		function closeForm() {​​​​​​​​
-		document.getElementById("popupForm").style.display="none";
-		}
-	</script>
+
 </head>
 <body>
 	<h1>Mes plantes</h1>
 	<h3>Ajouter une plante</h3>
 
-
+	<br>
 	<form th:action="@{/plante/add}" th:object="${plante}" method="post">
 		<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
 			id="nom" placeholder="nom"> <span
@@ -41,6 +33,9 @@
 			value="Ajouter la plante">
 	</form>
 
+	<br>
+	<br>
+
 	<div th:switch="${plantes}">
 		<h2 th:case="null">Pas de plantes pour l'instant !</h2>
 		<div th:case="*">
@@ -62,15 +57,17 @@
 						<td th:text="${plante.typePlante}"></td>
 						<td th:text="${plante.variete}"></td>
 						<td th:text="${plante.surfaceOccupee}"></td>
-						<td class="open-btn">
-							<button th:onclick="'javascript:openForm();'">
+
+
+						<td><a
+							th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
+						<td><a 
+							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
+
 								<strong>Modifier</strong>
 							</button>
 						</td>
-<!-- 						<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}" onclick="openForm()">Modifier</a></td> -->
-						<td><a
-							th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
-						<!-- 						<td><a th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Rechercher</a></td> -->
+ 		
 					</tr>
 				</tbody>
 			</table>
@@ -79,31 +76,71 @@
 			<div id="popupForm" style="display: none">
 				<h2>Modifier plante</h2>
 				<form th:action="@{/plante/add}" th:object="${plante}" method="post">
-					<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
-						id="nom" placeholder="nom"> <span
-						th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
-						for="typePlante">Type</label> <select th:field="*{typePlante}"
-						id="typePlante" name="typePlante">
+					<label for="nom">Nom</label> <input type="text" th:field="*{nom}" id="nom" placeholder="nom"> 
+					<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> 
+					<label for="typePlante">Type</label> 
+					<select th:field="*{typePlante}" id="typePlante" name="typePlante">
 						<option value="FRUIT">FRUIT</option>
 						<option value="FEUILLE">FEUILLE</option>
 						<option value="RACINE">RACINE</option>
-					</select> <span th:if="${#fields.hasErrors('typePlante')}"
-						th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
-					<input type="text" th:field="*{variete}" id="variete"
-						placeholder="variete"> <span
-						th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+					</select> 
+					
+					<span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span> 
+					<label for="variete">Variété</label>
+					<input type="text" th:field="*{variete}" id="variete" placeholder="variete"> 
+					<span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
 
-					<label for="surfaceOccupee">Surface Occupée</label> <input
-						type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
+					<label for="surfaceOccupee">Surface Occupée</label> 
+					<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
 						placeholder="surfaceOccupee"> <span
 						th:if="${#fields.hasErrors('surfaceOccupee')}"
 						th:errors="*{surfaceOccupee}"></span> <input type="submit"
-						value="Modifier la plante" onclick="closeForm()">
+						value="Modifier la plante" th:onclick="closeForm()">
 				</form>
 				<!-- 					<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
 				<!-- 					<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
 			</div>
 		</div>
 	</div>
+	<br>
+	<p>
+		<a href="/accueil">Accueil</a>
+	</p>
+	<br>
+	
+	
+	
+	<div th:switch="${plantations}">
+<!-- 		<h2 th:case="${plantations.empty}"> toto</h2> -->
+		<div th:case="*">
+			
+			<table>
+				<thead>
+					<tr>
+						<th>Nom du potager</th>
+						<th>le carré</th>
+						<th>quantité de plants</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="plantation : ${plantations}">
+						<td th:text="${plantation.carre.potager.nom}"></td>
+						<td th:text="${plantation.carre.idCarre}"></td>
+						<td th:text="${plantation.quantite}"></td>
+						<td><a
+							th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
+					</tr>
+				</tbody>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	
+	
+
 </body>
 </html>

@@ -11,13 +11,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import fr.eni.GestionPotager.bo.Carre;
+import fr.eni.GestionPotager.bo.Exposition;
 import fr.eni.GestionPotager.bo.Plantation;
+import fr.eni.GestionPotager.bo.Plante;
+import fr.eni.GestionPotager.bo.TypePlante;
 
 @SpringBootTest
 class PlantationDaoTest {
 
 	@Autowired
 	PlantationDao dao;
+	@Autowired
+	PlanteDao daoPlante;
+	@Autowired
+	CarreDao daoCarre;
 
 	@Test
 	@Transactional
@@ -71,6 +79,22 @@ class PlantationDaoTest {
 		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
 
 		assertEquals(listePlantations.size(), 0);
+	}
+	
+	@Test
+	@Transactional
+	final void testFindAllPlantationForOnePlante() {
+		Carre carre1 = new Carre(2, "sableux", Exposition.MI_OMBRE, null);
+		daoCarre.save(carre1);
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		daoPlante.save(plante1);
+		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, carre1, plante1);
+		dao.save(plantation1);
+		List<Plante> listePlantes = (List<Plante>) daoPlante.findAll();
+		System.err.println("toto                 "+listePlantes);
+		System.err.println(listePlantes.get(0).getIdPlante());
+		System.err.println("dudu            "+ dao.findAllPlantationForOnePlante(listePlantes.get(0).getIdPlante()));
+		//assertEquals(listePlantations.size(), 0);
 	}
 
 }

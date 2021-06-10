@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/style.css">
 <meta charset="UTF-8">
 <title>Mes Plantes</title>
 
@@ -11,170 +12,170 @@
 	<p>
 		<a href="/accueil">Accueil</a>
 	</p>
-<div id="DivPrincipale">
-	<h4>Ajouter une plante</h4>
-
-	
-
-	<form th:action="@{/plante/add}" th:object="${plante}" method="post">
-		<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
-			id="nom" placeholder="nom"> <span
-			th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
-			for="typePlante">Type</label> <select th:field="*{typePlante}"
-			id="typePlante" name="typePlante">
-			<option value="FRUIT">FRUIT</option>
-			<option value="FEUILLE">FEUILLE</option>
-			<option value="RACINE">RACINE</option>
-		</select> <span th:if="${#fields.hasErrors('typePlante')}"
-			th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
-		<input type="text" th:field="*{variete}" id="variete"
-			placeholder="variete"> <span
-			th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
-
-		<label for="surfaceOccupee">Surface Occupée</label> <input type="text"
-			th:field="*{surfaceOccupee}" id="surfaceOccupee"
-			placeholder="surfaceOccupee"> <span
-			th:if="${#fields.hasErrors('surfaceOccupee')}"
-			th:errors="*{surfaceOccupee}"></span> <input type="submit"
-			value="Ajouter la plante">
-	</form>
-</div>
 	<div id="DivPrincipale">
-	<h4>Mes Plantes</h4>
-	<div th:switch="${plantes}">
-		<h2 th:case="null">Pas de plantes pour l'instant !</h2>
-		<div th:case="*">
-			<table>
-				<thead>
-					<tr>
-						<th>Nom</th>
-						<th>Type</th>
-						<th>Variété</th>
-						<th>Surface Occupée</th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="plante : ${plantes}">
-						<td th:text="${plante.nom}"></td>
-						<td th:text="${plante.typePlante}"></td>
-						<td th:text="${plante.variete}"></td>
-						<td th:text="${plante.surfaceOccupee}"></td>
+		<h4>Ajouter une plante</h4>
 
 
-						<td><a
-							th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
 
-						<td><a 
-							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
+		<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+			<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
+				id="nom" placeholder="nom"> <span
+				th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
+				for="typePlante">Type</label> <select th:field="*{typePlante}"
+				id="typePlante" name="typePlante">
+				<option value="FRUIT">FRUIT</option>
+				<option value="FEUILLE">FEUILLE</option>
+				<option value="RACINE">RACINE</option>
+			</select> <span th:if="${#fields.hasErrors('typePlante')}"
+				th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
+			<input type="text" th:field="*{variete}" id="variete"
+				placeholder="variete"> <span
+				th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+
+			<label for="surfaceOccupee">Surface Occupée</label> <input
+				type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
+				placeholder="surfaceOccupee"> <span
+				th:if="${#fields.hasErrors('surfaceOccupee')}"
+				th:errors="*{surfaceOccupee}"></span> <input type="submit"
+				value="Ajouter la plante">
+		</form>
+	</div>
+	<div id="DivPrincipale">
+		<h4>Mes Plantes</h4>
+		<div th:switch="${plantes}">
+			<h2 th:case="null">Pas de plantes pour l'instant !</h2>
+			<div th:case="*">
+				<table>
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Type</th>
+							<th>Variété</th>
+							<th>Surface Occupée</th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="plante : ${plantes}">
+							<td th:text="${plante.nom}"></td>
+							<td th:text="${plante.typePlante}"></td>
+							<td th:text="${plante.variete}"></td>
+							<td th:text="${plante.surfaceOccupee}"></td>
 
 
-						<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
+							<td><a
+								th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
 
- 		
-
-					</tr>
-				</tbody>
-			</table>
+							<td><a th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
 
 
-			<div id="popupForm" style="display: none">
-				<h2>Modifier plante</h2>
-				<form th:action="@{/plante/add}" th:object="${plante}" method="post">
-					<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
-						id="nom" placeholder="nom"> <span
-						th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
-						for="typePlante">Type</label> <select th:field="*{typePlante}"
-						id="typePlante" name="typePlante">
-						<option value="FRUIT">FRUIT</option>
-						<option value="FEUILLE">FEUILLE</option>
-						<option value="RACINE">RACINE</option>
-					</select> <span th:if="${#fields.hasErrors('typePlante')}"
-						th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
-					<input type="text" th:field="*{variete}" id="variete"
-						placeholder="variete"> <span
-						th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+							<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
 
-					<label for="surfaceOccupee">Surface Occupée</label> <input
-						type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
-						placeholder="surfaceOccupee"> <span
-						th:if="${#fields.hasErrors('surfaceOccupee')}"
-						th:errors="*{surfaceOccupee}"></span> <input type="submit"
-						value="Modifier la plante" th:onclick="closeForm()">
-				</form>
-				<!-- 					<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
-				<!-- 					<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
+
+
+						</tr>
+					</tbody>
+				</table>
+
+
+				<div id="popupForm" style="display: none">
+					<h2>Modifier plante</h2>
+					<form th:action="@{/plante/add}" th:object="${plante}"
+						method="post">
+						<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
+							id="nom" placeholder="nom"> <span
+							th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
+							for="typePlante">Type</label> <select th:field="*{typePlante}"
+							id="typePlante" name="typePlante">
+							<option value="FRUIT">FRUIT</option>
+							<option value="FEUILLE">FEUILLE</option>
+							<option value="RACINE">RACINE</option>
+						</select> <span th:if="${#fields.hasErrors('typePlante')}"
+							th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
+						<input type="text" th:field="*{variete}" id="variete"
+							placeholder="variete"> <span
+							th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+
+						<label for="surfaceOccupee">Surface Occupée</label> <input
+							type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
+							placeholder="surfaceOccupee"> <span
+							th:if="${#fields.hasErrors('surfaceOccupee')}"
+							th:errors="*{surfaceOccupee}"></span> <input type="submit"
+							value="Modifier la plante" th:onclick="closeForm()">
+					</form>
+					<!-- 					<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
+					<!-- 					<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div id="DivPrincipale">
+
+
+		<h4>Mes plantes aux potagers</h4>
+		<div th:switch="${plantations}">
+			<!-- 		<h2 th:case="${plantations.empty}"> toto</h2> -->
+			<div th:case="*">
+
+				<table>
+					<thead>
+						<tr>
+							<th>Nom du potager</th>
+							<th>le carré</th>
+							<th>quantité de plants</th>
+							<th></th>
+
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="plantation : ${plantations}">
+							<td th:text="${plantation.carre.potager.nom}"></td>
+							<td th:text="${plantation.carre.idCarre}"></td>
+							<td th:text="${plantation.quantite}"></td>
+							<td><a
+								th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
+						</tr>
+					</tbody>
+					</tbody>
+				</table>
+
+				<!-- 			<div id="popupForm" style="display: none"> -->
+				<!-- 				<h2>Modifier plante</h2> -->
+				<!-- 				<form th:action="@{/plante/add}" th:object="${plante}" method="post"> -->
+				<!-- 					<label for="nom">Nom</label> <input type="text" th:field="*{nom}" id="nom" placeholder="nom">  -->
+				<!-- 					<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>  -->
+				<!-- 					<label for="typePlante">Type</label>  -->
+				<!-- 					<select th:field="*{typePlante}" id="typePlante" name="typePlante"> -->
+				<!-- 						<option value="FRUIT">FRUIT</option> -->
+				<!-- 						<option value="FEUILLE">FEUILLE</option> -->
+				<!-- 						<option value="RACINE">RACINE</option> -->
+				<!-- 					</select>  -->
+
+				<!-- 					<span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span>  -->
+				<!-- 					<label for="variete">Variété</label> -->
+				<!-- 					<input type="text" th:field="*{variete}" id="variete" placeholder="variete">  -->
+				<!-- 					<span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span> -->
+
+				<!-- 					<label for="surfaceOccupee">Surface Occupée</label>  -->
+				<!-- 					<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee" -->
+				<!-- 						placeholder="surfaceOccupee"> <span -->
+				<!-- 						th:if="${#fields.hasErrors('surfaceOccupee')}" -->
+				<!-- 						th:errors="*{surfaceOccupee}"></span> <input type="submit" -->
+				<!-- 						value="Modifier la plante" th:onclick="closeForm()"> -->
+				<!-- 				</form> -->
+				<!-- 									<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
+				<!-- 									<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
+				<!-- 			</div> -->
+
 			</div>
 
 		</div>
-	</div>
-	</div>
-	<div id="DivPrincipale">
-
-
-	<h4>Mes plantes aux potagers</h4>
-	<div th:switch="${plantations}">
-		<!-- 		<h2 th:case="${plantations.empty}"> toto</h2> -->
-		<div th:case="*">
-
-			<table>
-				<thead>
-					<tr>
-						<th>Nom du potager</th>
-						<th>le carré</th>
-						<th>quantité de plants</th>
-						<th></th>
-						
-						
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="plantation : ${plantations}">
-						<td th:text="${plantation.carre.potager.nom}"></td>
-						<td th:text="${plantation.carre.idCarre}"></td>
-						<td th:text="${plantation.quantite}"></td>
-						<td><a
-							th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
-					</tr>
-				</tbody>
-				</tbody>
-			</table>
-
-			<div id="popupForm" style="display: none">
-				<h2>Modifier plante</h2>
-				<form th:action="@{/plante/add}" th:object="${plante}" method="post">
-					<label for="nom">Nom</label> <input type="text" th:field="*{nom}" id="nom" placeholder="nom"> 
-					<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> 
-					<label for="typePlante">Type</label> 
-					<select th:field="*{typePlante}" id="typePlante" name="typePlante">
-						<option value="FRUIT">FRUIT</option>
-						<option value="FEUILLE">FEUILLE</option>
-						<option value="RACINE">RACINE</option>
-					</select> 
-					
-					<span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span> 
-					<label for="variete">Variété</label>
-					<input type="text" th:field="*{variete}" id="variete" placeholder="variete"> 
-					<span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
-
-					<label for="surfaceOccupee">Surface Occupée</label> 
-					<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
-						placeholder="surfaceOccupee"> <span
-						th:if="${#fields.hasErrors('surfaceOccupee')}"
-						th:errors="*{surfaceOccupee}"></span> <input type="submit"
-						value="Modifier la plante" th:onclick="closeForm()">
-				</form>
-				<!-- 					<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
-				<!-- 					<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
-			</div>
-
-		</div>
 
 	</div>
-
-</div>
 
 
 

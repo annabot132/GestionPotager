@@ -107,6 +107,7 @@ public class PlanteController {
 		model.addAttribute("plantations" , carreMg.findAllImplantationsForOnePlante(id));
 //		System.err.println(carreMg.findAllImplantationsForOnePlante(id).get(0).);
 	return "vuPlantes";
+
 	}
 	
 	@GetMapping("plante/edit/{id}")
@@ -114,6 +115,7 @@ public class PlanteController {
 		Plante plante = manager.findPlanteById(id);
 		model.addAttribute("plante", plante);
 		return "modifPlante";
+
 	}
   
 	@PostMapping("plante/update/{id}")

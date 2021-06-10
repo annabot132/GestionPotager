@@ -64,11 +64,14 @@
 						<td><a 
 							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
 
+
 						<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
+
  		
 					</tr>
 				</tbody>
 			</table>
+
 
 
 			
@@ -108,9 +111,39 @@
 				</tbody>
 				</tbody>
 			</table>
+
+			<div id="popupForm" style="display: none">
+				<h2>Modifier plante</h2>
+				<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+					<label for="nom">Nom</label> <input type="text" th:field="*{nom}" id="nom" placeholder="nom"> 
+					<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> 
+					<label for="typePlante">Type</label> 
+					<select th:field="*{typePlante}" id="typePlante" name="typePlante">
+						<option value="FRUIT">FRUIT</option>
+						<option value="FEUILLE">FEUILLE</option>
+						<option value="RACINE">RACINE</option>
+					</select> 
+					
+					<span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span> 
+					<label for="variete">Variété</label>
+					<input type="text" th:field="*{variete}" id="variete" placeholder="variete"> 
+					<span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+
+					<label for="surfaceOccupee">Surface Occupée</label> 
+					<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
+						placeholder="surfaceOccupee"> <span
+						th:if="${#fields.hasErrors('surfaceOccupee')}"
+						th:errors="*{surfaceOccupee}"></span> <input type="submit"
+						value="Modifier la plante" th:onclick="closeForm()">
+				</form>
+				<!-- 					<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
+				<!-- 					<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
+			</div>
+
 		</div>
 
 	</div>
+
 	
 	
 

@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Mes Plantes</title>
-<script th:inLine="javascript">
+<!-- th:inLine="javascript" -->
+<script > 
 		function openForm() {​​​​​​​​
 			document.getElementById("popupForm").style.display="block";
 		}​​​​​​​​
@@ -62,7 +63,7 @@
 						<td th:text="${plante.variete}"></td>
 						<td th:text="${plante.surfaceOccupee}"></td>
 						<td class="open-btn">
-							<button onclick="openForm()">
+							<button th:onclick="'javascript:openForm();'">
 								<strong>Modifier</strong>
 							</button>
 						</td>

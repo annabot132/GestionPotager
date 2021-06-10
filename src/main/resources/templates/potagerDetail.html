@@ -39,11 +39,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<br>
 	</div>
 
-	
-	
-	
 	<div id="DivPrincipale">
 		<!-- 	<form th:action="@{/potager/{idPotager}/addCarre}(idPotager=${IDPotager})" th:object="${carre}" method="post"> -->
 		<form
@@ -124,7 +122,27 @@
 	<p>
 		<a href="/accueil">Accueil</a>
 	</p>
+
 	</div>
+
+  
+  
+	<!--  >>>>>>> master Averif si il faut virer-->
+				<!--    			Va chercher les valeurs de l'enum -->
+	<!--  				<option
+	<!--  th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
+		<!--  				th:value="${exposition}" th:text="${exposition.displayValue}">
+		<!--  			</option>
+
+	<!--  			</select> <br>
+	<!--  			<br>
+	<!--  			<input type="submit" value="Ajouter le carré">
+	<!--  		</form>
+
+	<!--  	</div>-->
+
+
+
 	<div id="DivPrincipale">
 		<h4>Mes plantations dans mon carré</h4>
 		<table>
@@ -148,6 +166,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<br>
 	</div>
 
 </body>

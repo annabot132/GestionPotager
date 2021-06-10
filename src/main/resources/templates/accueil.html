@@ -41,12 +41,15 @@
 								th:href="@{/accueil/delete/{id}(id=${potager.idPotager})}">Supprimer</a></td>
 						</tr>
 					</tbody>
+
 				</table>
+				<br>
+
 			</div>
 
 		</div>
 	</div>
-	
+
 	<div id="DivPrincipale">
 		<h4>Ajouter un nouveau potager</h4>
 		<form th:action="@{/accueil/add}" th:object="${potager}" method="post">
@@ -55,12 +58,12 @@
 				for="surface">surface (m2)</label> <input type="text"
 				th:field="*{surface}" id="surface" placeholder="0"> <br>
 			<label for="localisation">localisation</label> <input type="text"
-				th:field="*{localisation}" id="localisation" >
-			<br> <label for="ville">Ville</label> <input type="text"
-				id="ville" th:field="*{ville}" placeholder="Ville"> <br>
-			<input type="submit" value="Ajouter un potager">
+				th:field="*{localisation}" id="localisation"> <br> <label
+				for="ville">Ville</label> <input type="text" id="ville"
+				th:field="*{ville}" placeholder="Ville"> <br> <br><input
+				type="submit" value="Ajouter un potager">
 		</form>
 	</div>
-	
+
 </body>
 </html>

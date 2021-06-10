@@ -32,6 +32,7 @@ public class PlanteController {
 	@Autowired
 	CarreManager carreMg;
 
+
 //	@PostConstruct
 //	void init() throws BllException {
 //		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
@@ -98,6 +99,7 @@ public class PlanteController {
 		carreMg.ajouterPlantationAuCarre(carre3, plante3, plantation);
 
 	}
+
 	@GetMapping("/plante/add")
 	public String findPlante(Model model, Plante plante) throws BllException {
 		model.addAttribute("plantes", manager.findAll());
@@ -133,8 +135,6 @@ public class PlanteController {
 		return "vuPlantes";
 	}
 
-
-
 	@GetMapping("plante/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		Plante plante = manager.findPlanteById(id);
@@ -142,7 +142,6 @@ public class PlanteController {
 		return "modifPlante";
 
 	}
-  
 
 	@PostMapping("plante/update/{id}")
 	public String updatePlante(@PathVariable("id") Integer id, @Valid Plante plante, BindingResult result,

@@ -5,6 +5,9 @@ body {
 	background: linear-gradient(45deg, #873600 0%,  #fbeee6 100%);
 	min-height: 100vh;
 }
+.navbar{
+		background: #186a3b;
+}
 
 
 h1 {

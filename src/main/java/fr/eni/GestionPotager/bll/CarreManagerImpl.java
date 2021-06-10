@@ -183,4 +183,12 @@ public class CarreManagerImpl implements CarreManager {
 		return plantationDao.findAllPlantationForOnePlante(id);
 	}
 
+
+
+	@Override
+	public List<Carre> findAllEmptyCarre() {
+		
+		return carreDao.carreVide();
+	}
+
 }

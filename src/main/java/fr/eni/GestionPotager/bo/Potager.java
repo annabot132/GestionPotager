@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +23,16 @@ public class Potager {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idPotager;
+	
 	private String localisation;
+	
+	@NotBlank(message = "Le nom est obligatoire!")
 	private String nom;
-	private float surface;
+	
+	@Min(value = 1, message = "La surface d'un potager ne peut être inérieuere à 1 m²!")
+	private double surface;
+	
+	@NotBlank(message = "La ville est obligatoire!")
 	private String ville;
 
 	@OneToMany(mappedBy = "potager", cascade = CascadeType.ALL)

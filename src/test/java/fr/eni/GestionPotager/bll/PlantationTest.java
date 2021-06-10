@@ -44,7 +44,7 @@ class PlantationTest {
 		daoPotager.save(potagerTest);
 		carremgr.createCarre(carreTest);
 
-		carremgr.ajouterPlantationAuCarre(carreTest, plante, 2, LocalDate.now(), LocalDate.now());
+//		carremgr.ajouterPlantationAuCarre(carreTest, plante, 2, LocalDate.now(), LocalDate.now());
 
 		System.err.println(carreTest.getListePlantations());
 
@@ -69,7 +69,7 @@ class PlantationTest {
 
 		Exception exception = assertThrows(BllException.class, () -> {
 
-			carremgr.ajouterPlantationAuCarre(carreTest, plante, 5, LocalDate.now(), LocalDate.now());
+//			carremgr.ajouterPlantationAuCarre(carreTest, plante, 5, LocalDate.now(), LocalDate.now());
 		});
 
 		String expectedMessage = "Pas assez de place dans le carré";
@@ -105,17 +105,17 @@ class PlantationTest {
 		daoPotager.save(potagerTest);
 		carremgr.createCarre(carreTest);
 		
-		carremgr.ajouterPlantationAuCarre(carreTest, plante1, 1, LocalDate.now(), LocalDate.now());
-		carremgr.ajouterPlantationAuCarre(carreTest, plante2, 1, LocalDate.now(), LocalDate.now());
+//		carremgr.ajouterPlantationAuCarre(carreTest, plante1, 1, LocalDate.now(), LocalDate.now());
+//		carremgr.ajouterPlantationAuCarre(carreTest, plante2, 1, LocalDate.now(), LocalDate.now());
 		//carremgr.ajouterPlantationAuCarre(carreTest, plante2, 1, LocalDate.now(), LocalDate.now());
-		carremgr.ajouterPlantationAuCarre(carreTest, plante3, 1, LocalDate.now(), LocalDate.now());
+//		carremgr.ajouterPlantationAuCarre(carreTest, plante3, 1, LocalDate.now(), LocalDate.now());
 		
 		
 		
 
 		Exception exception = assertThrows(BllException.class, () -> {
 
-			carremgr.ajouterPlantationAuCarre(carreTest, plante4, 1, LocalDate.now(), LocalDate.now());
+//			carremgr.ajouterPlantationAuCarre(carreTest, plante4, 1, LocalDate.now(), LocalDate.now());
 		});
 
 		String expectedMessage = "Il y a déjà 3 plantes dans votre carré";

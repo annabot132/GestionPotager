@@ -25,8 +25,8 @@
 							<th>Surface (m2)</th>
 							<th>Localisation</th>
 							<th>Ville</th>
-							<th></th>
-							<th></th>
+							<th>Détail du potager</th>
+							<th>supprimer le potager</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -54,14 +54,18 @@
 		<h4>Ajouter un nouveau potager</h4>
 		<form th:action="@{/accueil/add}" th:object="${potager}" method="post">
 			<label for="nom">nom du potager</label> <input type="text"
-				th:field="*{nom}" id="nom" placeholder="Nom"> <br> <label
-				for="surface">surface (m2)</label> <input type="text"
-				th:field="*{surface}" id="surface" placeholder="0"> <br>
+				th:field="*{nom}" id="nom" placeholder="Nom"> <span
+				th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <br>
+			<label for="surface">surface (m2)</label> <input type="text"
+				th:field="*{surface}" id="surface" placeholder="0"> <span
+				th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}"></span><br>
 			<label for="localisation">localisation</label> <input type="text"
 				th:field="*{localisation}" id="localisation"> <br> <label
 				for="ville">Ville</label> <input type="text" id="ville"
-				th:field="*{ville}" placeholder="Ville"> <br> <br><input
-				type="submit" value="Ajouter un potager">
+				th:field="*{ville}" placeholder="Ville"> <span
+				th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}"></span> <br>
+			<br>
+			<input type="submit" value="Ajouter un potager">
 		</form>
 	</div>
 

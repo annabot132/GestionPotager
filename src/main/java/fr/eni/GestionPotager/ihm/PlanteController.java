@@ -100,12 +100,25 @@ public class PlanteController {
 	    return "redirect:/plante/add";
 	}
 	
+
 	@GetMapping("/plante/find/{id}")
 	public String rechercherPlante(@PathVariable("id") Integer id, Plante plante, Model model) {	
 		model.addAttribute("plantes", manager.findAll());
 		model.addAttribute("plantations" , carreMg.findAllImplantationsForOnePlante(id));
 //		System.err.println(carreMg.findAllImplantationsForOnePlante(id).get(0).);
 	return "vuPlantes";
+
+  
+	@PostMapping("plante/update/{id}")
+	public String updatePlante(@PathVariable("id") Integer id, @Valid Plante plante, BindingResult result,
+			Model model) {
+		plante.setIdPlante(id);
+		if (result.hasErrors()) {
+			return "vuPlantes";
+		}
+		manager.updatePlante(plante);
+		return "redirect:/plante/add";
+
 	}
 
 

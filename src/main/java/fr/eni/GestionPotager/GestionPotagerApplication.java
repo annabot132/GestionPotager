@@ -13,10 +13,6 @@ public class GestionPotagerApplication {
 		SpringApplication.run(GestionPotagerApplication.class, args);
 	}
 	
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
 
 
 }

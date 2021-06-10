@@ -31,8 +31,7 @@ public class Carre {
 	private Potager potager;
 
 	
-	//@OneToMany(mappedBy = "carre")
-	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL, fetch=FetchType.EAGER )
+	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();
 
 	public Carre(float surface, String sol, Exposition exposition, Potager potager) {

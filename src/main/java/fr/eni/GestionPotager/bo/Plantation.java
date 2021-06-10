@@ -29,7 +29,7 @@ public class Plantation {
 	@ManyToOne
 	private Carre carre;
 	
-	@OneToOne()//TODO GESTION DU DELETE cascade = CascadeType.ALL, mappedBy = "plantation")
+	@ManyToOne()
 	private Plante plante;
 
 	public Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) {

@@ -104,7 +104,7 @@ public class PlanteController {
 	public String rechercherPlante(@PathVariable("id") Integer id, Plante plante, Model model) {	
 		model.addAttribute("plantes", manager.findAll());
 		model.addAttribute("plantations" , carreMg.findAllImplantationsForOnePlante(id));
-
+//		System.err.println(carreMg.findAllImplantationsForOnePlante(id).get(0).);
 	return "vuPlantes";
 	}
 

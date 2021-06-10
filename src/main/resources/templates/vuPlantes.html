@@ -60,7 +60,7 @@
 						<td><a
 							th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
 						<td><a 
-							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Rechercher</a></td>
+							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -76,7 +76,7 @@
 	
 	
 	<div th:switch="${plantations}">
-<!-- 		<h2 th:case="${plantations}.empty"> toto</h2> -->
+<!-- 		<h2 th:case="${plantations.empty}"> toto</h2> -->
 		<div th:case="*">
 			
 			<table>
@@ -91,18 +91,12 @@
 					</tr>
 				</thead>
 				<tbody>
-				<<tbody>
 					<tr th:each="plantation : ${plantations}">
-						<td th:text="${plantation}"></td>
-<!-- 						<td th:text="${plante.typePlante}"></td> -->
-<!-- 						<td th:text="${plante.variete}"></td> -->
-<!-- 						<td th:text="${plante.surfaceOccupee}"></td> -->
-<!-- 						<td><a  -->
-<!-- 							th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td> -->
-<!-- 						<td><a -->
-<!-- 							th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td> -->
-<!-- 						<td><a  -->
-<!-- 							th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Rechercher</a></td> -->
+						<td th:text="${plantation.carre.potager.nom}"></td>
+						<td th:text="${plantation.carre.idCarre}"></td>
+						<td th:text="${plantation.quantite}"></td>
+						<td><a
+							th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
 					</tr>
 				</tbody>
 				</tbody>

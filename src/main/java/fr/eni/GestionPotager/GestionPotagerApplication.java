@@ -2,9 +2,9 @@ package fr.eni.GestionPotager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class GestionPotagerApplication {
@@ -13,6 +13,5 @@ public class GestionPotagerApplication {
 		SpringApplication.run(GestionPotagerApplication.class, args);
 	}
 	
-
 
 }

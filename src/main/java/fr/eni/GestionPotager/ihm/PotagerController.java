@@ -28,16 +28,12 @@ public class PotagerController {
 
 	@Autowired
 	PotagerManager potagerMgr;
-	
-	
-	
 
 	@GetMapping("potager/{idPotager}")
-	public String afficherDetailPotager(@PathVariable("idPotager") Integer idPotager,Carre carre, Model model) {
+	public String afficherDetailPotager(@PathVariable("idPotager") Integer idPotager, Carre carre, Model model) {
 		// affichage détail potager => liste de carrés
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 
-		
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		model.addAttribute("IDPotager", idPotager);
 
@@ -62,7 +58,7 @@ public class PotagerController {
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
-		
+
 		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
 
 //		System.err.println("////////////////////////////////////////////////");
@@ -71,29 +67,22 @@ public class PotagerController {
 //		System.err.println(carreMgr.findById(idCarre).getListePlantations());
 //		System.err.println("////////////////////////////////////////////////");
 
-		
-		 return "potagerDetail"; 
+		return "potagerDetail";
 	}
 
 	@PostMapping("/potager/{idPotager}/addCarre")
-	public String ajouterPotager(@Valid Carre carre,@PathVariable("idPotager")Integer idPotager, Model model) throws BllException{
-		
-		
+	public String ajouterPotager(@Valid Carre carre, @PathVariable("idPotager") Integer idPotager, Model model)
+			throws BllException {
+
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
-		
-		
-	
-		
+
 		carreMgr.ajouterCarrePotager(potagerMgr.getPotagerById(idPotager), carre);
-				
+
 		System.err.println(carre);
-		
-		
-		
+
 		return "redirect:/potager/{idPotager}";
-		
-		
+
 	}
 
 }

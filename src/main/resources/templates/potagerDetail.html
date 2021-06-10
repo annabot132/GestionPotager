@@ -49,10 +49,11 @@
 				</tr>
 			</tbody>
 		</table>
+		<br>
 	</div>
-	
-	
-	
+
+
+
 	<div id="DivPrincipale">
 		<!-- 	<form th:action="@{/potager/{idPotager}/addCarre}(idPotager=${IDPotager})" th:object="${carre}" method="post"> -->
 		<form
@@ -71,13 +72,16 @@
 					th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
 					th:value="${exposition}" th:text="${exposition.displayValue}">
 				</option>
-			</select> <input type="submit" value="Ajouter le carré">
+
+			</select> <br>
+			<br>
+			<input type="submit" value="Ajouter le carré">
 		</form>
 
 	</div>
-	
-	
-	
+
+
+
 	<div id="DivPrincipale">
 		<h4>Mes plantations dans mon carré</h4>
 		<table>
@@ -105,6 +109,7 @@
 				</tr>
 			</tbody>
 		</table>
+		<br>
 	</div>
 </body>
 </html>

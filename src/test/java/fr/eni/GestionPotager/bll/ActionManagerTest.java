@@ -3,6 +3,8 @@ package fr.eni.GestionPotager.bll;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -36,8 +38,11 @@ class ActionManagerTest {
 
 		pManager.addPotager(potagerTest);
 		cManager.createCarre(carreTest);
-
-		Action action = new Action(LocalDate.of(2021, 7, 1), "event", potagerTest, carreTest);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021,  06,  11);
+		Date date = cal.getTime();
+		
+		Action action = new Action(date, "event", potagerTest, carreTest);
 		aManager.addAction(action);
 
 		assertEquals(aManager.findAllAction().size(), 1);
@@ -53,7 +58,11 @@ class ActionManagerTest {
 		pManager.addPotager(potagerTest);
 		cManager.createCarre(carreTest);
 
-		Action action = new Action(LocalDate.of(2021, 5, 1), "event", potagerTest, carreTest);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021,  04,  11);
+		Date date = cal.getTime();
+		
+		Action action = new Action(date, "event", potagerTest, carreTest);
 
 		Exception exception = assertThrows(BllException.class, () -> {
 
@@ -65,5 +74,51 @@ class ActionManagerTest {
 
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
+	
+	@Test
+	@Transactional
+	void testFindAllActionFor2Weeks() throws BllException {
+		System.out.println("__________ ___________");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 5, "Quimper");
+		Carre carreTest = new Carre(20, "Argileux", Exposition.MI_OMBRE, potagerTest);
+
+		pManager.addPotager(potagerTest);
+		cManager.createCarre(carreTest);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021,  05,  17);
+		Date date = cal.getTime();
+		Action action = new Action(date, "event", potagerTest, carreTest);
+		cal.set(2021,  06,  11);
+		Date date2 = cal.getTime();
+		Action action2 = new Action(date2, "event", potagerTest, carreTest);
+		aManager.addAction(action);
+		aManager.addAction(action2);
+		System.err.println(aManager.findAllAction());
+		System.err.println(aManager.findAllActionFor2Weeks());
+		assertEquals(aManager.findAllActionFor2Weeks().size(), 1);
+	}
+	
+//	@Test
+//	@Transactional
+	void testFindAllActionByPotagerByFor2Weeks() throws BllException {
+		System.out.println("__________ ___________");
+		Potager potagerTest = new Potager("Au fond du jardin", "Super potager", 5, "Quimper");
+		Carre carreTest = new Carre(20, "Argileux", Exposition.MI_OMBRE, potagerTest);
+
+		pManager.addPotager(potagerTest);
+		cManager.createCarre(carreTest);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021,  05,  17);
+		Date date = cal.getTime();
+		Action action = new Action(date, "event", potagerTest, carreTest);
+		cal.set(2021,  06,  11);
+		Date date2 = cal.getTime();
+		Action action2 = new Action(date2, "event", potagerTest, carreTest);
+		aManager.addAction(action);
+		
+
+		assertEquals(aManager.findAllAction().size(), 1);
+	}
+	
 
 }

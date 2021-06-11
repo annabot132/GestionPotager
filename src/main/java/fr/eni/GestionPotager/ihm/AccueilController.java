@@ -36,45 +36,45 @@ public class AccueilController {
 	@Autowired
 	CarreManager carreMg;
 	
-	@PostConstruct
-	public void init() throws BllException {
-		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
-		Potager potager2 = new Potager("serre", "ma serre", 25, "Quimper");
-		
-		Carre carre = new Carre(15, "argileux", Exposition.MI_OMBRE, potager1);
-		Carre carre2 = new Carre(10, "argileux", Exposition.SOLEIL, potager1);
-		Carre carre3 = new Carre(10, "argileux", Exposition.SOLEIL, potager1);
-		Carre carre4 = new Carre(10, "humifère", Exposition.SOLEIL, potager2);
-		Carre carre5 = new Carre(10, "humifère", Exposition.SOLEIL, potager2);
-		
-		carreMg.ajouterCarrePotager(potager1, carre);
-		carreMg.ajouterCarrePotager(potager1, carre2);
-		carreMg.ajouterCarrePotager(potager1, carre3);
-		carreMg.ajouterCarrePotager(potager2, carre4);
-		carreMg.ajouterCarrePotager(potager2, carre5);
-
-		Plante tomate1 = new Plante("tomate", TypePlante.FRUIT, "cerise",(float) 0.75);
-		Plante tomate2 = new Plante("tomate", TypePlante.FRUIT, "grenn zebra", (float) 0.75);
-		Plante tomates3 = new Plante("tomate", TypePlante.FRUIT, "coeur de boeuf", (float) 0.75);
-		Plante carottes = new Plante("carotte", TypePlante.RACINE, "nantes",(float) 0.3);
-		Plante betterave = new Plante("betterave", TypePlante.RACINE, "egypte", (float) 0.3);
-		Plante epinard = new Plante("epinard", TypePlante.FEUILLE, "geant", (float) 0.3);
-		Plante courges = new Plante("courge", TypePlante.RACINE, "potimarron", (float) 0.5);
-		Plante poivron = new Plante("poivron", TypePlante.FRUIT, "jaune", (float) 0.5);
-		Plante laitue = new Plante("batavia", TypePlante.FEUILLE, "Reine des glaces",(float) 0.25);
-		Plante radis = new Plante("radis", TypePlante.RACINE, "flamboyant", (float) 0.2);
-		
-		planteMg.createPlante(tomate1);
-		planteMg.createPlante(tomate2);
-		planteMg.createPlante(tomates3);
-		planteMg.createPlante(carottes);
-		planteMg.createPlante(betterave);
-		planteMg.createPlante(epinard);
-		planteMg.createPlante(courges);
-		planteMg.createPlante(poivron);
-		planteMg.createPlante(laitue);
-		planteMg.createPlante(radis);
-		
+//	@PostConstruct
+//	public void init() throws BllException {
+//		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
+//		Potager potager2 = new Potager("serre", "ma serre", 25, "Quimper");
+//		
+//		Carre carre = new Carre(15, "argileux", Exposition.MI_OMBRE, potager1);
+//		Carre carre2 = new Carre(10, "argileux", Exposition.SOLEIL, potager1);
+//		Carre carre3 = new Carre(10, "argileux", Exposition.SOLEIL, potager1);
+//		Carre carre4 = new Carre(10, "humifère", Exposition.SOLEIL, potager2);
+//		Carre carre5 = new Carre(10, "humifère", Exposition.SOLEIL, potager2);
+//		
+//		carreMg.ajouterCarrePotager(potager1, carre);
+//		carreMg.ajouterCarrePotager(potager1, carre2);
+//		carreMg.ajouterCarrePotager(potager1, carre3);
+//		carreMg.ajouterCarrePotager(potager2, carre4);
+//		carreMg.ajouterCarrePotager(potager2, carre5);
+//
+//		Plante tomate1 = new Plante("tomate", TypePlante.FRUIT, "cerise",(float) 0.75);
+//		Plante tomate2 = new Plante("tomate", TypePlante.FRUIT, "grenn zebra", (float) 0.75);
+//		Plante tomates3 = new Plante("tomate", TypePlante.FRUIT, "coeur de boeuf", (float) 0.75);
+//		Plante carottes = new Plante("carotte", TypePlante.RACINE, "nantes",(float) 0.3);
+//		Plante betterave = new Plante("betterave", TypePlante.RACINE, "egypte", (float) 0.3);
+//		Plante epinard = new Plante("epinard", TypePlante.FEUILLE, "geant", (float) 0.3);
+//		Plante courges = new Plante("courge", TypePlante.RACINE, "potimarron", (float) 0.5);
+//		Plante poivron = new Plante("poivron", TypePlante.FRUIT, "jaune", (float) 0.5);
+//		Plante laitue = new Plante("batavia", TypePlante.FEUILLE, "Reine des glaces",(float) 0.25);
+//		Plante radis = new Plante("radis", TypePlante.RACINE, "flamboyant", (float) 0.2);
+//		
+//		planteMg.createPlante(tomate1);
+//		planteMg.createPlante(tomate2);
+//		planteMg.createPlante(tomates3);
+//		planteMg.createPlante(carottes);
+//		planteMg.createPlante(betterave);
+//		planteMg.createPlante(epinard);
+//		planteMg.createPlante(courges);
+//		planteMg.createPlante(poivron);
+//		planteMg.createPlante(laitue);
+//		planteMg.createPlante(radis);
+//		
 //		carreMg.ajouterPlantationAuCarre(carre4, tomate1, 2, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
 //		carreMg.ajouterPlantationAuCarre(carre4, tomate2, 1, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(5));
 //		carreMg.ajouterPlantationAuCarre(carre4, poivron, 3, LocalDate.now().minusWeeks(4), LocalDate.now().plusWeeks(4));
@@ -91,7 +91,7 @@ public class AccueilController {
 //		carreMg.ajouterPlantationAuCarre(carre2, radis, 5, LocalDate.now(), LocalDate.now().plusWeeks(3));
 //		carreMg.ajouterPlantationAuCarre(carre2, laitue, 5, LocalDate.now(), LocalDate.now().plusWeeks(4));
 //		carreMg.ajouterPlantationAuCarre(carre2, carottes,5, LocalDate.now().minusWeeks(2), LocalDate.now().plusWeeks(6));
-	}
+//	}
 
 	@GetMapping("/accueil")
 	public String listerPotagers(Model model, Potager potager) {

@@ -16,10 +16,10 @@
           <nav class="col navbar navbar-expand-lg navbar-dark">
 
             <div class="navbar-brand">Gestion Potager</div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="navbarContent" class="collapse navbar-collapse">
+<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"> -->
+<!--               <span class="navbar-toggler-icon"></span> -->
+<!--             </button> -->
+<!--             <div id="navbarContent" class="collapse navbar-collapse"> -->
               <ul class="navbar-nav">
                 <li class="nav-item">
                   <a class="nav-link" href="/accueil">Mes Potagers</a>
@@ -31,7 +31,7 @@
                   <a class="nav-link" href="/">Mes Actions</a>
                 </li>
               </ul>
-            </div>
+<!--             </div> -->
           </nav>
         </div>
       </div>
@@ -42,25 +42,29 @@
 		<form th:action="@{/plante/update/{id}(id=${plante.idPlante})}"
 			th:object="${plante}" method="post">
 			<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
-				id="nom" placeholder="nom"> <span
-				th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <label
-				for="typePlante">Type</label> <select th:field="*{typePlante}"
+				id="nom" placeholder="nom" disabled="disabled"> <span
+				th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="warning"></span>
+				<input type="hidden" th:field="*{nom}"
+				id="nom" placeholder="nom">
+				 <label for="typePlante">Type</label> <select th:field="*{typePlante}"
 				id="typePlante" name="typePlante">
 				<option value="FRUIT">FRUIT</option>
 				<option value="FEUILLE">FEUILLE</option>
 				<option value="RACINE">RACINE</option>
 			</select> <span th:if="${#fields.hasErrors('typePlante')}"
-				th:errors="*{typePlante}"></span> <label for="variete">Variété</label>
+				th:errors="*{typePlante}" class="warning"></span> <label for="variete">Variété</label>
 			<input type="text" th:field="*{variete}" id="variete"
 				placeholder="variete"> <span
-				th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span>
+				th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}" class="warning"></span>
 
 			<label for="surfaceOccupee">Surface Occupée</label> <input
 				type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"
-				placeholder="surfaceOccupee"> <span
-				th:if="${#fields.hasErrors('surfaceOccupee')}"
-				th:errors="*{surfaceOccupee}"></span> <input type="submit"
-				value="Modifier la plante">
+				placeholder="surfaceOccupee" disabled="disabled"> 
+				<span th:if="${#fields.hasErrors('surfaceOccupee')}"
+				th:errors="*{surfaceOccupee}" class="warning"></span> 
+				<input type="hidden" th:field="*{surfaceOccupee}" id="surfaceOccupee"
+				placeholder="surfaceOccupee">
+				<input type="submit" value="Modifier la plante">
 		</form>
 	</div>
 </body>

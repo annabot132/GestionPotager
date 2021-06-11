@@ -149,7 +149,7 @@ public class PlanteController {
 			Model model) {
 		plante.setIdPlante(id);
 		if (result.hasErrors()) {
-			return "vuPlantes";
+			return "modifPlante";
 		}
 		manager.updatePlante(plante);
 		return "redirect:/plante/add";

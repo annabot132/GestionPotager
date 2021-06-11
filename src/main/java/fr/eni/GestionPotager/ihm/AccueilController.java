@@ -116,6 +116,7 @@ public class AccueilController {
 	@PostMapping("/accueil/add")
 	public String addPotager(@Valid Potager potager, BindingResult result, Model model) {
 		if (result.hasErrors()) {
+			model.addAttribute("potagers", potMg.getAllPotager());
 			return "accueil";
 		}
 			potMg.addPotager(potager);

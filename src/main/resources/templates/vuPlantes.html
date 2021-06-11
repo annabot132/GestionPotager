@@ -50,7 +50,7 @@
 		<form th:action="@{/plante/add}" th:object="${plante}" method="post">
 			<label for="nom">Nom</label> 
 			<input type="text" th:field="*{nom}" id="nom" placeholder="nom">
-			<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>  <br> 
+			<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="warning"></span>  <br> 
 			<label for="typePlante">Type</label> 
 			<select th:field="*{typePlante}" id="typePlante" name="typePlante">
 			<option value="FRUIT">FRUIT</option>
@@ -59,10 +59,10 @@
 			</select>  <br> 
 		    <label for="variete">Variété</label> 
 		    <input type="text" th:field="*{variete}" id="variete" placeholder="variete"> 
-		    <span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span> <br> 
+		    <span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}" class="warning"></span> <br> 
 			<label for="surfaceOccupee">Surface Occupée</label>
 			<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"	placeholder="surfaceOccupee"> 
-			<span th:if="${#fields.hasErrors('surfaceOccupee')}" th:errors="*{surfaceOccupee}"></span><br> <br> 
+			<span th:if="${#fields.hasErrors('surfaceOccupee')}" th:errors="*{surfaceOccupee}" class="warning"></span><br> <br> 
 			<input type="submit" value="Ajouter la plante">
 		</form>
 	</div>
@@ -110,37 +110,19 @@
 			</div>
 		</div>
 	</div>
-<!-- clem -->
 	</div>
 
 	<div class="row"  id="where">
-	<div id="DivPrincipale" class="col-md-8">
 
-		<h4>Mes plantes aux potagers :</h4>
-
-
-		<div th:switch="${plantations}">
-			<!-- 			<h2 th:case="${plantations.isEmpty}"> toto</h2> -->
-			<div th:case="*">
-
-				<table>
-					<thead>
-						<tr>
-							<th>Nom du potager</th>
-							<th>le carré</th>
-							<th>quantité de plants</th>
-							<th></th>
-<!-- clem fin -->
-	<div th:if="${plantations == null}" id="DivPrincipale">
+	<div th:if="${plantations == null}" id="DivPrincipale" class="col-md-8">
 		<h4>Mes plantes aux potagers :</h4>
 		<h6>cliquer sur la visualisation d'une plante pour savoir ou la
 			trouver!!</h6>
 
-<!-- master -->
 	</div>
 
 
-	<div th:if="${plantations}" id="DivPrincipale">
+	<div th:if="${plantations}" id="DivPrincipale" class="col-md-8">
 
 		<h4>Mes plantes aux potagers :</h4>
 

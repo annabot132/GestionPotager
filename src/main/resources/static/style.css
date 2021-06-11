@@ -41,10 +41,8 @@ ol {
 }
 
 span {
-	width: 400px;
-	height: 200px;
-	line-height: 200px;
-	border: 1px solid black;
+	color : red;
+	border: 1px solid red;
 }
 
 a:link {

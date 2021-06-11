@@ -78,7 +78,9 @@ public class PotagerController {
 //		System.err.println(carreMgr.findById(idCarre).getListePlantations());
 //		System.err.println("////////////////////////////////////////////////");
 
+
 		return "potagerDetail";
+
 	}
 
 	@PostMapping("/potager/{idPotager}/addCarre")
@@ -108,8 +110,15 @@ public class PotagerController {
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 
-//		 lstPlantes
-		model.addAttribute("lstPlantes", planteMgr.findAll());
+
+		
+		// lstPlantes
+		model.addAttribute("lstPlantes",planteMgr.findAll());
+
+		//Plante plante2 = (Plante) model.getAttribute("plante");
+
+		
+		
 
 		System.err.println("////////////////");
 		System.err.println("idPotager : "+idPotager);

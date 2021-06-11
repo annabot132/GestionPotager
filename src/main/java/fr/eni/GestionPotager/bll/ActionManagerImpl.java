@@ -1,6 +1,8 @@
 package fr.eni.GestionPotager.bll;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class ActionManagerImpl implements ActionManager {
 
 	@Override
 	public void addAction(Action action) throws BllException {
-		if (action.getDate().isBefore(LocalDate.now())) {
+		if (action.getDate().before(localDateToDate(LocalDate.now()))) {
 			throw new BllException("La date entrée doit être posterieur à la date du jour.");
 		}
 		dao.save(action);
@@ -47,8 +49,33 @@ public class ActionManagerImpl implements ActionManager {
 	}
 
 	@Override
-	public List<Action> find2SemainesAction() {
-		return null;
+	public List<Action> findAllActionFor2Weeks() {
+		LocalDate dateJour = LocalDate.now();
+		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
+		return dao.findActionsByIntervalDate(localDateToDate(dateJourPlus15), localDateToDate(dateJourPlus15));
+
+	}
+
+	@Override
+	public List<Action> findAllActionByPotagerFor2Weeks(Integer idPotager) {
+		LocalDate dateJour = LocalDate.now();
+		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
+		return dao.findActionsByPotagerByIntervalDate(idPotager, localDateToDate(dateJourPlus15),
+				localDateToDate(dateJourPlus15));
+	}
+
+	@Override
+	public List<Action> findAllActionByPotagerByCarreFor2Weeks(Integer idPotager, Integer idCarre) {
+		LocalDate dateJour = LocalDate.now();
+		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
+		return dao.findActionsByPotagerByCarreByIntervalDate(idCarre, idPotager, localDateToDate(dateJourPlus15),
+				localDateToDate(dateJourPlus15));
+
+	}
+
+	public Date localDateToDate(LocalDate date) {
+		return Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+
 	}
 
 }

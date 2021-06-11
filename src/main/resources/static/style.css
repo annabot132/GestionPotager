@@ -2,13 +2,19 @@
 
 body {
 	font-family: Tahoma, Verdana, sans-serif;
-	background: linear-gradient(45deg, #873600 0%, #fbeee6 100%);
+/* 	background: linear-gradient(45deg, #873600 0%, #fbeee6 100%); */
+	background: url("images/sol2.jpg");
+	background-size: cover;
 	min-height: 100vh;
+}
+.navbar{
+		background: #186a3b;
 }
 
 h1 {
 	margin-top: 0;
-	color: #145a32;
+/* 	color: #145a32; */
+	color: white;
 	font: 150% impact, futura, sans-serif;
 	text-transform: uppercase;
 	letter-spacing: 0.3em;
@@ -73,6 +79,7 @@ h4 {
 
 input[type=text], select {
 	width: 100%;
+	min-width: 400px;
 	padding: 12px 20px;
 	margin: 8px 0;
 	display: inline-block;
@@ -149,8 +156,11 @@ table tr {
 	border-radius: 25px;
 	max-width: 800px;
 	min-height: 100px;
-	background: white;
+	background: rgba(255,255,255,0.7);
 	padding: 0.5em;
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-	margin: 3em auto 0;
+	margin: 3em auto auto auto;
+}
+.place{
+	min-height: 100px;
 }

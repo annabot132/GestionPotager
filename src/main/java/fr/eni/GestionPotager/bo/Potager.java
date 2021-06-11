@@ -38,6 +38,9 @@ public class Potager {
 	@OneToMany(mappedBy = "potager", cascade = CascadeType.ALL)
 	private List<Carre> listeCarres = new ArrayList<Carre>();
 
+	@OneToMany(mappedBy = "potager", cascade = CascadeType.ALL)
+	private List<Action> listeActions = new ArrayList<Action>();
+	
 	public Potager(String localisation, String nom, float surface, String ville) {
 		this.localisation = localisation;
 		this.nom = nom;

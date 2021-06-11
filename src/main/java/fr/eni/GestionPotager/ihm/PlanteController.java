@@ -62,8 +62,8 @@ public class PlanteController {
 //				LocalDate.now().plusWeeks(2));
 //
 //	}
-	@PostConstruct
-	void init() throws BllException {
+//	@PostConstruct
+//	void init() throws BllException {
 //		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
 //		Potager potager2 = new Potager("devant", "j'ai le carre3", 50, "Quimper");
 //		Carre carre = new Carre(16, "j'ai des plantations", Exposition.SOLEIL, potager1);
@@ -97,8 +97,8 @@ public class PlanteController {
 //		manager.createPlante(plante3);
 //
 //		carreMg.ajouterPlantationAuCarre(carre3, plante3, plantation);
-
-	}
+//
+//	}
 
 	@GetMapping("/plante/add")
 	public String findPlante(Model model, Plante plante) throws BllException {
@@ -134,6 +134,7 @@ public class PlanteController {
 //		System.err.println(carreMg.findAllImplantationsForOnePlante(id).get(0).);
 		return "vuPlantes";
 	}
+
 
 	@GetMapping("plante/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {

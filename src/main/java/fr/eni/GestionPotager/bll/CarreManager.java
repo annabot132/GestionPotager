@@ -76,5 +76,7 @@ public interface CarreManager {
 	 * @return List<Plante>
 	 */
 	public List<Plantation> findAllImplantationsForOnePlante(Integer id);
+	
+	public List<Carre> findAllEmptyCarre();
 
 }

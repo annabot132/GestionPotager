@@ -84,55 +84,167 @@ public class CarreManagerImpl implements CarreManager {
 
 	}
 
+//	@Override
+//	@Transactional
+//	// TODO TEST + MODIF
+//	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
+//		// surface plans < surface carré
+//
+//		List<Plantation> lstPlantation = findById(carre.getIdCarre()).getListePlantations();
+//
+//		List<String> lstNomPlante = new ArrayList<String>();
+//
+//		// contrainte nom ok
+//		for (Plantation plantation2 : lstPlantation) {
+//			if (lstNomPlante.contains(plantation2.getPlante().getNom())) {
+//
+//			} else {
+//				lstNomPlante.add(plantation2.getPlante().getNom());
+//			}
+//		}
+//
+//		if (lstNomPlante.size() == 3) {
+//			throw new BllException("Il y a déjà 3 plantes dans votre carré");
+//		}
+//System.err.println(lstNomPlante);
+//		float surfaceSurCarreExistant = 0;
+//		for (Plantation plantation2 : lstPlantation) {
+//			// surfaceSurCarreExistant += la surface de la plante * la qte
+//			surfaceSurCarreExistant += ((plantation2.getPlante().getSurfaceOccupee()) * plantation.getQuantite());
+//			System.err.println("____________DANS LA BLL POUR CONTRAINTE____________");
+//			System.err.println("surfaceSurCarreExistant : " + surfaceSurCarreExistant);
+//
+//		}
+//		// si la surface occupé par la plante (en cours) * sa qté + la surface occupé du
+//		// carré qui existe > surface du carré
+//		//Float surfaceOccupee =  plante.getSurfaceOccupee() * plantation.getQuantite();
+//		Double surfaceOccupee =  planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee() * plantation.getQuantite();
+//		if (surfaceOccupee + surfaceSurCarreExistant > carre.getSurface()) {
+//			throw new BllException("Pas assez de place dans le carré");
+//		}
+//
+//		plantation.setCarre(findById(carre.getIdCarre()));
+//		plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
+//
+//		// Plantation plantation = new Plantation(dateMiseEnPlace, dateDeRecolte, qte,
+//		// carre, plante);
+//
+//		carre.getListePlantations().add(plantation);
+//
+//		plantationDao.save(plantation);
+//		carreDao.save(carre);
+//
+//	}
+
 	@Override
 	@Transactional
 	// TODO TEST + MODIF
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
 		// surface plans < surface carré
 
-		List<Plantation> lstPlantation = findById(carre.getIdCarre()).getListePlantations();
+		
 
 		List<String> lstNomPlante = new ArrayList<String>();
 
-		// contrainte nom ok
-		for (Plantation plantation2 : lstPlantation) {
-			if (lstNomPlante.contains(plantation2.getPlante().getNom())) {
-
-			} else {
-				lstNomPlante.add(plantation2.getPlante().getNom());
-			}
+//		// contrainte nom ok
+//		for (Plantation p : lstPlantation) {
+//			if (lstNomPlante.contains(p.getPlante().getNom())) {
+//
+//			} else {
+//				lstNomPlante.add(p.getPlante().getNom());
+//			}
+//		}
+//
+//		if (lstNomPlante.size() == 3) {
+//			throw new BllException("Il y a déjà 3 plantes dans votre carré");
+//		}
+		System.err.println("lstNomPlante : " + lstNomPlante);
+		
+		
+		List<Plantation> lstPlantationDuCarreInBdd = findById(carre.getIdCarre()).getListePlantations();
+		System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
+		// contrainte surface 
+		
+		
+		float surfaceRestanteDuCarre = carre.getSurface();
+		System.out.println("*******************************************************************************");
+		System.out.println("surfaceRestantDuCarre(init) : " + surfaceRestanteDuCarre);
+		System.out.println("*******************************************************************************");
+		
+		float surfaceTotalDesPlantationsDuCarreInBdd = 0;
+		for (Plantation p : lstPlantationDuCarreInBdd) {
+			//System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
+			surfaceTotalDesPlantationsDuCarreInBdd += (p.getPlante().getSurfaceOccupee()) * p.getQuantite();
+			
+			
 		}
-
-		if (lstNomPlante.size() == 3) {
-			throw new BllException("Il y a déjà 3 plantes dans votre carré");
-		}
-
-		float surfaceSurCarreExistant = 0;
-		for (Plantation plantation2 : lstPlantation) {
-			// surfaceSurCarreExistant += la surface de la plante * la qte
-			surfaceSurCarreExistant += ((plantation2.getPlante().getSurfaceOccupee()) * plantation.getQuantite());
-			System.err.println("____________DANS LA BLL POUR CONTRAINTE____________");
-			System.err.println("surfaceSurCarreExistant : " + surfaceSurCarreExistant);
-
-		}
-		// si la surface occupé par la plante (en cours) * sa qté + la surface occupé du
-		// carré qui existe > surface du carré
-		//Float surfaceOccupee =  plante.getSurfaceOccupee() * plantation.getQuantite();
-		Double surfaceOccupee =  planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee() * plantation.getQuantite();
-		if (surfaceOccupee + surfaceSurCarreExistant > carre.getSurface()) {
+		
+		surfaceRestanteDuCarre -= surfaceTotalDesPlantationsDuCarreInBdd;
+		
+		System.out.println("*******************************************************************************");
+		System.out.println("surfaceRestantDuCarre(apres deduction) : " + surfaceRestanteDuCarre);
+		System.out.println("*******************************************************************************");
+		
+		float surfaceAAdd = (float) (plante.getSurfaceOccupee() * plantation.getQuantite());
+		
+		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon ajoute
+		
+		if ((surfaceRestanteDuCarre - surfaceAAdd) < 0 ) {
+			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
+			System.err.println("surfaceAAdd : " + surfaceAAdd);
 			throw new BllException("Pas assez de place dans le carré");
 		}
-
-		plantation.setCarre(findById(carre.getIdCarre()));
-		plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
+		else {
+			System.out.println("y'a dla place");
+			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
+			System.err.println("surfaceAAdd : " + surfaceAAdd);
+			
+			carre.getListePlantations().add(plantation);
+			
+			
+			plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
+			plantation.setCarre(findById(carre.getIdCarre()));
+			
+			
+			plantationDao.save(plantation);
+			carreDao.save(carre);
+		}
+		
+		
+//		
+//		float surfaceTotalDesPlantationsSurCarreExistant = 0;
+//		for (Plantation p : lstPlantationInBDD) {
+//			// surfaceSurCarreExistant += la surface de la plante * la qte
+//			surfaceTotalDesPlantationsSurCarreExistant += ((float)((p.getPlante().getSurfaceOccupee()) * plantation.getQuantite()));
+//			System.err.println("SURFACE TOTAL DES PLANTATIONS DANS CARRE : " + surfaceTotalDesPlantationsSurCarreExistant);
+//			System.err.println("SURFACE DU CARRE : " + carre.getSurface());
+//			//			surfaceTotalDesPlantationsSurCarreExistant += ()			
+//		}
+//		System.out.println("____________DANS LA BLL POUR CONTRAINTE____________");
+//		System.out.println("surfaceSurCarreExistant : " + surfaceTotalDesPlantationsSurCarreExistant);
+//		System.out.println("lstPlantation : " + lstPlantationInBDD);
+//		System.out.println("___________________________________________________");
+//		
+		
+		// si la surface occupé par la plante (en cours) * sa qté + la surface occupé du
+		// carré qui existe > surface du carré
+		// Float surfaceOccupee = plante.getSurfaceOccupee() * plantation.getQuantite();
+//		Double surfaceOccupee = planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee() * plantation.getQuantite();
+		
+		
+		
+//		
+//		if (surfaceOccupee + surfaceTotalDesPlantationsSurCarreExistant > carre.getSurface()) {
+//			throw new BllException("Pas assez de place dans le carré");
+//		}
+//
+//		plantation.setCarre(findById(carre.getIdCarre()));
+//		plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
 
 		// Plantation plantation = new Plantation(dateMiseEnPlace, dateDeRecolte, qte,
 		// carre, plante);
 
-		carre.getListePlantations().add(plantation);
-
-		plantationDao.save(plantation);
-		carreDao.save(carre);
+		
 
 	}
 
@@ -141,11 +253,9 @@ public class CarreManagerImpl implements CarreManager {
 		return plantationDao.findAllPlantationForOnePlante(id);
 	}
 
-
-
 	@Override
 	public List<Carre> findAllEmptyCarre() {
-		
+
 		return carreDao.carreVide();
 	}
 

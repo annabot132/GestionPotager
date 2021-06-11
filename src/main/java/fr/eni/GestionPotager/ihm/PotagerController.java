@@ -120,15 +120,15 @@ public class PotagerController {
 		
 		
 
-		System.err.println("////////////////");
-		System.err.println("idPotager : "+idPotager);
-		System.err.println("idCarre : "+idCarre);
-		System.err.println("idPlante : "+idPlante);
+//		System.err.println("////////////////");
+//		System.err.println("idPotager : "+idPotager);
+//		System.err.println("idCarre : "+idCarre);
+//		System.err.println("idPlante : "+idPlante);
 		carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
 
-		System.err.println("////////////////");
-		System.err.println(plantation);
-		System.err.println("////////////////");
+//		System.err.println("////////////////");
+//		System.err.println(plantation);
+//		System.err.println("////////////////");
 		
 		return "redirect:/potager/{idPotager}/carre/{idCarre}";
 

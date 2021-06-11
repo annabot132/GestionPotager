@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+body {
+	font-family: Tahoma, Verdana, sans-serif;
+	background: linear-gradient(45deg, #873600 0%, #fbeee6 100%);
+	min-height: 100vh;
+}
+
+h1 {
+	margin-top: 0;
+	color: #145a32;
+	font: 150% impact, futura, sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 0.3em;
+	font-size: 50px;
+	text-align: center;
+	padding: 20px 20px;
+	text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.15);
+	font-size: 50px;
+}
+
+h2 {
+	color: #145a32;
+	font-family: 'Slabo 35px', serif;
+	font-size: 30px;
+	text-align: center;
+	background: #2ecc71;
+	border-radius: 25px;
+	padding: 25px 20px;
+}
+
+ol {
+	list-style-type: none;
+	text-align: center;
+}
+
+span {
+	color : red;
+	border: 1px solid red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+#autre {
+	max-width: 100%;
+	height: 50px;
+}
+
+#autre:hover {
+	opacity: 0.7;
+}
+
+#add:hover {
+	border-radius: 50px;
+	background: #74b9ff;
+}
+
+form {
+	padding: 12px 50px;
+}
+
+h4 {
+	color: #145a32;
+	margin: 20px 10px;
+	font-size: 20px;
+	text-align: center;
+	background: #2ecc71;
+	border-radius: 25px;
+	padding: 10px 10px;
+}
+
+input[type=text], select {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+input[type=submit] {
+	width: 50%;
+	display: block;
+	font-size: 18px;
+	background-color: #186a3b;
+	color: white;
+	padding: 5px 5px;
+	margin: auto;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: #28b463;
+}
+
+a:link, a:visited {
+	background-color: #186a3b;
+	font-size: 18px;
+	color: white;
+	padding: 10px 15px;
+	text-align: center;
+	border-radius: 15px;
+	text-decoration: none;
+	display: inline-block;
+}
+
+a:hover, a:active {
+	background-color: #58d68d;
+}
+
+table {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 95%;
+	margin: auto;
+}
+
+table td, table th {
+	border: 1px solid #ddd;
+	padding: 8px;
+	
+}
+
+table tr:hover {
+	background-color: #ddd;
+}
+
+table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #27ae60;
+	color: white;
+}
+
+table tr {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #eaecee;
+}
+
+#DivPrincipale {
+	border-radius: 25px;
+	max-width: 800px;
+	min-height: 100px;
+	background: white;
+	padding: 0.5em;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+	margin: 3em auto 0;
+}

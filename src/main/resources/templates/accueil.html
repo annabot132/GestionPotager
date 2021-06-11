@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mon potager</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+	<h1>Mes Potagers</h1>
+	<p>
+		<a href="/plante/add">Mes plantes</a>
+	</p>
+
+	<div id="DivPrincipale">
+
+		<div th:switch="${potagers}">
+			<!-- PROBLEME SUR LE TEST -->
+			<h2 th:case="${potagers} == null">Aucun potager n'existe !</h2>
+			<div th:case="*">
+				<h4>Mes Potagers</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>NOM</th>
+							<th>Surface (m2)</th>
+							<th>Localisation</th>
+							<th>Ville</th>
+							<th>Détail du potager</th>
+							<th>supprimer le potager</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="potager : ${potagers}">
+							<td th:text="${potager.nom}"></td>
+							<td th:text="${potager.surface}"></td>
+							<td th:text="${potager.localisation}"></td>
+							<td th:text="${potager.ville}"></td>
+							<td><a
+								th:href="@{/potager/{idPotager}(idPotager=${potager.idPotager})}">Visualiser</a></td>
+							<td><a
+								th:href="@{/accueil/delete/{id}(id=${potager.idPotager})}">Supprimer</a></td>
+						</tr>
+					</tbody>
+
+				</table>
+				<br>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div id="DivPrincipale">
+		<h4>Ajouter un nouveau potager</h4>
+		<form th:action="@{/accueil/add}" th:object="${potager}" method="post">
+			<label for="nom">nom du potager</label> <input type="text"
+				th:field="*{nom}" id="nom" placeholder="Nom"> <span
+				th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span> <br>
+			<label for="surface">surface (m2)</label> <input type="text"
+				th:field="*{surface}" id="surface" placeholder="0"> <span
+				th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}"></span><br>
+			<label for="localisation">localisation</label> <input type="text"
+				th:field="*{localisation}" id="localisation"> <br> <label
+				for="ville">Ville</label> <input type="text" id="ville"
+				th:field="*{ville}" placeholder="Ville"> <span
+				th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}"></span> <br>
+			<br>
+			<input type="submit" value="Ajouter un potager">
+		</form>
+	</div>
+
+</body>
+</html>

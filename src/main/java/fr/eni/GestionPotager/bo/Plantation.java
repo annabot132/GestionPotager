@@ -1,13 +1,15 @@
 package fr.eni.GestionPotager.bo;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
+import org.springframework.data.jpa.repository.Temporal;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,16 +22,19 @@ public class Plantation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idPlantation;
-	private LocalDate miseEnPlace;
-	private LocalDate recolte;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date miseEnPlace;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date recolte;
 	private Integer quantite;
 
 	@ManyToOne
 	private Carre carre;
-	@OneToOne
+	
+	@ManyToOne
 	private Plante plante;
 
-	public Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) {
+	public Plantation(Date miseEnPlace, Date recolte, Integer quantite, Carre carre, Plante plante) {
 		super();
 		this.miseEnPlace = miseEnPlace;
 		this.recolte = recolte;
@@ -37,5 +42,26 @@ public class Plantation {
 		this.carre = carre;
 		this.plante = plante;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Plantation [idPlantation=");
+		builder.append(idPlantation);
+		builder.append(", miseEnPlace=");
+		builder.append(miseEnPlace);
+		builder.append(", recolte=");
+		builder.append(recolte);
+		builder.append(", quantite=");
+		builder.append(quantite);
+		builder.append(", carre=");
+		builder.append(carre);
+		builder.append(", plante=");
+		builder.append(plante);
+		builder.append("]");
+		return builder.toString();
+	}
+
+
 
 }

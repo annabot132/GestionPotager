@@ -9,8 +9,9 @@ public interface PlanteManager {
 	/**
 	 * creer une plante 
 	 * @param plante
+	 * @throws BllException 
 	 */
-	public void createPlante(Plante plante);
+	public void createPlante(Plante plante) throws BllException;
 	
 	/**
 	 * lister toutes les plantes

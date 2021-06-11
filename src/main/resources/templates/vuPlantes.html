@@ -2,45 +2,47 @@
 <html>
 <head>
 <link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 
 <meta charset="UTF-8">
 <title>Mes Plantes</title>
 
 </head>
 <body>
- <div class="navbar">
+	<div class="navbar">
 
-      <div class="container">
-        <div class="row">
+		<div class="container">
+			<div class="row">
 
-          <nav class="col navbar navbar-expand-lg navbar-dark">
-
-            <div class="navbar-brand">Gestion Potager</div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="navbarContent" class="collapse navbar-collapse">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="/accueil">Mes Potagers</a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="/plante/add">Mes Plantes</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/">Mes Actions</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </div>
+				<nav class="col navbar navbar-expand-lg navbar-dark">
+					<div class="navbar-brand">Gestion Potager</div>
+<!-- 					<button class="navbar-toggler" type="button" data-toggle="collapse" -->
+<!-- 						data-target="#navbarContent"> -->
+<!-- 						<span class="navbar-toggler-icon"></span> -->
+<!-- 					</button> -->
+<!-- 					<div id="navbarContent" class="collapse navbar-collapse"> -->
+						<ul class="navbar-nav">
+							<li class="nav-item"><a class="nav-link" href="/accueil">Mes
+									Potagers</a></li>
+							<li class="nav-item active"><a class="nav-link"
+								href="/plante/add">Mes Plantes</a></li>
+							<li class="nav-item"><a class="nav-link" href="/">Mes
+									Actions</a></li>
+						</ul>
+<!-- 					</div> -->
+				</nav>
+			</div>
+		</div>
+	</div>
 	<h1>Mes plantes</h1>
 
+<div class="container-fluid">
+	<div class="row">
 
-	<div id="DivPrincipale">
+	<div id="DivPrincipale" class="col-md-4">
 		<h4>Ajouter une plante</h4>
 
 
@@ -69,7 +71,7 @@
 		</form>
 	</div>
 
-	<div id="DivPrincipale">
+	<div id="DivPrincipale" class="col-md-4">
 		<h4>Mes Plantes</h4>
 		<div th:switch="${plantes}">
 			<h2 th:case="null">Pas de plantes pour l'instant !</h2>
@@ -97,7 +99,7 @@
 							<td><a
 								th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
 
-							<td><a th:href="@{/plante/find/{id}(id=${plante.idPlante})}">Visualiser</a></td>
+							<td><a th:href="@{/plante/find/{id}#where(id=${plante.idPlante})}">Visualiser</a></td>
 
 
 							<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
@@ -111,13 +113,16 @@
 			</div>
 		</div>
 	</div>
-	<div id="DivPrincipale">
+	</div>
+
+	<div class="row"  id="where">
+	<div id="DivPrincipale" class="col-md-8">
 
 		<h4>Mes plantes aux potagers :</h4>
-		
-		
+
+
 		<div th:switch="${plantations}">
-<!-- 			<h2 th:case="${plantations.isEmpty}"> toto</h2> -->
+			<!-- 			<h2 th:case="${plantations.isEmpty}"> toto</h2> -->
 			<div th:case="*">
 
 				<table>
@@ -142,39 +147,13 @@
 					</tbody>
 					</tbody>
 				</table>
-				<br>
-				<!-- 			<div id="popupForm" style="display: none"> -->
-				<!-- 				<h2>Modifier plante</h2> -->
-				<!-- 				<form th:action="@{/plante/add}" th:object="${plante}" method="post"> -->
-				<!-- 					<label for="nom">Nom</label> <input type="text" th:field="*{nom}" id="nom" placeholder="nom">  -->
-				<!-- 					<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>  -->
-				<!-- 					<label for="typePlante">Type</label>  -->
-				<!-- 					<select th:field="*{typePlante}" id="typePlante" name="typePlante"> -->
-				<!-- 						<option value="FRUIT">FRUIT</option> -->
-				<!-- 						<option value="FEUILLE">FEUILLE</option> -->
-				<!-- 						<option value="RACINE">RACINE</option> -->
-				<!-- 					</select>  -->
 
-				<!-- 					<span th:if="${#fields.hasErrors('typePlante')}" th:errors="*{typePlante}"></span>  -->
-				<!-- 					<label for="variete">Variété</label> -->
-				<!-- 					<input type="text" th:field="*{variete}" id="variete" placeholder="variete">  -->
-				<!-- 					<span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}"></span> -->
-
-				<!-- 					<label for="surfaceOccupee">Surface Occupée</label>  -->
-				<!-- 					<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee" -->
-				<!-- 						placeholder="surfaceOccupee"> <span -->
-				<!-- 						th:if="${#fields.hasErrors('surfaceOccupee')}" -->
-				<!-- 						th:errors="*{surfaceOccupee}"></span> <input type="submit" -->
-				<!-- 						value="Modifier la plante" th:onclick="closeForm()"> -->
-				<!-- 				</form> -->
-				<!-- 									<button type="submit" class="btn" onclick="closeForm()">Enregistrer</button> -->
-				<!-- 									<button type="button" class="btn cancel" onclick="closeForm()">Fermer</button> -->
-				<!-- 			</div> -->
 
 			</div>
-
+		</div>
 		</div>
 
 	</div>
+	<div class="place"></div>
 </body>
 </html>

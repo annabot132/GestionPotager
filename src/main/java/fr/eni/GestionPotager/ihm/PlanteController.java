@@ -66,6 +66,7 @@ public class PlanteController {
 		return "vuPlantes";
 	}
 
+
 	@GetMapping("plante/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		Plante plante = manager.findPlanteById(id);

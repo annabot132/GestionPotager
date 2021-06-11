@@ -16,10 +16,10 @@
           <nav class="col navbar navbar-expand-lg navbar-dark">
 
             <div class="navbar-brand">Gestion Potager</div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="navbarContent" class="collapse navbar-collapse">
+<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"> -->
+<!--               <span class="navbar-toggler-icon"></span> -->
+<!--             </button> -->
+<!--             <div id="navbarContent" class="collapse navbar-collapse"> -->
               <ul class="navbar-nav">
                 <li class="nav-item active">
                   <a class="nav-link" href="/accueil">Mes Potagers</a>
@@ -31,15 +31,24 @@
                   <a class="nav-link" href="/">Mes Actions</a>
                 </li>
               </ul>
-            </div>
+<!--             </div> -->
           </nav>
         </div>
       </div>
     </div>
 	<h1>Mes Potagers</h1>
 
-
-	<div id="DivPrincipale">
+<!-- <div class="container-fluid"> -->
+<!-- 	<div class="row"> -->
+<!-- 		<div class="col-md-6"> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-md-6"> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+<div class="container-fluid">
+	<div class="row">
+	<div id="DivPrincipale"class="col-md-4">
 
 		<div th:switch="${potagers}">
 			<!-- PROBLEME SUR LE TEST -->
@@ -78,7 +87,7 @@
 		</div>
 	</div>
 
-	<div id="DivPrincipale">
+	<div id="DivPrincipale" class="col-md-4">
 		<h4>Ajouter un nouveau potager</h4>
 		<form th:action="@{/accueil/add}" th:object="${potager}" method="post">
 			<label for="nom">nom du potager</label> <input type="text"
@@ -92,6 +101,7 @@
 				type="submit" value="Ajouter un potager">
 		</form>
 	</div>
-
+	</div>
+</div>
 </body>
 </html>

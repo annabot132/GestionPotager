@@ -2,8 +2,6 @@ package fr.eni.GestionPotager.bll;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +49,12 @@ public class CarreManagerImpl implements CarreManager {
 	@Override
 	public void ajouterCarrePotager(Potager potager, Carre carre) {
 
-		if (potagerManager.getPotagerById(potager.getIdPotager())== null){
-			potagerManager.addPotager(potager);
-		}
-		carre.setPotager(potager);
-		potager.getListeCarres().add(carre);
-		createCarre(carre);
+//		if (potagerManager.getPotagerById(potager.getIdPotager())== null){
+//			potagerManager.addPotager(potager);
+//		}
+//		carre. setPotager(potager);
+//		potager.getListeCarres().add(carre);
+//		createCarre(carre);
 		
 		//		@Override
 //		@Transactional

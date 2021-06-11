@@ -1,3 +1,7 @@
+
+## CONFIG BD ##
+**/resources/config/application.properties
+
 HELP.md
 .gradle
 build/

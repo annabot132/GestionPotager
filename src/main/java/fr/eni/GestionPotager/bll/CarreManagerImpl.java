@@ -100,7 +100,6 @@ public class CarreManagerImpl implements CarreManager {
 
 			} else {
 				lstNomPlante.add(plantation2.getPlante().getNom());
-
 			}
 		}
 
@@ -116,14 +115,11 @@ public class CarreManagerImpl implements CarreManager {
 			System.err.println("surfaceSurCarreExistant : " + surfaceSurCarreExistant);
 
 		}
-
 		// si la surface occupé par la plante (en cours) * sa qté + la surface occupé du
 		// carré qui existe > surface du carré
-		// Float surfaceOccupee = plante.getSurfaceOccupee() * plantation.getQuantite();
-		Double surfaceOccupee = planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee()
-				* plantation.getQuantite();
+		//Float surfaceOccupee =  plante.getSurfaceOccupee() * plantation.getQuantite();
+		Double surfaceOccupee =  planteMgr.findPlanteById(plante.getIdPlante()).getSurfaceOccupee() * plantation.getQuantite();
 		if (surfaceOccupee + surfaceSurCarreExistant > carre.getSurface()) {
-
 			throw new BllException("Pas assez de place dans le carré");
 		}
 

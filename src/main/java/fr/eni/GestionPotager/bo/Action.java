@@ -1,12 +1,12 @@
 package fr.eni.GestionPotager.bo;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,15 +19,16 @@ public class Action {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idAction;
-	private LocalDate date;
+	private Date date;
 	private String evenement;
 
-	@OneToOne
+	@ManyToOne
 	private Potager potager;
-	@OneToOne
+
+	@ManyToOne
 	private Carre carre;
 
-	public Action(LocalDate date, String evenement, Potager potager, Carre carre) {
+	public Action(Date date, String evenement, Potager potager, Carre carre) {
 		super();
 		this.date = date;
 		this.evenement = evenement;

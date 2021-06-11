@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,12 +24,14 @@ public class Carre {
 	private Integer idCarre;
 	private float surface;
 	private String sol;
-	private Exposition exposition; 
+	private Exposition exposition;
 
 	@ManyToOne
 	private Potager potager;
 
-	
+	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
+	private List<Action> listeActions = new ArrayList<Action>();
+
 	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();
 
@@ -58,8 +59,4 @@ public class Carre {
 		return builder.toString();
 	}
 
-
-
-	
-	
 }

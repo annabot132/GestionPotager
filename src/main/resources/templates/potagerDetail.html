@@ -39,9 +39,11 @@
 				</tr>
 			</tbody>
 		</table>
-		<br>
 	</div>
 
+	
+	
+	
 	<div id="DivPrincipale">
 		<!-- 	<form th:action="@{/potager/{idPotager}/addCarre}(idPotager=${IDPotager})" th:object="${carre}" method="post"> -->
 		<form
@@ -95,54 +97,12 @@
 		
 	</form>
 	
-	<H3>Mes plantations dans mon carré	</H3>
-	<table>
-		<thead>
-			<tr>
-				<th>Plante</th>
-				<th>Variété</th>
-				<th>Quantité</th>
-				<th>Date mise en place</th>
-				<th>Date récolte</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- 		Plantation(LocalDate miseEnPlace, LocalDate recolte, Integer quantite, Carre carre, Plante plante) -->
-			<tr th:each="plantation : ${lstPlantations}">
-
-				<td th:text="${plantation.plante.nom}"></td>
-				<td th:text="${plantation.plante.variete}"></td>
-				<td th:text="${plantation.quantite}"></td>
-				<td th:text="${plantation.miseEnPlace}"></td>
-				<td th:text="${plantation.recolte}"></td>
-			</tr>
-		</tbody>
-	</table>
+	
 	<br>
 	<p>
 		<a href="/accueil">Accueil</a>
 	</p>
-
 	</div>
-
-  
-  
-	<!--  >>>>>>> master Averif si il faut virer-->
-				<!--    			Va chercher les valeurs de l'enum -->
-	<!--  				<option
-	<!--  th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
-		<!--  				th:value="${exposition}" th:text="${exposition.displayValue}">
-		<!--  			</option>
-
-	<!--  			</select> <br>
-	<!--  			<br>
-	<!--  			<input type="submit" value="Ajouter le carré">
-	<!--  		</form>
-
-	<!--  	</div>-->
-
-
-
 	<div id="DivPrincipale">
 		<h4>Mes plantations dans mon carré</h4>
 		<table>
@@ -161,12 +121,11 @@
 					<td th:text="${plantation.plante.nom}"></td>
 					<td th:text="${plantation.plante.variete}"></td>
 					<td th:text="${plantation.quantite}"></td>
-					<td th:text="${plantation.miseEnPlace}"></td>
-					<td th:text="${plantation.recolte}"></td>
+					<td th:text="${#dates.format(plantation.miseEnPlace, 'dd-MM-YYYY')}"></td>
+					<td th:text="${#dates.format(plantation.recolte, 'dd-MM-YYYY')}"></td>
 				</tr>
 			</tbody>
 		</table>
-		<br>
 	</div>
 
 </body>

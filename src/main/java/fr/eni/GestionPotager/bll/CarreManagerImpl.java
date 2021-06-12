@@ -156,9 +156,7 @@ public class CarreManagerImpl implements CarreManager {
 		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon
 		// ajoute
 
-///////////////////// CHECK SI MERGE OK D'ICI
-/////////////////////
-/////////////////////
+///////////////////// OK
     
 		if ((surfaceRestanteDuCarre - surfaceAAdd) < 0) {
 //			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
@@ -174,23 +172,30 @@ public class CarreManagerImpl implements CarreManager {
 			plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
 			plantation.setCarre(findById(carre.getIdCarre()));
 
+			
+			
+			// J'ai mis les actions ICI
+			Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite()+" "+plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Planter" , carre.getPotager(), carre);
+			Action action2 = new Action(plantation.getRecolte(), plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Récolter" , carre.getPotager(), carre);
+			actionMg.addAction(action);
+			actionMg.addAction(action2);
+			
+			
 			plantationDao.save(plantation);
 			carreDao.save(carre);
 		}
 
-		/////////////////////Ajout Anna
-		Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite()+" "+plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Planter" , carre.getPotager(), carre);
-		Action action2 = new Action(plantation.getRecolte(), plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Récolter" , carre.getPotager(), carre);
-		actionMg.addAction(action);
-		actionMg.addAction(action2);
-		////////////////////////////
-		
-		plantationDao.save(plantation);
-		carreDao.save(carre);
+//		/////////////////////Ajout Anna => Déplacé plus haut
+//		Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite()+" "+plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Planter" , carre.getPotager(), carre);
+//		Action action2 = new Action(plantation.getRecolte(), plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Récolter" , carre.getPotager(), carre);
+//		actionMg.addAction(action);
+//		actionMg.addAction(action2);
+//		////////////////////////////
+//		
+//		plantationDao.save(plantation);
+//		carreDao.save(carre);
    
-/////////////////////
-/////////////////////
-///////////////////// CHECK SI MERGE OK A DE LA
+///////////////////// OK
 
 	}
 

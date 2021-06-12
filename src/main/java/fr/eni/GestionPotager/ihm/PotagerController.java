@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +39,7 @@ public class PotagerController {
 			Carre carre, 
 			Plante plante,
 			Plantation plantation, 
-			BindingResult result, Model model) {
+			Model model) {
 		
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
@@ -55,7 +54,7 @@ public class PotagerController {
 	public String supprimerCarre(
 			@PathVariable("idPotager") Integer idPotager, 
 			@PathVariable("idCarre") Integer idCarre,
-			BindingResult result, Model model) {
+			Model model) {
 		
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 
@@ -87,7 +86,7 @@ public class PotagerController {
 	public String ajouterCarreAuPotager(
 			@Valid Carre carre, 
 			@PathVariable("idPotager") Integer idPotager, 
-			BindingResult result, Model model)
+			Model model)
 			throws BllException {
 		
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
@@ -121,7 +120,7 @@ public class PotagerController {
 			@PathVariable("idPotager") Integer idPotager, 
 			@PathVariable("idCarre") Integer idCarre, 
 			@RequestParam("planteID") Integer idPlante, 
-			BindingResult result, Model model) throws BllException {
+			Model model) throws BllException {
 
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());

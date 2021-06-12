@@ -64,7 +64,11 @@ public class CarreManagerImpl implements CarreManager {
 	public void ajouterCarrePotager(Potager potager, Carre carre) throws BllException {
 
 		potagerManager.addPotager(potager);
-
+		
+		if ((carre.getSurface() <= 0 )) {
+			throw new BllException("La surface de votre carré ne peut être inférieur ou égal à 0.");
+		}
+		
 		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
 			double reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
 			throw new BllException("Il n'y a plus de place dans le potager!! il vous reste: " + reste + "  m²");
@@ -86,12 +90,11 @@ public class CarreManagerImpl implements CarreManager {
 
 	@Override
 	@Transactional
-	
+
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
 		List<Plantation> lstPlantationDuCarreInBdd = findById(carre.getIdCarre()).getListePlantations();
 		List<String> lstNomPlante = new ArrayList<String>();
 
-		
 		for (Plantation p : lstPlantationDuCarreInBdd) {
 			if (lstNomPlante.contains(p.getPlante().getNom())) {
 
@@ -100,54 +103,59 @@ public class CarreManagerImpl implements CarreManager {
 			}
 		}
 
-		// si la liste des noms == 3 et si elle ne contient pas le nom de la plante => exception
-		// de sorte que si on a dans notre potager : 1 plant de tomate cerise, 1 plant de tomate boeuf, 1 plant de tomate X, et 1 plant de choux, 1 plant de concombre => pas d'exception mais si on essaye de rajouter des betteraves => exception 
+		
+		/**
+		 *   si la liste des noms == 3 et si elle ne contient pas le nom de la plante =>
+		 exception
+		 de sorte que si on a dans notre potager : 1 plant de tomate cerise, 1 plant
+		 de tomate boeuf, 1 plant de tomate X, et 1 plant de choux, 1 plant de
+		 concombre => pas d'exception mais si on essaye de rajouter des betteraves =>
+		 exception
+		 */
 		if (lstNomPlante.size() == 3 && !lstNomPlante.contains(plante.getNom())) {
 //			System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\dans if exception/////////////////////////");
 //			System.err.println("lstNomPlante : " + lstNomPlante);
 //			System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
 			throw new BllException("Il y a déjà 3 plantes dans votre carré");
 		}
-		
+
 //		System.err.println("lstNomPlante : " + lstNomPlante);
 //		System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
-		
-		
-		
-		// contrainte surface		
+
+		// contrainte surface
 		float surfaceRestanteDuCarre = carre.getSurface();
 		// recupere surface total des plantation lié au carré
 		float surfaceTotalDesPlantationsDuCarreInBdd = 0;
 		for (Plantation p : lstPlantationDuCarreInBdd) {
-			//System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
-			surfaceTotalDesPlantationsDuCarreInBdd += (p.getPlante().getSurfaceOccupee()) * p.getQuantite();			
+			// System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
+			surfaceTotalDesPlantationsDuCarreInBdd += (p.getPlante().getSurfaceOccupee()) * p.getQuantite();
 		}
-		
+
 		surfaceRestanteDuCarre -= surfaceTotalDesPlantationsDuCarreInBdd;
-			
+
 		float surfaceAAdd = (float) (plante.getSurfaceOccupee() * plantation.getQuantite());
-		
-		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon ajoute
-		
-		if ((surfaceRestanteDuCarre - surfaceAAdd) < 0 ) {
+
+		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon
+		// ajoute
+
+		if ((surfaceRestanteDuCarre - surfaceAAdd) < 0) {
 //			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
 //			System.err.println("surfaceAAdd : " + surfaceAAdd);
 			throw new BllException("Pas assez de place dans le carré");
-		}
-		else {
+		} else {
 //			System.out.println("il y a de la place");
 //			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
 //			System.err.println("surfaceAAdd : " + surfaceAAdd);
-			
+
 			carre.getListePlantations().add(plantation);
-			
+
 			plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
 			plantation.setCarre(findById(carre.getIdCarre()));
-			
+
 			plantationDao.save(plantation);
 			carreDao.save(carre);
 		}
-		
+
 	}
 
 	@Override

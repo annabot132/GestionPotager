@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +28,9 @@ public class Plantation {
 	private Date miseEnPlace;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date recolte;
+
+	
+	@Min(value = 1, message = "La quantité de plante ne peut être inférieure à 1.")
 	private Integer quantite;
 
 	@ManyToOne

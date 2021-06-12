@@ -2,6 +2,7 @@ package fr.eni.GestionPotager.bll;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -212,4 +213,23 @@ public class CarreManagerImpl implements CarreManager {
 	}
 
 
+	
+	public void deletePlantationOfCarre(Plantation plantation, Carre carre) {
+		
+		Integer idPlantation = plantationDao.findById(plantation.getIdPlantation()).get().getIdPlantation() ;
+		plantationDao.deleteById(idPlantation);
+//		System.out.println("*******deletePlantationOfCarre()*******");
+//		System.out.println("idPlantzadadaation : "+carreDao.findById(carre.getIdCarre()));
+//		System.out.println("idCarre : "+carreDao.findById(carre.getIdCarre()));
+		
+		
+		carre.setPotager(carreDao.findById(carre.getIdCarre()).get().getPotager());
+		carre.setExposition(carreDao.findById(carre.getIdCarre()).get().getExposition());
+		carre.setSol(carreDao.findById(carre.getIdCarre()).get().getSol());
+		carre.setSurface(carreDao.findById(carre.getIdCarre()).get().getSurface());
+		
+		
+		carreDao.save(carre);
+	}
+	
 }

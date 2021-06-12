@@ -17,6 +17,7 @@ import fr.eni.GestionPotager.bll.PotagerManager;
 import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Plantation;
 import fr.eni.GestionPotager.bo.Plante;
+import fr.eni.GestionPotager.bo.Potager;
 
 @Controller
 public class PotagerController {
@@ -36,6 +37,7 @@ public class PotagerController {
 	@GetMapping("potager/{idPotager}")
 	public String afficherDetailPotager(
 			@PathVariable("idPotager") Integer idPotager, 
+			Potager potager,
 			Carre carre, 
 			Plante plante,
 			Plantation plantation, 
@@ -68,6 +70,7 @@ public class PotagerController {
 	public String afficherDetailCarre(
 			@PathVariable("idPotager") Integer idPotager,
 			@PathVariable("idCarre") Integer idCarre, 
+			Potager potager,
 			Carre carre, 
 			Plante plante, 
 			Plantation plantation, 
@@ -85,6 +88,7 @@ public class PotagerController {
 	@PostMapping("/potager/{idPotager}/addCarre")
 	public String ajouterCarreAuPotager(
 			@Valid Carre carre, 
+			Potager potager,
 			@PathVariable("idPotager") Integer idPotager, 
 			Model model)
 			throws BllException {
@@ -99,7 +103,7 @@ public class PotagerController {
 
 	/**
 	 * Ajoute la plantation au carré. 
-	 * Le RequestParam permet de recupérer le parametre "planteID" de la page html (avec la liste des plantes dans le select)
+	 * Le RequestParam permet de recupérer le parametre "idPlante" de la page html (avec la liste des plantes dans le select)
 	 *  
 	 * @param plantation
 	 * @param plante
@@ -115,11 +119,12 @@ public class PotagerController {
 	@PostMapping("/potager/{idPotager}/carre/{idCarre}/addPlantation")
 	public String ajouterPlantationAuCarre(
 			@Valid Plantation plantation, 
+			Potager potager,
 			Carre carre,
 			Plante plante,
 			@PathVariable("idPotager") Integer idPotager, 
 			@PathVariable("idCarre") Integer idCarre, 
-			@RequestParam("planteID") Integer idPlante, 
+			@RequestParam("idPlante") Integer idPlante, 
 			Model model) throws BllException {
 
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
@@ -131,4 +136,55 @@ public class PotagerController {
 		return "redirect:/potager/{idPotager}/carre/{idCarre}";
 
 	}
+	
+	@GetMapping("/potager/{idPotager}/carre/{idCarre}/deletePlantation/{idPlantation}")
+	public String supprimerPlantation(
+			@Valid Plantation plantation, 
+			Potager potager,
+			Carre carre,
+			Plante plante,
+			@PathVariable("idPotager") Integer idPotager, 
+			@PathVariable("idCarre") Integer idCarre,
+			@PathVariable("idCarre") Integer idPlantation,
+			 
+			Model model) throws BllException {
+//		@PathVariable("idPlantation") Integer idPlantation,
+		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+		model.addAttribute("lstPlantes", planteMgr.findAll());
+		
+		//carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
+	
+//		System.out.println("**********************************************");
+//		System.out.println("idPlantation : "+plantation.getIdPlantation());
+//		System.out.println("**********************************************");
+		carreMgr.deletePlantationOfCarre(plantation, carre);
+
+		return "redirect:/potager/{idPotager}/carre/{idCarre}";
+
+	}
+	
+//	@PostMapping("/potager/{idPotager}/carre/{idCarre}/editPlantation/{idPlantation}")
+//	public String modifierPlantation(
+//			@Valid Plantation plantation, 
+//			Carre carre,
+//			Plante plante,
+//			@PathVariable("idPotager") Integer idPotager, 
+//			@PathVariable("idCarre") Integer idCarre,
+//			@PathVariable("idPlantation") Integer idPlantation,
+//			@RequestParam("planteID") Integer idPlante, 
+//			Model model) throws BllException {
+//
+//		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+//		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+//		model.addAttribute("lstPlantes", planteMgr.findAll());
+//		
+//		//carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
+//		
+//		//carreMgr.findById(idCarre).getListePlantations().remove(plantation);
+//
+//		return "redirect:/potager/{idPotager}/carre/{idCarre}";
+//
+//	}
+	
 }

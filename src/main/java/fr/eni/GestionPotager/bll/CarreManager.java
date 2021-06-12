@@ -79,4 +79,5 @@ public interface CarreManager {
 	
 	public List<Carre> findAllEmptyCarre();
 
+	public void deletePlantationOfCarre(Plantation plantation, Carre carre);
 }

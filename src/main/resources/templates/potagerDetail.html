@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <h1>Mon Potager</h1>
+    <h1>Mon Potager : </h1><h1 th:text="${potager.nom}"></h1>
     <div id="DivPrincipale">
         <h4>Liste des carrés de mon potager</h4>
         <table>
@@ -91,16 +91,16 @@
             th:object="${plantation}" method="post">
 
             <!-- 	lst plante -->
-            <select th:name="planteID">
+            <select th:name="idPlante">
                 <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}"
                     th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}">
                 </option>
             </select>
             <input type="text" th:field="*{quantite}" placeholder="Quantité">
             <label for="dateMiseEnPlace">Date de mise en place</label>
-            <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace">
+            <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required>
             <label for="dateDeRecolte">Date de récolte</label>
-            <input type="date" th:field="*{recolte}" id="dateDeRecolte">
+            <input type="date" th:field="*{recolte}" id="dateDeRecolte" required>
 
             <input type="submit" value="Ajouter plantation">
         </form>
@@ -118,15 +118,19 @@
                     <th>Quantité</th>
                     <th>Date mise en place</th>
                     <th>Date récolte</th>
+                    <th>ID<th>
+                    <th>Supprimer<th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="plantation : ${lstPlantations}">
+                <tr th:each="plantation : ${lstPlantations} " th:name="idPlantation">
                     <td th:text="${plantation.plante.nom}"></td>
                     <td th:text="${plantation.plante.variete}"></td>
                     <td th:text="${plantation.quantite}"></td>
                     <td th:text="${#dates.format(plantation.miseEnPlace, 'dd-MM-YYYY')}"></td>
                     <td th:text="${#dates.format(plantation.recolte, 'dd-MM-YYYY')}"></td>
+                    <td th:text="${plantation.idPlantation}"></td>
+                    <td><a th:href="@{/potager/{idPotager}/carre/{idCarre}/deletePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}"  >Supprimer</a></td>
                 </tr>
             </tbody>
         </table>

@@ -11,9 +11,9 @@ import fr.eni.GestionPotager.bo.Carre;
 public interface CarreDao extends CrudRepository<Carre, Integer> {
 
 	@Query("SELECT SUM (c.surface) from Carre c where c.potager.idPotager=:idPotager")
-	Integer countSurface(@Param("idPotager")Integer idPotager);
-	
+	Integer countSurface(@Param("idPotager") Integer idPotager);
+
 	@Query("select c from Carre c where c.listePlantations(1)=:null")
 	List<Carre> carreVide();
-	
+
 }

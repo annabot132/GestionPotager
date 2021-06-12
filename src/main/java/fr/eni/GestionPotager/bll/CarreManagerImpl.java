@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.eni.GestionPotager.bo.Action;
 import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Plantation;
 import fr.eni.GestionPotager.bo.Plante;
@@ -30,6 +31,10 @@ public class CarreManagerImpl implements CarreManager {
 	@Autowired
 	private PlanteManager planteMgr;
 
+	@Autowired
+	private ActionManager actionMg;
+	
+	
 	@Override
 	@Transactional
 	public void createCarre(Carre carre) {
@@ -68,13 +73,26 @@ public class CarreManagerImpl implements CarreManager {
 		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
 			double reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
 			throw new BllException("Il n'y a plus de place dans le potager!! il vous reste: " + reste + "  m²");
-
 		}
-		carre.setPotager(potager);
+		if (potagerManager.getPotagerById(potager.getIdPotager())== null){
+			potagerManager.addPotager(potager);
+		}
+		carre. setPotager(potager);
 		potager.getListeCarres().add(carre);
 		createCarre(carre);
+//		
+//			@Override
+//		@Transactional
+//		public void addCarreInPotager(Potager potager, Carre carre) {
+//			carre.setPotager(potager);
+//			potager.getListeCarres().add(carre);
+//			addPotager(potager);
+//			carreMg.createCarre(carre);
+//		}
 
-	}
+		}	
+		
+
 
 	public float calculSurfaceCarre(Potager potager) {
 		if (carreDao.countSurface(potager.getIdPotager()) == null) {
@@ -131,6 +149,13 @@ public class CarreManagerImpl implements CarreManager {
 
 		carre.getListePlantations().add(plantation);
 
+		/////////////////////Ajout Anna
+		Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite()+" "+plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Planter" , carre.getPotager(), carre);
+		Action action2 = new Action(plantation.getRecolte(), plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Récolter" , carre.getPotager(), carre);
+		actionMg.addAction(action);
+		actionMg.addAction(action2);
+		////////////////////////////
+		
 		plantationDao.save(plantation);
 		carreDao.save(carre);
 
@@ -139,6 +164,7 @@ public class CarreManagerImpl implements CarreManager {
 	@Override
 	public List<Plantation> findAllImplantationsForOnePlante(Integer id) {
 		return plantationDao.findAllPlantationForOnePlante(id);
+
 	}
 
 
@@ -148,5 +174,6 @@ public class CarreManagerImpl implements CarreManager {
 		
 		return carreDao.carreVide();
 	}
+
 
 }

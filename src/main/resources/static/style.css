@@ -164,3 +164,11 @@ table tr {
 .place{
 	min-height: 100px;
 }
+.warning{
+	background: #f7dc6f;
+	color:#af601a;	
+	border : none;
+	border-radius: 2px;
+	padding:5px;
+}
+

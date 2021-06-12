@@ -1,6 +1,6 @@
 
 ## CONFIG BD ##
-**/resources/config/application.properties
+/GestionPotager/src/main/resources/application.properties
 
 HELP.md
 .gradle

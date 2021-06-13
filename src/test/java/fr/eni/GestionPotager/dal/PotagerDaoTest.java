@@ -21,11 +21,11 @@ class PotagerDaoTest {
 	@Test
 	@Transactional
 	final void testSave() {
+		List<Potager> listePotagersBefore = (List<Potager>) dao.findAll();
 		Potager potager1 = new Potager("Au fond du jardin", "mon super potager", 5, "Quimper");
 		dao.save(potager1);
 		List<Potager> listePotagers = (List<Potager>) dao.findAll();
-
-		assertEquals(listePotagers.size(), 1);
+		assertEquals(listePotagersBefore.size() + 1, listePotagers.size());
 	}
 
 	@Test
@@ -34,22 +34,20 @@ class PotagerDaoTest {
 		Potager potager1 = new Potager("Au fond du jardin", "mon super potager", 5, "Quimper");
 		dao.save(potager1);
 		List<Potager> listePotagers = (List<Potager>) dao.findAll();
-
-		Potager potagerTest = dao.findById(listePotagers.get(0).getIdPotager()).orElse(null);
+		Potager potagerTest = dao.findById(listePotagers.get(listePotagers.size() - 1).getIdPotager()).orElse(null);
 		assertEquals(potagerTest.getNom(), potager1.getNom());
 	}
 
 	@Test
 	@Transactional
 	final void testFindAll() {
+		List<Potager> listePotagersBefore = (List<Potager>) dao.findAll();
 		Potager potager1 = new Potager("Au fond du jardin", "mon super potager", 5, "Quimper");
 		Potager potager2 = new Potager("Devant la maison", "mon super potager en carré", 2, "Quimper");
-
 		dao.save(potager1);
 		dao.save(potager2);
 		List<Potager> listePotagers = (List<Potager>) dao.findAll();
-
-		assertEquals(listePotagers.size(), 2);
+		assertEquals(listePotagersBefore.size() + 2, listePotagers.size());
 	}
 
 	@Test
@@ -58,11 +56,9 @@ class PotagerDaoTest {
 		Potager potager1 = new Potager("Au fond du jardin", "mon super potager", 5, "Quimper");
 		dao.save(potager1);
 		List<Potager> listePotagers = (List<Potager>) dao.findAll();
-		dao.deleteById(listePotagers.get(0).getIdPotager());
+		dao.deleteById(listePotagers.get(listePotagers.size() - 1).getIdPotager());
 		List<Potager> listePotagers2 = (List<Potager>) dao.findAll();
-
-		assertEquals(listePotagers2.size(), 0);
-
+		assertEquals(listePotagers.size() - 1, listePotagers2.size());
 	}
 
 	@Test
@@ -70,10 +66,10 @@ class PotagerDaoTest {
 	final void testDelete() {
 		Potager potager1 = new Potager("Au fond du jardin", "mon super potager", 5, "Quimper");
 		dao.save(potager1);
+		List<Potager> listePotagersBefore = (List<Potager>) dao.findAll();
 		dao.delete(potager1);
 		List<Potager> listePotagers = (List<Potager>) dao.findAll();
-
-		assertEquals(listePotagers.size(), 0);
+		assertEquals(listePotagersBefore.size() - 1, listePotagers.size());
 	}
 
 }

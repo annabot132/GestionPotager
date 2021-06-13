@@ -30,7 +30,7 @@ public class Carre {
 	private Potager potager;
 
 	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
-	private List<Action> listeActions = new ArrayList<Action>();
+	private List<Action> listeActions = new ArrayList<Action>();	
 
 	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();

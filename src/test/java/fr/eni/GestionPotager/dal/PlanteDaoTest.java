@@ -19,34 +19,32 @@ class PlanteDaoTest {
 
 	@Autowired
 	PlanteDao dao;
-	
 
 	@Test
 	@Transactional
 	final void findOnePlanteOneVariete() {
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		Plante plante1 = new Plante("TESTNOM", TypePlante.FRUIT, "TESTVAR", 0.75);
 		dao.save(plante1);
-		assertNotNull(dao.findOnePlanteOneVariete("tomate", "cerise"));
+		assertNotNull(dao.findOnePlanteOneVariete("TESTNOM", "TESTVAR"));
 	}
-	
-	
 
 	@Test
 	@Transactional
 	final void testSave() {
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		List<Plante> listePlantesBefore = (List<Plante>) dao.findAll();
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", 0.75);
 		dao.save(plante1);
 		List<Plante> listePlantes = (List<Plante>) dao.findAll();
-		assertEquals(listePlantes.size(), 1);
+		assertEquals(listePlantesBefore.size() + 1, listePlantes.size());
 	}
 
 	@Test
 	@Transactional
 	final void testFindById() {
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", 0.75);
 		dao.save(plante1);
 		List<Plante> listePlantes = (List<Plante>) dao.findAll();
-		Plante planteTest = dao.findById(listePlantes.get(0).getIdPlante()).orElse(null);
+		Plante planteTest = dao.findById(listePlantes.get(listePlantes.size() - 1).getIdPlante()).orElse(null);
 		assertEquals(planteTest.getNom(), plante1.getNom());
 
 	}
@@ -54,31 +52,33 @@ class PlanteDaoTest {
 	@Test
 	@Transactional
 	final void testFindAll() {
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		List<Plante> listePlantesBefore = (List<Plante>) dao.findAll();
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", 0.75);
 		dao.save(plante1);
 		List<Plante> listePlantes = (List<Plante>) dao.findAll();
-		assertEquals(listePlantes.size(), 1);
+		assertEquals(listePlantesBefore.size() + 1, listePlantes.size());
 	}
 
 	@Test
 	@Transactional
 	final void testDeleteById() {
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", 0.75);
 		dao.save(plante1);
+		List<Plante> listePlantesBefore = (List<Plante>) dao.findAll();
+		dao.deleteById(listePlantesBefore.get(listePlantesBefore.size() - 1).getIdPlante());
 		List<Plante> listePlantes = (List<Plante>) dao.findAll();
-		dao.deleteById(listePlantes.get(0).getIdPlante());
-		List<Plante> listePlantes2 = (List<Plante>) dao.findAll();
-		assertEquals(listePlantes2.size(), 0);
+		assertEquals(listePlantesBefore.size() - 1, listePlantes.size());
 	}
 
 	@Test
 	@Transactional
 	final void testDelete() {
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", 0.75);
 		dao.save(plante1);
+		List<Plante> listePlantesBefore = (List<Plante>) dao.findAll();
 		dao.delete(plante1);
 		List<Plante> listePlantes = (List<Plante>) dao.findAll();
-		assertEquals(listePlantes.size(), 0);
+		assertEquals(listePlantesBefore.size() - 1, listePlantes.size());
 	}
 
 }

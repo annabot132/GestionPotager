@@ -78,6 +78,7 @@ class PotagerManagerTest {
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		manager.addPotager(potager1);
 		potager1.setLocalisation("c'est par là");
+		manager.updatePotager(potager1);
 		List<Potager> listePotagerTest = (List<Potager>) manager.getAllPotager();
 		Potager potagerTest2 = manager.getPotagerById(listePotagerTest.get(listePotagerTest.size() - 1).getIdPotager());
 		assertEquals("c'est par là", potagerTest2.getLocalisation());

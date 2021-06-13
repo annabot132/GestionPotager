@@ -21,7 +21,7 @@ public class PlanteManagerImpl implements PlanteManager {
 	@Transactional
 	public void createPlante(Plante plante) throws BllException {
 		if (planteDao.findOnePlanteOneVariete(plante.getNom(), plante.getVariete())!= null) {
-			throw new BllException("La plante existe déjà");
+			throw new BllException("La plante existe déjà !");
 		}
 		planteDao.save(plante);
 	

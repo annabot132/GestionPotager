@@ -38,7 +38,7 @@ public class Plante {
 	@OneToMany(mappedBy = "plante", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();
 
-	public Plante(String nom, TypePlante typePlante, String variete, float surfaceOccupee) {
+	public Plante(String nom, TypePlante typePlante, String variete, double surfaceOccupee) {
 		this.nom = nom;
 		this.typePlante = typePlante;
 		this.variete = variete;

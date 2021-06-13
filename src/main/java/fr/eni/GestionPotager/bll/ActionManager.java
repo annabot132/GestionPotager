@@ -1,5 +1,7 @@
 package fr.eni.GestionPotager.bll;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import fr.eni.GestionPotager.bo.Action;
@@ -17,13 +19,19 @@ public interface ActionManager {
 	 * Supprimer une action
 	 * @param Integer id
 	 */
-	public void removeActionById(Integer id);
+	public void deleteActionById(Integer id);
 
 	/**
 	 * modifier une action
 	 * @param Action action
 	 */
 	public void updateAction(Action action);
+	
+	/**
+	 * modifier une action
+	 * @param Action action
+	 */
+	public void deleteAction(Action action);
 
 	/**
 	 * lister toutes les actions
@@ -57,4 +65,11 @@ public interface ActionManager {
 	 * @return List<Action>
 	 */
 	public List<Action> findAllActionByPotagerByCarreFor2Weeks(Integer idPotager, Integer idCarre);
+	
+	/**
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public Date localDateToDate(LocalDate date);
 }

@@ -1,6 +1,6 @@
 package fr.eni.GestionPotager.bll;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import fr.eni.GestionPotager.bo.Carre;
 import fr.eni.GestionPotager.bo.Potager;
 
 @SpringBootTest
@@ -22,12 +21,10 @@ class PotagerManagerTest {
 	@Test
 	@Transactional
 	void testAddPotager() {
-		System.out.println("_________testAddPotager()_______");
+		List<Potager> listePotagersBefore = manager.getAllPotager();
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		manager.addPotager(potager1);
-
-		assertNotNull(manager.getAllPotager().size());
-
+		assertEquals(listePotagersBefore.size() + 1, manager.getAllPotager().size());
 	}
 
 	@Test
@@ -35,56 +32,55 @@ class PotagerManagerTest {
 	void testRemovePotager() {
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		manager.addPotager(potager1);
-
+		List<Potager> listePotagersBefore = manager.getAllPotager();
 		manager.removePotager(potager1);
-		assertEquals(manager.getAllPotager().size(), 0);
+		assertEquals(listePotagersBefore.size() - 1, manager.getAllPotager().size());
 	}
 
 	@Test
 	@Transactional
 	void testGetAllPotager() {
-
+		List<Potager> listePotagersBefore = manager.getAllPotager();
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		Potager potager2 = new Potager("la", "le grand potager", 15, "Painpont");
 		manager.addPotager(potager1);
 		manager.addPotager(potager2);
 		List<Potager> listeP = manager.getAllPotager();
 		System.err.println(listeP);
-
-		assertEquals(manager.getAllPotager().size(), 2);
+		assertEquals(listePotagersBefore.size() + 2, manager.getAllPotager().size());
 
 	}
 
 	@Transactional
 	@Test
 	void testGetPotagerById() {
-		System.out.println("_______________testGetPotagerById()______________");
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		manager.addPotager(potager1);
-
 		List<Potager> listePotagerTest = (List<Potager>) manager.getAllPotager();
-		System.err.println(listePotagerTest);
-		Potager potagerTest2 = manager.getPotagerById(listePotagerTest.get(0).getIdPotager());
-
+		Potager potagerTest2 = manager.getPotagerById(listePotagerTest.get(listePotagerTest.size() - 1).getIdPotager());
 		assertEquals(potager1.getLocalisation(), potagerTest2.getLocalisation());
-
 	}
 
 	@Transactional
 	@Test
 	void testRemovePotagerById() {
-		System.out.println("_______________testRemovePotagerById()______________");
 		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
 		manager.addPotager(potager1);
-
 		List<Potager> listePotagerTest = (List<Potager>) manager.getAllPotager();
-		System.err.println(listePotagerTest);
-		Potager potagerTest2 = manager.getPotagerById(listePotagerTest.get(0).getIdPotager());
-		
+		Potager potagerTest2 = manager.getPotagerById(listePotagerTest.get(listePotagerTest.size() - 1).getIdPotager());
 		manager.removePotagerById(potagerTest2.getIdPotager());
-		
-		assertEquals(manager.getAllPotager().size(), 0);
-		
+		assertEquals(listePotagerTest.size() - 1, manager.getAllPotager().size());
+	}
+
+	@Transactional
+	@Test
+	void testUpdatePotager() {
+		Potager potager1 = new Potager("ici", "le petit potager", 9, "Painpont");
+		manager.addPotager(potager1);
+		potager1.setLocalisation("c'est par là");
+		List<Potager> listePotagerTest = (List<Potager>) manager.getAllPotager();
+		Potager potagerTest2 = manager.getPotagerById(listePotagerTest.get(listePotagerTest.size() - 1).getIdPotager());
+		assertEquals("c'est par là", potagerTest2.getLocalisation());
 	}
 
 }

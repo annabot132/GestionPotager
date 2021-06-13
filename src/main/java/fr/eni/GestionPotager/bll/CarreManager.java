@@ -1,6 +1,5 @@
 package fr.eni.GestionPotager.bll;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import fr.eni.GestionPotager.bo.Carre;
@@ -80,4 +79,6 @@ public interface CarreManager {
 	public List<Carre> findAllEmptyCarre();
 
 	public void deletePlantationOfCarre(Plantation plantation, Carre carre);
+	
+	public void modifierPlantationOfCarre(Plantation plantation, Carre carre, Plante plante) throws BllException;
 }

@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,14 +42,17 @@ public class PotagerController {
 			Potager potager,
 			Carre carre, 
 			Plante plante,
-			Plantation plantation, 
+			Plantation plantation,
+			Integer idPlantation,
 			Model model) {
 		
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
-		model.addAttribute("IDPotager", idPotager);
 		model.addAttribute("lstPlantes", planteMgr.findAll());
-
+		
+		
+		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
+		
 		return "potagerDetail";
 
 	}
@@ -80,23 +85,39 @@ public class PotagerController {
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
 		model.addAttribute("lstPlantes", planteMgr.findAll());
-
+		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
+		
 		return "potagerDetail";
 
 	}
 
 	@PostMapping("/potager/{idPotager}/addCarre")
 	public String ajouterCarreAuPotager(
+			@PathVariable("idPotager") Integer idPotager,
 			@Valid Carre carre, 
 			Potager potager,
-			@PathVariable("idPotager") Integer idPotager, 
-			Model model)
+			BindingResult result, Model model)
 			throws BllException {
 		
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
 
-		carreMgr.ajouterCarrePotager(potagerMgr.getPotagerById(idPotager), carre);
+		
+		if (result.hasErrors()) {
+			return "potagerDetail";
+		}
+		try {
+			carreMgr.ajouterCarrePotager(potagerMgr.getPotagerById(idPotager), carre);
+		} catch (BllException e) {
+			result.addError(new FieldError("carre", "surface", e.getMessage()));
+			result.addError(new FieldError("carre", "sol", e.getMessage()));
+		}
+		if (result.hasErrors()) {
+			return "potagerDetail";
+		}
+		
+		
 
 		return "redirect:/potager/{idPotager}";
 	}
@@ -125,15 +146,31 @@ public class PotagerController {
 			@PathVariable("idPotager") Integer idPotager, 
 			@PathVariable("idCarre") Integer idCarre, 
 			@RequestParam("idPlante") Integer idPlante, 
-			Model model) throws BllException {
+			BindingResult result, Model model) throws BllException {
 
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+		model.addAttribute("idCarre", carreMgr.findById(idCarre).getIdCarre());
+		
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		model.addAttribute("lstPlantes", planteMgr.findAll());
+		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
 		
-		carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
-
-		return "redirect:/potager/{idPotager}/carre/{idCarre}";
+		
+		if (result.hasErrors()) {
+			return "potagerDetail";
+		}
+		try {
+			carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
+		} catch (BllException e) {
+			result.addError(new FieldError("plantation", "quantite", e.getMessage()));
+			result.addError(new FieldError("plantation", "miseEnPlace", e.getMessage()));
+			result.addError(new FieldError("plantation", "recolte", e.getMessage()));
+		}
+		if (result.hasErrors()) {
+			return "potagerDetail";
+		}
+		
+		return "potagerDetail";
 
 	}
 	
@@ -152,39 +189,67 @@ public class PotagerController {
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		model.addAttribute("lstPlantes", planteMgr.findAll());
-		
-		//carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
-	
-//		System.out.println("**********************************************");
-//		System.out.println("idPlantation : "+plantation.getIdPlantation());
-//		System.out.println("**********************************************");
 		carreMgr.deletePlantationOfCarre(plantation, carre);
 
 		return "redirect:/potager/{idPotager}/carre/{idCarre}";
 
 	}
 	
-//	@PostMapping("/potager/{idPotager}/carre/{idCarre}/editPlantation/{idPlantation}")
-//	public String modifierPlantation(
-//			@Valid Plantation plantation, 
-//			Carre carre,
-//			Plante plante,
-//			@PathVariable("idPotager") Integer idPotager, 
-//			@PathVariable("idCarre") Integer idCarre,
-//			@PathVariable("idPlantation") Integer idPlantation,
-//			@RequestParam("planteID") Integer idPlante, 
-//			Model model) throws BllException {
-//
-//		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
-//		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
-//		model.addAttribute("lstPlantes", planteMgr.findAll());
-//		
-//		//carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
-//		
-//		//carreMgr.findById(idCarre).getListePlantations().remove(plantation);
-//
-//		return "redirect:/potager/{idPotager}/carre/{idCarre}";
-//
-//	}
+	@GetMapping("/potager/{idPotager}/carre/{idCarre}/editPlantation/{idPlantation}")
+	public String showUpdateForm(
+			Plantation plantation, 
+			Potager potager,
+			Carre carre,
+			Plante plante,
+			@PathVariable("idPotager") Integer idPotager, 
+			@PathVariable("idCarre") Integer idCarre,
+			@PathVariable("idPlantation") Integer idPlantation,
+			Model model) throws BllException {
+
+		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
+		model.addAttribute("lstPlantes", planteMgr.findAll());
+		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
+
+		return "potagerDetail";
+
+	}
+	
+	@PostMapping("/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation}")
+	public String UpdatePlantation(
+			@Valid Plantation plantation, 
+			Potager potager,
+			Carre carre,
+			Plante plante,
+			@PathVariable("idPotager") Integer idPotager, 
+			@PathVariable("idCarre") Integer idCarre,
+			@PathVariable("idPlantation") Integer idPlantation,
+			@RequestParam("idPlante") Integer idPlante, 
+			BindingResult result, Model model) throws BllException {
+
+		plantation.setIdPlantation(idPlantation);
+		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
+		model.addAttribute("lstPlantes", planteMgr.findAll());
+		
+		if (result.hasErrors()) {
+			return "potagerDetail";
+		}
+		try {
+			carreMgr.modifierPlantationOfCarre(plantation, carre, plante);
+		} catch (BllException e) {
+			result.addError(new FieldError("plantation", "quantite", e.getMessage()));
+			result.addError(new FieldError("plantation", "miseEnPlace", e.getMessage()));
+			result.addError(new FieldError("plantation", "recolte", e.getMessage()));
+		}
+		if (result.hasErrors()) {
+			return "potagerDetail";
+		}
+		
+
+		return "redirect:/potager/{idPotager}/carre/{idCarre}";
+	}
 	
 }

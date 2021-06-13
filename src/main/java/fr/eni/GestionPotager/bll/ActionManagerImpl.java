@@ -20,15 +20,21 @@ public class ActionManagerImpl implements ActionManager {
 	@Override
 	public void addAction(Action action) throws BllException {
 		if (action.getDate().before(localDateToDate(LocalDate.now()))) {
-			throw new BllException("La date entrée doit être posterieur à la date du jour.");
+			throw new BllException("La date entrée doit être posterieur à la date du jour !");
 		}
 		dao.save(action);
 
 	}
 
 	@Override
-	public void removeActionById(Integer id) {
+	public void deleteActionById(Integer id) {
 		dao.deleteById(id);
+
+	}
+
+	@Override
+	public void deleteAction(Action action) {
+		dao.delete(action);
 
 	}
 
@@ -52,7 +58,7 @@ public class ActionManagerImpl implements ActionManager {
 	public List<Action> findAllActionFor2Weeks() {
 		LocalDate dateJour = LocalDate.now();
 		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
-		return dao.findActionsByIntervalDate(localDateToDate(dateJourPlus15), localDateToDate(dateJourPlus15));
+		return dao.findActionsByIntervalDate(localDateToDate(dateJour), localDateToDate(dateJourPlus15));
 
 	}
 
@@ -60,7 +66,7 @@ public class ActionManagerImpl implements ActionManager {
 	public List<Action> findAllActionByPotagerFor2Weeks(Integer idPotager) {
 		LocalDate dateJour = LocalDate.now();
 		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
-		return dao.findActionsByPotagerByIntervalDate(idPotager, localDateToDate(dateJourPlus15),
+		return dao.findActionsByPotagerByIntervalDate(idPotager, localDateToDate(dateJour),
 				localDateToDate(dateJourPlus15));
 	}
 
@@ -68,7 +74,7 @@ public class ActionManagerImpl implements ActionManager {
 	public List<Action> findAllActionByPotagerByCarreFor2Weeks(Integer idPotager, Integer idCarre) {
 		LocalDate dateJour = LocalDate.now();
 		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
-		return dao.findActionsByPotagerByCarreByIntervalDate(idCarre, idPotager, localDateToDate(dateJourPlus15),
+		return dao.findActionsByPotagerByCarreByIntervalDate(idCarre, idPotager, localDateToDate(dateJour),
 				localDateToDate(dateJourPlus15));
 
 	}

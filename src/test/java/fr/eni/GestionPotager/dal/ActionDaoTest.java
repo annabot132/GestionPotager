@@ -26,148 +26,149 @@ class ActionDaoTest {
 	PotagerDao daoPot;
 	@Autowired
 	CarreDao daoCarre;
-	
+
 	@Test
 	@Transactional
 	final void testSave() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  06,  11);
+		cal.set(2020, 06, 11);
 		Date date = cal.getTime();
 		Action action = new Action(date, "testAction1", null, null);
+		List<Action> listeActionsBefore = (List<Action>) dao.findAll();
 		dao.save(action);
 		List<Action> listeActions = (List<Action>) dao.findAll();
-		assertEquals(listeActions.size(), 1);
-
+		assertEquals(listeActionsBefore.size() + 1, listeActions.size());
 	}
 
 	@Test
 	@Transactional
 	final void testFindById() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  06,  11);
+		cal.set(2020, 06, 11);
 		Date date = cal.getTime();
 		Action action = new Action(date, "testAction1", null, null);
 		dao.save(action);
 		List<Action> listeActions = (List<Action>) dao.findAll();
-		Action actionTest = dao.findById(listeActions.get(0).getIdAction()).orElse(null);
-		assertEquals(actionTest.getDate(), action.getDate());
+		Action actionTest = dao.findById(listeActions.get(listeActions.size() - 1).getIdAction()).orElse(null);
+		assertEquals(action.getDate(), actionTest.getDate());
 	}
 
 	@Test
 	@Transactional
 	final void testFindAll() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  06,  11);
+		cal.set(2020, 06, 11);
 		Date date = cal.getTime();
 		Action action = new Action(date, "testAction1", null, null);
 		Calendar cal2 = Calendar.getInstance();
-		cal2.set(2020,  06,  18);
+		cal2.set(2020, 06, 18);
 		Date date2 = cal2.getTime();
 		Action action2 = new Action(date2, "testAction2", null, null);
+		List<Action> listeActionsBefore = (List<Action>) dao.findAll();
 		dao.save(action);
 		dao.save(action2);
-
 		List<Action> listeActions = (List<Action>) dao.findAll();
-		assertEquals(listeActions.size(), 2);
-
+		assertEquals(listeActionsBefore.size() + 2, listeActions.size());
 	}
 
 	@Test
 	@Transactional
 	final void testDeleteById() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  06,  11);
+		cal.set(2020, 06, 11);
 		Date date = cal.getTime();
 		Action action = new Action(date, "testAction1", null, null);
 		dao.save(action);
-		List<Action> listeActions = (List<Action>) dao.findAll();
-		dao.deleteById(listeActions.get(0).getIdAction());
+		List<Action> listeActionsBefore = (List<Action>) dao.findAll();
+		dao.deleteById(listeActionsBefore.get(listeActionsBefore.size() - 1).getIdAction());
 		List<Action> listeActions2 = (List<Action>) dao.findAll();
-
-		assertEquals(listeActions2.size(), 0);
+		assertEquals(listeActionsBefore.size() - 1,listeActions2.size());
 	}
 
 	@Test
 	@Transactional
 	final void testDelete() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  06,  11);
+		cal.set(2020, 06, 11);
 		Date date = cal.getTime();
 		Action action = new Action(date, "testAction1", null, null);
 		dao.save(action);
+		List<Action> listeActionsBefore = (List<Action>) dao.findAll();
 		dao.delete(action);
 		List<Action> listeActions = (List<Action>) dao.findAll();
-		assertEquals(listeActions.size(), 0);
+		assertEquals(listeActionsBefore.size() - 1,listeActions.size() );
 	}
-	
+
 	@Test
 	@Transactional
 	final void findActionsByIntervalDate() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  5,  11);
-		Date date = cal.getTime();
-		Action action = new Action(date, "testAction1", null, null);
-		Calendar cal2 = Calendar.getInstance();
-		cal2.set(2020,  6,  18);
-		Date date2 = cal2.getTime();
-		Action action2 = new Action(date2, "testAction2", null, null);
+		cal.set(2021, 5, 15);
+		Date dateInf = cal.getTime();
+		cal.set(2021, 5, 30);
+		Date dateSup = cal.getTime();
+		List<Action> listeActionsBefore = (List<Action>) dao.findActionsByIntervalDate(dateInf, dateSup);
+		cal.set(2021, 5, 18);
+		Date date2 = cal.getTime();
+		Action action = new Action(date2, "testAction1", null, null);
 		dao.save(action);
+		cal.set(2021, 5, 22);
+		Date date4 = cal.getTime();
+		Action action2 = new Action(date4, "testAction1", null, null); 
 		dao.save(action2);
-		Calendar cal4 = Calendar.getInstance();
-		cal4.set(2020,  5,  27);
-		Date date4 = cal4.getTime();
-		
-		List<Action> listeActions = (List<Action>) dao.findActionsByIntervalDate(date, date4);
-		assertEquals(listeActions.size(), 1);
+		List<Action> listeActions = (List<Action>) dao.findActionsByIntervalDate(dateInf, dateSup);
+		assertEquals(listeActionsBefore.size() + 2, listeActions.size());
 	}
-	
+
 	@Test
 	@Transactional
 	final void findActionsByPotagerByIntervalDate() {
-		Potager potager =  new Potager("test", "test", 2, "test");
+		Potager potager = new Potager("test", "test", 2, "test");
 		daoPot.save(potager);
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  5,  11);
-		Date date = cal.getTime();
-		Action action = new Action(date, "testAction1", potager, null);
-		Calendar cal2 = Calendar.getInstance();
-		cal2.set(2020,  5,  18);
-		Date date2 = cal2.getTime();
-		Action action2 = new Action(date2, "testAction2", potager, null);
+		cal.set(2021, 5, 15);
+		Date dateInf = cal.getTime();
+		cal.set(2021, 5, 30);
+		Date dateSup = cal.getTime();
+		cal.set(2021, 5, 18);
+		Date date2 = cal.getTime();
+		Action action = new Action(date2, "testAction1", potager, null);
 		dao.save(action);
+		cal.set(2021, 5, 22);
+		Date date4 = cal.getTime();
+		Action action2 = new Action(date4, "testAction1", potager, null); 
 		dao.save(action2);
-		Calendar cal4 = Calendar.getInstance();
-		cal4.set(2020,  5,  27);
-		Date date4 = cal4.getTime();
 		List<Action> listeActions = (List<Action>) dao.findAll();
-		List<Action> listeActionsPot = (List<Action>) dao.findActionsByPotagerByIntervalDate(listeActions.get(0).getPotager().getIdPotager(), date, date4 );
-		assertEquals(listeActionsPot.size(), 2);
+		List<Action> listeActionsPot = (List<Action>) dao.findActionsByPotagerByIntervalDate(
+				listeActions.get(listeActions.size() - 1).getPotager().getIdPotager(), dateInf, dateSup);
+		assertEquals(2, listeActionsPot.size());
 	}
- 
-	
+
 	@Test
 	@Transactional
 	final void findActionsByPotagerByCarreByIntervalDate() {
-		Potager potager =  new Potager("test", "test", 2, "test");
+		Potager potager = new Potager("test", "test", 2, "test");
 		daoPot.save(potager);
 		Carre carre = new Carre(0, "test", Exposition.MI_OMBRE, potager);
 		daoCarre.save(carre);
 		Calendar cal = Calendar.getInstance();
-		cal.set(2020,  5,  11);
-		Date date = cal.getTime();
-		Action action = new Action(date, "testAction1", potager, carre);
-		Calendar cal2 = Calendar.getInstance();
-		cal2.set(2020,  5,  18);
-		Date date2 = cal2.getTime();
-		Action action2 = new Action(date2, "testAction2", potager, carre);
+		cal.set(2021, 5, 15);
+		Date dateInf = cal.getTime();
+		cal.set(2021, 5, 30);
+		Date dateSup = cal.getTime();
+		cal.set(2021, 5, 18);
+		Date date2 = cal.getTime();
+		Action action = new Action(date2, "testAction1", potager, carre);
 		dao.save(action);
+		cal.set(2021, 5, 22);
+		Date date4 = cal.getTime();
+		Action action2 = new Action(date4, "testAction1", potager, carre); 
 		dao.save(action2);
-		Calendar cal4 = Calendar.getInstance();
-		cal4.set(2020,  5,  27);
-		Date date4 = cal4.getTime();
 		List<Action> listeActions = (List<Action>) dao.findAll();
-		List<Action> listeActionsPot = (List<Action>) dao.findActionsByPotagerByCarreByIntervalDate(listeActions.get(0).getCarre().getIdCarre(), listeActions.get(0).getPotager().getIdPotager(), date, date4 );
-		assertEquals(listeActionsPot.size(), 2);
+		List<Action> listeActionsPot = (List<Action>) dao.findActionsByPotagerByCarreByIntervalDate(
+				listeActions.get(listeActions.size() - 1).getCarre().getIdCarre(),
+				listeActions.get(listeActions.size() - 1).getPotager().getIdPotager(), dateInf, dateSup);
+		assertEquals(2, listeActionsPot.size());
 	}
-	
+
 }

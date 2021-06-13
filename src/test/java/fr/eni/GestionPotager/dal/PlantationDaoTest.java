@@ -3,6 +3,8 @@ package fr.eni.GestionPotager.dal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,7 +23,7 @@ import fr.eni.GestionPotager.bo.TypePlante;
 class PlantationDaoTest {
 
 	@Autowired
-	PlantationDao dao;
+	PlantationDao daoPlantation;
 	@Autowired
 	PlanteDao daoPlante;
 	@Autowired
@@ -30,71 +32,107 @@ class PlantationDaoTest {
 	@Test
 	@Transactional
 	final void testSave() {
-//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-//		dao.save(plantation1);
-		List<Plantation> listePlantatuions = (List<Plantation>) dao.findAll();
-		assertEquals(listePlantatuions.size(), 1);
-
+		List<Plantation> listePlantatuionsBefore = (List<Plantation>) daoPlantation.findAll();
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 11);
+		Date date = cal.getTime();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 8, 18);
+		Date date1 = cal2.getTime();
+		Plantation plantation1 = new Plantation(date, date1, 1, null, null);
+		daoPlantation.save(plantation1);
+		List<Plantation> listePlantatuions = (List<Plantation>) daoPlantation.findAll();
+		assertEquals(listePlantatuionsBefore.size() + 1, listePlantatuions.size());
 	}
 
 	@Test
 	@Transactional
 	final void testFindById() {
-//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-//		dao.save(plantation1);
-		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
-		Plantation plantationTest = dao.findById(listePlantations.get(0).getIdPlantation()).orElse(null);
-//		assertEquals(plantationTest.getMiseEnPlace(), plantation1.getMiseEnPlace());
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 11);
+		Date date = cal.getTime();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 8, 18);
+		Date date1 = cal2.getTime();
+		Plantation plantation1 = new Plantation(date, date1, 1, null, null);
+		daoPlantation.save(plantation1);
+		List<Plantation> listePlantations = (List<Plantation>) daoPlantation.findAll();
+		Plantation plantationTest = daoPlantation
+				.findById(listePlantations.get(listePlantations.size() - 1).getIdPlantation()).orElse(null);
+		assertEquals(plantationTest.getMiseEnPlace(), plantation1.getMiseEnPlace());
 	}
 
 	@Test
 	@Transactional
 	final void testFindAll() {
-//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-//		Plantation plantation2 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(8), 2, null, null);
-//		dao.save(plantation1);
-//		dao.save(plantation2);
-		List<Plantation> listePlantatuions = (List<Plantation>) dao.findAll();
-		assertEquals(listePlantatuions.size(), 2);
-
+		List<Plantation> listePlantatuionsBefore = (List<Plantation>) daoPlantation.findAll();
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 11);
+		Date date = cal.getTime();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 8, 18);
+		Date date1 = cal2.getTime();
+		Plantation plantation1 = new Plantation(date, date1, 1, null, null);
+		Plantation plantation2 = new Plantation(date, date1, 5, null, null);
+		daoPlantation.save(plantation1);
+		daoPlantation.save(plantation2);
+		List<Plantation> listePlantatuions = (List<Plantation>) daoPlantation.findAll();
+		assertEquals(listePlantatuionsBefore.size() + 2, listePlantatuions.size());
 	}
 
 	@Test
 	@Transactional
 	final void testDeleteById() {
-//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-//		dao.save(plantation1);
-		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
-		dao.deleteById(listePlantations.get(0).getIdPlantation());
-		List<Plantation> listePlantations2 = (List<Plantation>) dao.findAll();
-		assertEquals(listePlantations2.size(), 0);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 11);
+		Date date = cal.getTime();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 8, 18);
+		Date date1 = cal2.getTime();
+		Plantation plantation1 = new Plantation(date, date1, 1, null, null);
+		daoPlantation.save(plantation1);
+		List<Plantation> listePlantationsBefore = (List<Plantation>) daoPlantation.findAll();
+		daoPlantation.deleteById(listePlantationsBefore.get(listePlantationsBefore.size() - 1).getIdPlantation());
+		List<Plantation> listePlantations = (List<Plantation>) daoPlantation.findAll();
+		assertEquals(listePlantationsBefore.size() - 1, listePlantations.size());
 	}
 
 	@Test
 	@Transactional
 	final void testDelete() {
-//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, null, null);
-//		dao.save(plantation1);
-//		dao.delete(plantation1);
-		List<Plantation> listePlantations = (List<Plantation>) dao.findAll();
-
-		assertEquals(listePlantations.size(), 0);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 11);
+		Date date = cal.getTime();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 8, 18);
+		Date date1 = cal2.getTime();
+		Plantation plantation1 = new Plantation(date, date1, 1, null, null);
+		daoPlantation.save(plantation1);
+		List<Plantation> listePlantationsBefore = (List<Plantation>) daoPlantation.findAll();
+		daoPlantation.delete(plantation1);
+		List<Plantation> listePlantations = (List<Plantation>) daoPlantation.findAll();
+		assertEquals(listePlantationsBefore.size() - 1, listePlantations.size());
 	}
-	
+
 	@Test
 	@Transactional
 	final void testFindAllPlantationForOnePlante() {
 		Carre carre1 = new Carre(2, "sableux", Exposition.MI_OMBRE, null);
 		daoCarre.save(carre1);
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
+		Plante plante1 = new Plante("TEST", TypePlante.FRUIT, "TEST", (double) 0.1);
 		daoPlante.save(plante1);
-//		Plantation plantation1 = new Plantation(LocalDate.now().plusWeeks(1), LocalDate.now().plusWeeks(6), 1, carre1, plante1);
-//		dao.save(plantation1);
-		List<Plante> listePlantes = (List<Plante>) daoPlante.findAll();
-		System.err.println("toto                 "+listePlantes);
-		System.err.println(listePlantes.get(0).getIdPlante());
-		System.err.println("dudu            "+ dao.findAllPlantationForOnePlante(listePlantes.get(0).getIdPlante()));
-		//assertEquals(listePlantations.size(), 0);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 11);
+		Date date = cal.getTime();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 8, 18);
+		Date date1 = cal2.getTime();
+		Plantation plantation1 = new Plantation(date, date1, 1, carre1, plante1);
+		daoPlantation.save(plantation1);
+		System.err.println(daoPlantation.findAll());
+		List<Plante> listeplantes = (List<Plante>) daoPlante.findAll();
+		assertEquals(1, daoPlantation
+				.findAllPlantationForOnePlante(listeplantes.get(listeplantes.size() - 1).getIdPlante()).size());
 	}
 
 }

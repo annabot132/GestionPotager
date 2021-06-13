@@ -17,8 +17,6 @@ public class PotagerManagerImpl implements PotagerManager {
 	PotagerDao dao;
 	@Autowired
 	CarreManager carreMg;
-	
-	
 
 	@Override
 	public void addPotager(Potager potager) {
@@ -34,7 +32,6 @@ public class PotagerManagerImpl implements PotagerManager {
 	@Override
 	public void updatePotager(Potager potager) {
 		dao.save(potager);
-
 	}
 
 	@Override

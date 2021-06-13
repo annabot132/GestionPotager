@@ -91,8 +91,8 @@ public class PlanteController {
 		carreMg.ajouterPlantationAuCarre(carre, plante, plantation);
 		carreMg.ajouterPlantationAuCarre(carre, plante2, plantation2);
 
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise", (float) 0.75);
-		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", (float) 0.75);
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise",  0.75);
+		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", 0.75);
 		manager.createPlante(plante1);
 		manager.createPlante(plante3);
 

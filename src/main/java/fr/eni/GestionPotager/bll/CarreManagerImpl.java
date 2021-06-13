@@ -83,6 +83,7 @@ public class CarreManagerImpl implements CarreManager {
 			potagerManager.addPotager(potager);
 		}
 		carre. setPotager(potager);
+		
 		potager.getListeCarres().add(carre);
 		createCarre(carre);
 //		
@@ -142,9 +143,9 @@ public class CarreManagerImpl implements CarreManager {
 //		System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
 
 		// contrainte surface
-		float surfaceRestanteDuCarre = carre.getSurface();
+		double surfaceRestanteDuCarre = carre.getSurface();
 		// recupere surface total des plantation lié au carré
-		float surfaceTotalDesPlantationsDuCarreInBdd = 0;
+		double  surfaceTotalDesPlantationsDuCarreInBdd = 0;
 		for (Plantation p : lstPlantationDuCarreInBdd) {
 			// System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
 			surfaceTotalDesPlantationsDuCarreInBdd += (p.getPlante().getSurfaceOccupee()) * p.getQuantite();
@@ -152,7 +153,7 @@ public class CarreManagerImpl implements CarreManager {
 
 		surfaceRestanteDuCarre -= surfaceTotalDesPlantationsDuCarreInBdd;
 
-		float surfaceAAdd = (float) (plante.getSurfaceOccupee() * plantation.getQuantite());
+		double surfaceAAdd = (double) (plante.getSurfaceOccupee() * plantation.getQuantite());
 
 		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon
 		// ajoute

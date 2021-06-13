@@ -22,7 +22,7 @@ public class Carre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idCarre;
-	private float surface;
+	private double surface;
 	private String sol;
 	private Exposition exposition;
 
@@ -30,12 +30,12 @@ public class Carre {
 	private Potager potager;
 
 	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
-	private List<Action> listeActions = new ArrayList<Action>();
+	private List<Action> listeActions = new ArrayList<Action>();	
 
 	@OneToMany(mappedBy = "carre", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();
 
-	public Carre(float surface, String sol, Exposition exposition, Potager potager) {
+	public Carre(double surface, String sol, Exposition exposition, Potager potager) {
 		this.surface = surface;
 		this.sol = sol;
 		this.exposition = exposition;

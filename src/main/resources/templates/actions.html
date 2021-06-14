@@ -50,12 +50,14 @@
 				<h4>Toutes mes actions à faire dans les 15 jours</h4>
 
 				<!-- 				si nullite ou vide -->
-				<div th:if="${actions} == null or ${actions.isEmpty()}">Vous
+				<div th:if="${#lists.isEmpty(actions)}">Vous
 					n'avez rien à faire dans les deux semaines à venir !</div>
 				<!-- 				else -->
-				<div
-					style="overflow-x: hidden; overflow-y: scroll; border: none; max-height: 400px;"
-					th:if="${!actions.isEmpty()}">
+
+				<div th:if="${!#lists.isEmpty(actions)}"
+					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
+					>
+
 					<table>
 						<thead>
 							<tr>
@@ -98,9 +100,12 @@
 						th:value="${potager.idPotager}" th:text="${potager.nom}">
 					</option>
 				</select> <label for="evenement">Action à faire</label> <input type="text"
-					th:field="*{evenement}" id="evenement" placeholder="Action à faire">
-				<span th:if="${#fields.hasErrors('evenement')}"
-					th:errors="*{evenement}" class="warning"></span> <br> <br><label
+
+					th:field="*{evenement}" id="evenement" placeholder="Action à faire" required>
+<!-- 				<span th:if="${#fields.hasErrors('evenement')}" -->
+<!-- 					th:errors="*{evenement}" class="warning"></span> -->
+					 <br> <label
+
 					for="date">Date </label> <input type="date" th:field="*{date}"
 					id="date" required> <span
 					th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
@@ -150,19 +155,21 @@
 		<br> <br>
 		
 <!-- 		bloc4 -->
-		<div id="DivPrincipale" th:if="${!listeActionsByPot.isEmpty()}">
+		<div id="DivPrincipale"  th:if="${!#lists.isEmpty(listeActionsByPot)}">
 			<div>
 				<br>
 
 			
   <h4 th:text="${nomPotager}">Potager : nomPotager</h4>
-				<div th:if="${listeActionsByPot.isEmpty()}">
+				<div >
 					<h6>pas d'action pour ce potager</h6>
 				</div>
 				<div
-					style="overflow-x: hidden; overflow-y: scroll; border: none; max-height: 400px;"
-					th:if="${!actions.isEmpty()}">
-					<table th:if="${!listeActionsByPot.isEmpty()}">
+
+					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
+					>
+					<table>
+
 						<thead>
 							<tr>
 								<th>Date</th>

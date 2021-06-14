@@ -16,4 +16,7 @@ public interface CarreDao extends CrudRepository<Carre, Integer> {
 	@Query("select c from Carre c where c.listePlantations(1)=:null")
 	List<Carre> carreVide();
 
+	@Query("SELECT c from Carre c where c.potager.idPotager=:idPotager")
+	List<Carre>  selectCarreByPotager(@Param("idPotager") Integer idPotager);
+	
 }

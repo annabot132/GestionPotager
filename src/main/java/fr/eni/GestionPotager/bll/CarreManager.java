@@ -81,4 +81,8 @@ public interface CarreManager {
 	public void deletePlantationOfCarre(Plantation plantation, Carre carre);
 	
 	public void modifierPlantationOfCarre(Plantation plantation, Carre carre, Plante plante) throws BllException;
+	
+	
+	public List<Carre>  findCarreByPotager(Integer idPotager);
+
 }

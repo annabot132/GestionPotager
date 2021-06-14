@@ -253,4 +253,9 @@ public class CarreManagerImpl implements CarreManager {
 		
 		
 	}
+
+	@Override
+	public List<Carre> findCarreByPotager(Integer idPotager) {
+		return carreDao.selectCarreByPotager(idPotager);
+	}
 }

@@ -1,5 +1,7 @@
 package fr.eni.GestionPotager.ihm;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,8 +213,16 @@ public class PotagerController {
 		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
 		model.addAttribute("lstPlantes", planteMgr.findAll());
 		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
+		
+		Carre carreChoix = carreMgr.findById(idCarre);
+		List<Plantation> lstPlant = carreChoix.getListePlantations();
+		for (Plantation p : lstPlant) {
+			if (p.getIdPlantation()==idPlantation) {
+				model.addAttribute(p);
+			}
+		};
 
-		return "potagerDetail";
+		return "modifPlantation";
 
 	}
 	

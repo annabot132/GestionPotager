@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Modifier un carré</title>
+
+<link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="navbar">
+
+      <div class="container">
+        <div class="row">
+
+          <nav class="col navbar navbar-expand-lg navbar-dark">
+
+            <div class="navbar-brand">Gestion Potager</div>
+<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"> -->
+<!--               <span class="navbar-toggler-icon"></span> -->
+<!--             </button> -->
+<!--             <div id="navbarContent" class="collapse navbar-collapse"> -->
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/accueil">Mes Potagers</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/plante/add">Mes Plantes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Mes Actions</a>
+                </li>
+              </ul>
+<!--             </div> -->
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div id="DivPrincipale" th:if="${idPlantation}!=null">
+        <h4>Modifier plantation</h4>
+        <form th:action="@{/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}" 
+        		th:object="${plantation}" method="post">
+
+			<!-- Selection plante -->
+            <select th:name="idPlante">
+                <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}"
+                    th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}">
+                </option>
+            </select>
+            <label for="quantite">Quantité</label>
+            <!-- Champs quantité -->
+            <input type="text" th:field="*{quantite}" id="quantite" placeholder="Quantité">
+            <input type="hidden" th:field="*{quantite}" id="quantite" placeholder="Quantité">
+            <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span>
+			<!-- Selection date mise en place -->
+            <label for="dateMiseEnPlace">Date de mise en place</label>
+            <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required>
+            <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span>
+			<!-- Selection date récolte -->
+            <label for="dateDeRecolte">Date de récolte</label>
+            <input type="date" th:field="*{recolte}" id="dateDeRecolte" required>
+            <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br>
+
+            <input type="submit" value="Modifier plantation">
+            <a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Annuler</a>
+        </form>
+    </div>
+</body>
+</html>

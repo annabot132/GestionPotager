@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Modifier un carré</title>
+
+<link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="navbar">
+
+      <div class="container">
+        <div class="row">
+
+          <nav class="col navbar navbar-expand-lg navbar-dark">
+
+            <div class="navbar-brand">Gestion Potager</div>
+<!--             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"> -->
+<!--               <span class="navbar-toggler-icon"></span> -->
+<!--             </button> -->
+<!--             <div id="navbarContent" class="collapse navbar-collapse"> -->
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/accueil">Mes Potagers</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/plante/add">Mes Plantes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Mes Actions</a>
+                </li>
+              </ul>
+<!--             </div> -->
+          </nav>
+        </div>
+      </div>
+    </div>
+	<div id="DivPrincipale">
+                   
+	<form th:action="@{/potager/{idPotager}/carre/updateCarre/{idCarre} (idPotager=${idPotager},idCarre=${carre.idCarre})}" th:object="${carre}" method="post">
+            <h4>Modifier un carré</h4>
+            <!-- Champs surface -->
+            <label for="surface">Surface </label>
+            <input id="surface" type="text" th:field="*{surface}" placeholder="Surface" disabled="disabled">
+            <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span>
+            
+            <!-- Champs type de sol -->
+            <label for="sol">Type de sol </label>
+            <input id="sol" type="text" th:field="*{sol}" placeholder="Sol">
+            <span th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}" class="warning"></span>
+
+			<!-- Selection exposition -->
+            <label for="exposition">Exposition </label>
+            <select id="exposition" name="exposition">
+                <!-- Va chercher les valeurs de l'enum -->
+                <option th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
+                    th:value="${exposition}" th:text="${exposition.displayValue}">
+                </option>
+            </select><br><br>
+            
+            <input type="submit" value="Modifier le carré">
+        </form>
+	</div>
+</body>
+</html>

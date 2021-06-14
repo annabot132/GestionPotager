@@ -52,6 +52,7 @@
                     <th>Exposition</th>
                     <th>Supprimer</th>
                     <th>Visualiser</th>
+                    <th>Modifier</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +67,9 @@
 
                     <td>
                         <a th:href="@{/potager/{idPotager}/carre/{idCarre}#where (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/potager/{idPotager}/carre/editCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Modifier</a>
                     </td>
                 </tr>
             </tbody>

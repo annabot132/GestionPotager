@@ -10,4 +10,8 @@ class GestionPotagerApplicationTests {
 	void contextLoads() {
 	}
 
+	//@Test
+	void testMain() {
+	}
+
 }

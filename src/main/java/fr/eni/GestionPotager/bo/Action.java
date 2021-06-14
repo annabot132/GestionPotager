@@ -23,16 +23,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Action {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idAction;
-	
-	//@FutureOrPresent
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
-	@NotBlank(message = "Le description de l'action à faire est obligatoire")
+//	@NotBlank(message = "Le description de l'action à faire est obligatoire")
 	private String evenement;
 
 	@ManyToOne
@@ -48,6 +46,5 @@ public class Action {
 		this.potager = potager;
 		this.carre = carre;
 	}
-	
-	
+
 }

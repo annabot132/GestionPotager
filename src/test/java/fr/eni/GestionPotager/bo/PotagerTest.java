@@ -8,7 +8,7 @@ class PotagerTest {
 
 	@Test
 	void testPotagerStringStringDoubleString() {
-		Potager potager = new Potager("STR", "STR", 25, "STR");
+		Potager potager = new Potager("STR", "STR",  25, "STR");
 		assertEquals(String.class, potager.getVille().getClass());
 		assertEquals(String.class, potager.getNom().getClass());
 		assertEquals(String.class, potager.getLocalisation().getClass());

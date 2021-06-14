@@ -78,16 +78,17 @@ ActionManager actionMg;
 		carreMg.ajouterCarrePotager(potager2, carre3);
 
 		Date date2 = new Date(2021, 5, 15);
-//		Action ac = new Action(date2, "a1", potager1, carre2);
-//		Action ac2 = new Action(date2, "a2", potager1, carre2);
-//		Action ac3 = new Action(date2, "a13", potager1, carre);
-//		Action ac24 = new Action(date2, "a23", potager1, carre);
-//		
-//		actionMg.addAction(ac3);
-//		actionMg.addAction(ac);
-//		actionMg.addAction(ac2);
-//		actionMg.addAction(ac24);
-//		
+
+		Action ac = new Action(date2, "a1", potager1, carre2);
+		Action ac2 = new Action(date2, "a2", potager1, carre2);
+		Action ac3 = new Action(date2, "a13", potager1, carre);
+		Action ac24 = new Action(date2, "a23", potager1, carre);
+		
+		actionMg.addAction(ac3);
+		actionMg.addAction(ac);
+		actionMg.addAction(ac2);
+		actionMg.addAction(ac24);
+
 		Plante plante = new Plante("Plante1", TypePlante.FEUILLE, "varPlante1", 2);
 		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
 		manager.createPlante(plante);

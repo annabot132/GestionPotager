@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,49 +36,37 @@ public class ActionController {
 	PotagerManager potagerMgr;
 
 	@GetMapping("/actions")
-	public String listerActions(Action action, Potager potager, Model model) {
-		System.err.println("tuuuuuuuuuuuuuuuuu "+potagerMgr.getAllPotager());
+	public String listerActions(Action action, Model model) {
 		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
 		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
 		List<Action>  listevide = new ArrayList<Action>();
 		model.addAttribute("listeActionsByPot", listevide);	
-		model.addAttribute("listeActionsByPotByCarre", listevide);
 		return "actions";
 	}
 
 
 
 	@PostMapping("/actions/add")
-	public String addPotager(@Valid Action action, @RequestParam("idPotager") Integer idPotager,  BindingResult result, Potager potager, Model model) throws BllException {
-	
+	public String addPotager(@Valid Action action, @RequestParam("idPotager") Integer idPotager,  BindingResult result,  Model model) throws BllException {
+		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
+		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
+		List<Action>  listevide = new ArrayList<Action>();
+		model.addAttribute("listeActionsByPot", listevide);	
+		
 		if (result.hasErrors()) {
-			model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
-			model.addAttribute("listePotagers", potagerMgr.getAllPotager());
-			model.addAttribute("carres", carreMgr.findAll());
-			List<Action>  listevide = new ArrayList<Action>();
-			model.addAttribute("listeActionsByPot", listevide);	
-			model.addAttribute("listeActionsByPotByCarre", listevide);
-			
+			return "actions";
+		}
+		try {
+			action.setPotager(potagerMgr.getPotagerById(idPotager));
+			actionMg.addAction(action);
+		} catch (BllException e) {
+			result.addError(new FieldError("action", "date", e.getMessage()));
+		}
+		if (result.hasErrors()) {
 			return "actions";
 		}
 		
-//		try {
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-		action.setPotager(potagerMgr.getPotagerById(idPotager));
-		actionMg.addAction(action);
-		
-//if (result.hasErrors()) {
-//			
-//			return "actions";
-//		}
-		
-		
-		return "redirect:/actions";
-
-		
+		return "actions";
 	}
 
 	@GetMapping("/actions/find/{idPotager}")

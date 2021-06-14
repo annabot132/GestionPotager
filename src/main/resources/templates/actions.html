@@ -46,16 +46,18 @@
 <!-- 		bloc1 -->
 			<!-- tableau general dans un scrollbar -->
 
-			<div id="DivPrincipale" class="col-md-8">
+			<div id="DivPrincipale" class="col-md-6">
 				<h4>Toutes mes actions à faire dans les 15 jours</h4>
 
 				<!-- 				si nullite ou vide -->
-				<div th:if="${actions} == null or ${actions.isEmpty()}">Vous
+				<div th:if="${#lists.isEmpty(actions)}">Vous
 					n'avez rien à faire dans les deux semaines à venir !</div>
 				<!-- 				else -->
-				<div
+
+				<div th:if="${!#lists.isEmpty(actions)}"
 					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
-					th:if="${!actions.isEmpty()}">
+					>
+
 					<table>
 						<thead>
 							<tr>
@@ -79,13 +81,13 @@
 					<br>
 				</div>
 			</div>
-		</div>
+		
 
 
 <!-- 		bloc2-->
 		<!-- un formulaire d'ajout d'une action -->
 
-		<div id="DivPrincipale" class="col-md-8">
+		<div id="DivPrincipale" class="col-md-4">
 			<h4>Ajouter une action à un potager</h4>
 			<!-- choxi d'un potager -->
 
@@ -98,9 +100,12 @@
 						th:value="${potager.idPotager}" th:text="${potager.nom}">
 					</option>
 				</select> <label for="evenement">Action à faire</label> <input type="text"
-					th:field="*{evenement}" id="evenement" placeholder="Action à faire">
-				<span th:if="${#fields.hasErrors('evenement')}"
-					th:errors="*{evenement}" class="warning"></span> <br> <label
+
+					th:field="*{evenement}" id="evenement" placeholder="Action à faire" required>
+<!-- 				<span th:if="${#fields.hasErrors('evenement')}" -->
+<!-- 					th:errors="*{evenement}" class="warning"></span> -->
+					 <br> <label
+
 					for="date">Date </label> <input type="date" th:field="*{date}"
 					id="date" required> <span
 					th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
@@ -121,7 +126,7 @@
 
 
 <!-- 		bloc3 -->
-
+<div class="row" id="where">
 	<!-- 	<!-- button visulaition des actions pour un potager  -->
 	<div id="DivPrincipale" class="col-md-4">
 
@@ -140,7 +145,7 @@
 						<td th:text="${potager.nom}"></td>
 
 						<td><a
-							th:href="@{/actions/find/{idPotager} (idPotager=${potager.idPotager})}">+</a>
+							th:href="@{/actions/find/{idPotager}#where (idPotager=${potager.idPotager})}">+</a>
 						</td>
 					</tr>
 				</tbody>
@@ -150,19 +155,21 @@
 		<br> <br>
 		
 <!-- 		bloc4 -->
-		<div id="DivPrincipale" th:if="${!listeActionsByPot.isEmpty()}">
+		<div id="DivPrincipale"  th:if="${!#lists.isEmpty(listeActionsByPot)}">
 			<div>
 				<br>
 
 			
   <h4 th:text="${nomPotager}">Potager : nomPotager</h4>
-				<div th:if="${listeActionsByPot.isEmpty()}">
+				<div >
 					<h6>pas d'action pour ce potager</h6>
 				</div>
 				<div
+
 					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
-					th:if="${!actions.isEmpty()}">
-					<table th:if="${!listeActionsByPot.isEmpty()}">
+					>
+					<table>
+
 						<thead>
 							<tr>
 								<th>Date</th>
@@ -184,8 +191,10 @@
 				</div>
 			</div>
 		</div>
-	
+	</div>
+	</div>
 	<!-- button visualisation des actions pour un carre
 	-->
+	<div class="footer"><p>Anna Bot  /  Pierre Heydon  /  Clément Bertran</p></div>
 </body>
 </html>

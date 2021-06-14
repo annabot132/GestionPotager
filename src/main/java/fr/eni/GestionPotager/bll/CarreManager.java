@@ -32,8 +32,9 @@ public interface CarreManager {
 	 * Update un carré
 	 * 
 	 * @param carre
+	 * @throws BllException 
 	 */
-	public void updateCarre(Carre carre);
+	public void updateCarre(Carre carre) throws BllException;
 
 	/**
 	 * Cherche un carré par son id

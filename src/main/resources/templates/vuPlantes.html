@@ -19,147 +19,150 @@
 
 				<nav class="col navbar navbar-expand-lg navbar-dark">
 					<div class="navbar-brand">Gestion Potager</div>
-<!-- 					<button class="navbar-toggler" type="button" data-toggle="collapse" -->
-<!-- 						data-target="#navbarContent"> -->
-<!-- 						<span class="navbar-toggler-icon"></span> -->
-<!-- 					</button> -->
-<!-- 					<div id="navbarContent" class="collapse navbar-collapse"> -->
-						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" href="/accueil">Mes
-									Potagers</a></li>
-							<li class="nav-item active"><a class="nav-link"
-								href="/plante/add">Mes Plantes</a></li>
-							<li class="nav-item"><a class="nav-link" href="/actions">Mes
-									Actions</a></li>
-						</ul>
-<!-- 					</div> -->
+					<!-- 					<button class="navbar-toggler" type="button" data-toggle="collapse" -->
+					<!-- 						data-target="#navbarContent"> -->
+					<!-- 						<span class="navbar-toggler-icon"></span> -->
+					<!-- 					</button> -->
+					<!-- 					<div id="navbarContent" class="collapse navbar-collapse"> -->
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link" href="/accueil">Mes
+								Potagers</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/plante/add">Mes Plantes</a></li>
+						<li class="nav-item"><a class="nav-link" href="/actions">Mes
+								Actions</a></li>
+					</ul>
+					<!-- 					</div> -->
 				</nav>
 			</div>
 		</div>
 	</div>
 	<h1>Mes plantes</h1>
 
-<div class="container-fluid">
-	<div class="row">
+	<div class="container-fluid">
+		<div class="row">
 
-	<div id="DivPrincipale" class="col-md-4">
-		<h4>Ajouter une plante</h4>
+			<div id="DivPrincipale" class="col-md-4">
+				<h4>Mes Plantes</h4>
+				<div th:switch="${plantes}">
+					<h5 th:case="null" class="vide">Pas de plantes pour l'instant
+						!</h5>
+					<div th:case="*">
+						<table>
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Type</th>
+									<th>Variété</th>
+									<th>Surface Occupée (m²)</th>
+									<th>Où suis-plantée?</th>
+									<th>modifier la plante</th>
+									<th>Supprimer une plante</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="plante : ${plantes}">
+									<td th:text="${plante.nom}"></td>
+									<td th:text="${plante.typePlante}"></td>
+									<td th:text="${plante.variete}"></td>
+									<td th:text="${plante.surfaceOccupee}"></td>
 
 
 
-		<form th:action="@{/plante/add}" th:object="${plante}" method="post">
-			<label for="nom">Nom</label> 
-			<input type="text" th:field="*{nom}" id="nom" placeholder="nom">
-			<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="warning"></span>  <br> 
-			<label for="typePlante">Type</label> 
-			<select th:field="*{typePlante}" id="typePlante" name="typePlante">
-			<option value="FRUIT">FRUIT</option>
-			<option value="FEUILLE">FEUILLE</option>
-			<option value="RACINE">RACINE</option>
-			</select>  <br> 
-		    <label for="variete">Variété</label> 
-		    <input type="text" th:field="*{variete}" id="variete" placeholder="variete"> 
-		    <span th:if="${#fields.hasErrors('variete')}" th:errors="*{variete}" class="warning"></span> <br> 
-			<label for="surfaceOccupee">Surface Occupée</label>
-			<input type="text" th:field="*{surfaceOccupee}" id="surfaceOccupee"	placeholder="surfaceOccupee"> 
-			<span th:if="${#fields.hasErrors('surfaceOccupee')}" th:errors="*{surfaceOccupee}" class="warning"></span><br> <br> 
-			<input type="submit" value="Ajouter la plante">
-		</form>
-	</div>
+									<td><a
+										th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
 
-	<div id="DivPrincipale" class="col-md-4">
-		<h4>Mes Plantes</h4>
-		<div th:switch="${plantes}">
-			<h5 th:case="null">Pas de plantes pour l'instant !</h5>
-			<div th:case="*">
-				<table>
+									<td><a
+										th:href="@{/plante/find/{id}#where(id=${plante.idPlante})}">Visualiser</a></td>
+
+
+
+									<td><a
+										th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
+
+
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
+				</div>
+			</div>
+			<div id="DivPrincipale" class="col-md-4">
+				<h4>Ajouter une plante</h4>
+
+
+
+				<form th:action="@{/plante/add}" th:object="${plante}" method="post">
+					<label for="nom">Nom</label> <input type="text" th:field="*{nom}"
+						id="nom" placeholder="nom"> <span
+						th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"
+						class="warning"></span> <br> <label for="typePlante">Type</label>
+					<select th:field="*{typePlante}" id="typePlante" name="typePlante">
+						<option value="FRUIT">FRUIT</option>
+						<option value="FEUILLE">FEUILLE</option>
+						<option value="RACINE">RACINE</option>
+					</select> <br> <label for="variete">Variété</label> <input type="text"
+						th:field="*{variete}" id="variete" placeholder="variete">
+					<span th:if="${#fields.hasErrors('variete')}"
+						th:errors="*{variete}" class="warning"></span> <br> <label
+						for="surfaceOccupee">Surface Occupée</label> <input type="text"
+						th:field="*{surfaceOccupee}" id="surfaceOccupee"
+						placeholder="surfaceOccupee"> <span
+						th:if="${#fields.hasErrors('surfaceOccupee')}"
+						th:errors="*{surfaceOccupee}" class="warning"></span><br> <br>
+					<input type="submit" value="Ajouter la plante">
+				</form>
+			</div>
+		</div>
+
+		<div class="row" id="where">
+
+			<div th:if="${plantations == null}" id="DivPrincipale"
+				class="col-md-8">
+				<h4>Mes plantes aux potagers :</h4>
+				<h5 class="vide">cliquer sur la visualisation d'une plante pour
+					savoir ou la trouver !</h5>
+
+			</div>
+
+
+			<div th:if="${plantations}" id="DivPrincipale" class="col-md-8">
+
+				<h4>Mes plantes aux potagers :</h4>
+
+				<div th:if="${plantations.isEmpty()}" class="vide">la plante
+					n'est pas présente dans les potagers</div>
+
+
+
+				<table th:if="${!plantations.isEmpty()}">
 					<thead>
 						<tr>
-							<th>Nom</th>
-							<th>Type</th>
-							<th>Variété</th>
-							<th>Surface Occupée (m²)</th>
-							<th>Où suis-plantée?</th>
-							<th>modifier la plante</th>
-							<th>Supprimer une plante</th>
+							<th>Nom du potager</th>
+							<th>le carré</th>
+							<th>quantité de plants</th>
+							<th>Aller au plan du carré</th>
+
+
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="plante : ${plantes}">
-							<td th:text="${plante.nom}"></td>
-							<td th:text="${plante.typePlante}"></td>
-							<td th:text="${plante.variete}"></td>
-							<td th:text="${plante.surfaceOccupee}"></td>
-
-
-
+						<tr th:each="plantation : ${plantations}">
+							<td th:text="${plantation.carre.potager.nom}"></td>
+							<td th:text="${plantation.carre.idCarre}"></td>
+							<td th:text="${plantation.quantite}"></td>
 							<td><a
-								th:href="@{/plante/delete/{id}(id=${plante.idPlante})}">Effacer</a></td>
-
-							<td><a th:href="@{/plante/find/{id}#where(id=${plante.idPlante})}">Visualiser</a></td>
-
-
-
-							<td><a th:href="@{/plante/edit/{id}(id=${plante.idPlante})}">Modifier</a></td>
-						
-
+								th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
 						</tr>
+					</tbody>
 					</tbody>
 				</table>
 				<br>
+
 			</div>
 		</div>
 	</div>
-	</div>
-
-	<div class="row"  id="where">
-
-	<div th:if="${plantations == null}" id="DivPrincipale" class="col-md-8">
-		<h4>Mes plantes aux potagers :</h4>
-		<h6>cliquer sur la visualisation d'une plante pour savoir ou la
-			trouver!!</h6>
-
-	</div>
-
-
-	<div th:if="${plantations}" id="DivPrincipale" class="col-md-8">
-
-		<h4>Mes plantes aux potagers :</h4>
-
-		<div th:if="${plantations.isEmpty()}">la plante n'est pas
-			présente dans les potagers</div>
-
-
-
-		<table th:if="${!plantations.isEmpty()}">
-			<thead>
-				<tr>
-					<th>Nom du potager</th>
-					<th>le carré</th>
-					<th>quantité de plants</th>
-					<th>Aller au plan du carré</th>
-
-
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="plantation : ${plantations}">
-					<td th:text="${plantation.carre.potager.nom}"></td>
-					<td th:text="${plantation.carre.idCarre}"></td>
-					<td th:text="${plantation.quantite}"></td>
-					<td><a
-						th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
-				</tr>
-			</tbody>
-			</tbody>
-		</table>
-		<br>
-	
-
-	</div>
-
-
-
-
+	<div class="footer"><p>Anna Bot  /  Pierre Heydon  /  Clément Bertran</p></div>
 </body>
 </html>

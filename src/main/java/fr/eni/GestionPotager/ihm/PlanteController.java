@@ -112,6 +112,7 @@ public class PlanteController {
 	@PostMapping("/plante/add")
 	public String addPlante(@Valid Plante plante, BindingResult result, Model model) throws BllException {
 		if (result.hasErrors()) {
+			model.addAttribute("plantes", manager.findAll());
 			return "vuPlantes";
 		}
 		manager.createPlante(plante);

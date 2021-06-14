@@ -171,4 +171,19 @@ table tr {
 	border-radius: 2px;
 	padding:5px;
 }
+.vide{
+	text-align: center;
+}
+.footer{
+	margin-top:80px;
+	background: #186a3b;
+	text-align: center;
+	color: white;
+	height: 50px;
+	display:flex;
+	justify-content: center;
+}
+.footer p{
+	margin-top: auto;
+}
 

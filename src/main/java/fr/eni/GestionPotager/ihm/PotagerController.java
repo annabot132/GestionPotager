@@ -111,7 +111,7 @@ public class PotagerController {
 		try {
 			carreMgr.ajouterCarrePotager(potagerMgr.getPotagerById(idPotager), carre);
 		} catch (BllException e) {
-			result.addError(new FieldError("carre", "surface", e.getMessage()));
+//			result.addError(new FieldError("carre", "surface", e.getMessage()));
 			result.addError(new FieldError("carre", "sol", e.getMessage()));
 		}
 		if (result.hasErrors()) {
@@ -141,7 +141,7 @@ public class PotagerController {
 	@PostMapping("/potager/{idPotager}/carre/{idCarre}/addPlantation")
 	public String ajouterPlantationAuCarre(
 			@Valid Plantation plantation, 
-			Potager potager,
+//			Potager potager,
 			Carre carre,
 			Plante plante,
 			@PathVariable("idPotager") Integer idPotager, 
@@ -163,8 +163,8 @@ public class PotagerController {
 		try {
 			carreMgr.ajouterPlantationAuCarre(carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante), plantation);
 		} catch (BllException e) {
-			result.addError(new FieldError("plantation", "quantite", e.getMessage()));
-			result.addError(new FieldError("plantation", "miseEnPlace", e.getMessage()));
+//			result.addError(new FieldError("plantation", "quantite", e.getMessage()));
+//			result.addError(new FieldError("plantation", "miseEnPlace", e.getMessage()));
 			result.addError(new FieldError("plantation", "recolte", e.getMessage()));
 		}
 		if (result.hasErrors()) {
@@ -238,17 +238,25 @@ public class PotagerController {
 			BindingResult result, Model model) throws BllException {
 
 		plantation.setIdPlantation(idPlantation);
+		
+		
+		
+		
 		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
 		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
 		model.addAttribute(("lstPlantations"), carreMgr.findById(idCarre).getListePlantations());
 		model.addAttribute("lstPlantes", planteMgr.findAll());
 		
+		System.err.println("JE SUIS LA : "+ plantation+ carreMgr.findById(idCarre)+ planteMgr.findPlanteById(idPlante));
+		
 		if (result.hasErrors()) {
 			return "modifPlantation";
 		}
 		try {
-			carreMgr.modifierPlantationOfCarre(plantation, carre, plante);
+			carreMgr.modifierPlantationOfCarre(plantation, carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante));
+			
 		} catch (BllException e) {
+			
 			result.addError(new FieldError("plantation", "quantite", e.getMessage()));
 			result.addError(new FieldError("plantation", "miseEnPlace", e.getMessage()));
 			result.addError(new FieldError("plantation", "recolte", e.getMessage()));
@@ -281,7 +289,6 @@ public class PotagerController {
 	
 	@PostMapping("/potager/{idPotager}/carre/updateCarre/{idCarre}")
 	public String updateCarre(
-			Potager potager,
 			@Valid Carre carre,
 			@PathVariable("idPotager") Integer idPotager, 
 			@PathVariable("idCarre") Integer idCarre,
@@ -292,11 +299,19 @@ public class PotagerController {
 		if (result.hasErrors()) {
 			return "modifCarre";
 		}
-		carre.setPotager(potagerMgr.getPotagerById(idPotager));
-		carre.setIdCarre(idCarre);
 		
+		try {
+			carre.setPotager(potagerMgr.getPotagerById(idPotager));
+			carre.setIdCarre(idCarre);
+			carreMgr.updateCarre(carre);
+		} catch (BllException e) {
+			result.addError(new FieldError("carre", "sol", e.getMessage()));
+//			result.addError(new FieldError("carre", "surface", e.getMessage()));
+		}
 		
-		carreMgr.updateCarre(carre);
+		if (result.hasErrors()) {
+			return "modifCarre";
+		}
 		
 	
 		return "redirect:/potager/{idPotager}/carre/{idCarre}";

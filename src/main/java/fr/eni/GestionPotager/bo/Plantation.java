@@ -30,7 +30,7 @@ public class Plantation {
 	private Date recolte;
 
 	
-	@Min(value = 1, message = "La quantité de plante ne peut être inférieure à 1.")
+//	@Min(value = 1, message = "La quantité de plante ne peut être inférieure à 1.")
 	private Integer quantite;
 
 	@ManyToOne

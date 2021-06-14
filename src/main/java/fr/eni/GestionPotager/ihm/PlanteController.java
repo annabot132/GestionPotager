@@ -65,54 +65,54 @@ ActionManager actionMg;
 //				LocalDate.now().plusWeeks(2));
 //
 //	}
-//	@PostConstruct
-//	void init() throws BllException {
-//		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
-//		Potager potager2 = new Potager("devant", "j'ai le carre3", 50, "Quimper");
-//		Carre carre = new Carre(16, "j'ai des plantations", Exposition.SOLEIL, potager1);
-//		Carre carre2 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
-//		Carre carre3 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
-//
-//		carreMg.ajouterCarrePotager(potager1, carre);
-//		carreMg.ajouterCarrePotager(potager1, carre2);
-//		carreMg.ajouterCarrePotager(potager2, carre3);
-//
-//		Date date2 = new Date(2021, 5, 15);
-////		Action ac = new Action(date2, "a1", potager1, carre2);
-////		Action ac2 = new Action(date2, "a2", potager1, carre2);
-////		Action ac3 = new Action(date2, "a13", potager1, carre);
-////		Action ac24 = new Action(date2, "a23", potager1, carre);
-////		
-////		actionMg.addAction(ac3);
-////		actionMg.addAction(ac);
-////		actionMg.addAction(ac2);
-////		actionMg.addAction(ac24);
-////		
-//		Plante plante = new Plante("Plante1", TypePlante.FEUILLE, "varPlante1", 2);
-//		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
-//		manager.createPlante(plante);
-//		manager.createPlante(plante2);
+	@PostConstruct
+	void init() throws BllException {
+		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
+		Potager potager2 = new Potager("devant", "j'ai le carre3", 50, "Quimper");
+		Carre carre = new Carre(16, "j'ai des plantations", Exposition.SOLEIL, potager1);
+		Carre carre2 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+		Carre carre3 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+
+		carreMg.ajouterCarrePotager(potager1, carre);
+		carreMg.ajouterCarrePotager(potager1, carre2);
+		carreMg.ajouterCarrePotager(potager2, carre3);
+
+		Date date2 = new Date(2021, 5, 15);
+//		Action ac = new Action(date2, "a1", potager1, carre2);
+//		Action ac2 = new Action(date2, "a2", potager1, carre2);
+//		Action ac3 = new Action(date2, "a13", potager1, carre);
+//		Action ac24 = new Action(date2, "a23", potager1, carre);
 //		
+//		actionMg.addAction(ac3);
+//		actionMg.addAction(ac);
+//		actionMg.addAction(ac2);
+//		actionMg.addAction(ac24);
 //		
-//		
-//		Date date = new Date();
-//		
-//		Plantation plantation = new Plantation(date, date, 2, carre3, plante2);
-//		Plantation plantation2 = new Plantation(date, date, 2, carre2, plante);
-//		
-//		
-//		
-//		carreMg.ajouterPlantationAuCarre(carre, plante, plantation);
-//		carreMg.ajouterPlantationAuCarre(carre, plante2, plantation2);
-//
-//		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise",  0.75);
-//		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", 0.75);
-//		manager.createPlante(plante1);
-//		manager.createPlante(plante3);
-//
-//		carreMg.ajouterPlantationAuCarre(carre3, plante3, plantation);
-//
-//	}
+		Plante plante = new Plante("Plante1", TypePlante.FEUILLE, "varPlante1", 2);
+		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
+		manager.createPlante(plante);
+		manager.createPlante(plante2);
+		
+		
+		
+		Date date = new Date();
+		
+		Plantation plantation = new Plantation(date, date, 2, carre3, plante2);
+		Plantation plantation2 = new Plantation(date, date, 2, carre2, plante);
+		
+		
+		
+		carreMg.ajouterPlantationAuCarre(carre, plante, plantation);
+		carreMg.ajouterPlantationAuCarre(carre, plante2, plantation2);
+
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise",  0.75);
+		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", 0.75);
+		manager.createPlante(plante1);
+		manager.createPlante(plante3);
+
+		carreMg.ajouterPlantationAuCarre(carre3, plante3, plantation);
+
+	}
 
 	@GetMapping("/plante/add")
 	public String findPlante(Model model, Plante plante) throws BllException {

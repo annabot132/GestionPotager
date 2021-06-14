@@ -252,4 +252,45 @@ public class PotagerController {
 		return "redirect:/potager/{idPotager}/carre/{idCarre}";
 	}
 	
+	@GetMapping("/potager/{idPotager}/carre/editCarre/{idCarre}")
+	public String showUpdateFormCarre(
+			Potager potager,
+			@PathVariable("idPotager") Integer idPotager, 
+			@PathVariable("idCarre") Integer idCarre,
+			Model model) throws BllException {
+
+		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+		model.addAttribute("lstCarres", potagerMgr.getPotagerById(idPotager).getListeCarres());
+		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
+		
+		
+		Carre carre = carreMgr.findById(idCarre);
+		model.addAttribute("carre",carre);
+		return "modifCarre";
+
+	}
+	
+	@PostMapping("/potager/{idPotager}/carre/updateCarre/{idCarre}")
+	public String updateCarre(
+			Potager potager,
+			@Valid Carre carre,
+			@PathVariable("idPotager") Integer idPotager, 
+			@PathVariable("idCarre") Integer idCarre,
+			BindingResult result, Model model) throws BllException {
+
+		model.addAttribute("idPotager", potagerMgr.getPotagerById(idPotager).getIdPotager());
+		
+		if (result.hasErrors()) {
+			return "modifCarre";
+		}
+		carre.setPotager(potagerMgr.getPotagerById(idPotager));
+		carre.setIdCarre(idCarre);
+		
+		
+		carreMgr.updateCarre(carre);
+		
+	
+		return "redirect:/potager/{idPotager}/carre/{idCarre}";
+	}
+	
 }

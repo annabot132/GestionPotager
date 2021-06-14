@@ -46,7 +46,7 @@
 <!-- 		bloc1 -->
 			<!-- tableau general dans un scrollbar -->
 
-			<div id="DivPrincipale" class="col-md-8">
+			<div id="DivPrincipale" class="col-md-6">
 				<h4>Toutes mes actions à faire dans les 15 jours</h4>
 
 				<!-- 				si nullite ou vide -->
@@ -54,7 +54,7 @@
 					n'avez rien à faire dans les deux semaines à venir !</div>
 				<!-- 				else -->
 				<div
-					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
+					style="overflow-x: hidden; overflow-y: scroll; border: none; max-height: 400px;"
 					th:if="${!actions.isEmpty()}">
 					<table>
 						<thead>
@@ -79,13 +79,13 @@
 					<br>
 				</div>
 			</div>
-		</div>
+		
 
 
 <!-- 		bloc2-->
 		<!-- un formulaire d'ajout d'une action -->
 
-		<div id="DivPrincipale" class="col-md-8">
+		<div id="DivPrincipale" class="col-md-4">
 			<h4>Ajouter une action à un potager</h4>
 			<!-- choxi d'un potager -->
 
@@ -100,7 +100,7 @@
 				</select> <label for="evenement">Action à faire</label> <input type="text"
 					th:field="*{evenement}" id="evenement" placeholder="Action à faire">
 				<span th:if="${#fields.hasErrors('evenement')}"
-					th:errors="*{evenement}" class="warning"></span> <br> <label
+					th:errors="*{evenement}" class="warning"></span> <br> <br><label
 					for="date">Date </label> <input type="date" th:field="*{date}"
 					id="date" required> <span
 					th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
@@ -121,7 +121,7 @@
 
 
 <!-- 		bloc3 -->
-
+<div class="row" id="where">
 	<!-- 	<!-- button visulaition des actions pour un potager  -->
 	<div id="DivPrincipale" class="col-md-4">
 
@@ -140,7 +140,7 @@
 						<td th:text="${potager.nom}"></td>
 
 						<td><a
-							th:href="@{/actions/find/{idPotager} (idPotager=${potager.idPotager})}">+</a>
+							th:href="@{/actions/find/{idPotager}#where (idPotager=${potager.idPotager})}">+</a>
 						</td>
 					</tr>
 				</tbody>
@@ -160,7 +160,7 @@
 					<h6>pas d'action pour ce potager</h6>
 				</div>
 				<div
-					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
+					style="overflow-x: hidden; overflow-y: scroll; border: none; max-height: 400px;"
 					th:if="${!actions.isEmpty()}">
 					<table th:if="${!listeActionsByPot.isEmpty()}">
 						<thead>
@@ -184,8 +184,10 @@
 				</div>
 			</div>
 		</div>
-	
+	</div>
+	</div>
 	<!-- button visualisation des actions pour un carre
 	-->
+	<div class="footer"><p>Anna Bot  /  Pierre Heydon  /  Clément Bertran</p></div>
 </body>
 </html>

@@ -152,4 +152,19 @@ class CarreManagerImplTest {
 		System.err.println("Liste carré : " + carremgr.findAll());
 	}
 
+	@Test
+	@Transactional
+	void testfindCarreByPotager() {
+		System.out.println("__________XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXR___________");
+		Potager potager = new Potager("STR", "STR", 25, "STR");
+		daoPotager.save(potager);
+		Carre carre1 = new Carre(2, "sableux", Exposition.MI_OMBRE, potager);
+		Carre carre2 = new Carre(10, "argileux", Exposition.SOLEIL, potager);
+		carremgr.createCarre(carre2);
+		carremgr.createCarre(carre1);
+		List<Potager> listePotager = (List<Potager>) daoPotager.findAll();
+
+
+		assertEquals(2, carremgr.findCarreByPotager(listePotager.get(listePotager.size()-1).getIdPotager()));
+	}
 }

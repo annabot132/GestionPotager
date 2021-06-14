@@ -88,5 +88,18 @@ class CarreDaoTest {
 		double sumSurface = (double) (carre1.getSurface() + carre2.getSurface());
 		assertEquals((double) dao.countSurface(potager.getIdPotager()), sumSurface);
 	}
+	
+	@Test
+	@Transactional
+	final void testSelectCarreByPotager() {
+		Potager potager = new Potager("STR", "STR", 25, "STR");
+		daoPotager.save(potager);
+		Carre carre1 = new Carre(2, "sableux", Exposition.MI_OMBRE, potager);
+		Carre carre2 = new Carre(10, "argileux", Exposition.SOLEIL, potager);
+		dao.save(carre1);
+		dao.save(carre2);
+		List<Potager> listePotager = (List<Potager>) daoPotager.findAll();
+		assertEquals(2, dao.selectCarreByPotager(listePotager.get(listePotager.size()-1).getIdPotager()).size());
+	}
 
 }

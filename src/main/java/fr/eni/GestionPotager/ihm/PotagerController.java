@@ -97,7 +97,6 @@ public class PotagerController {
 	public String ajouterCarreAuPotager(
 			@PathVariable("idPotager") Integer idPotager,
 			@Valid Carre carre, 
-			Potager potager,
 			BindingResult result, Model model)
 			throws BllException {
 		
@@ -245,7 +244,7 @@ public class PotagerController {
 		model.addAttribute("lstPlantes", planteMgr.findAll());
 		
 		if (result.hasErrors()) {
-			return "potagerDetail";
+			return "modifPlantation";
 		}
 		try {
 			carreMgr.modifierPlantationOfCarre(plantation, carre, plante);
@@ -255,7 +254,7 @@ public class PotagerController {
 			result.addError(new FieldError("plantation", "recolte", e.getMessage()));
 		}
 		if (result.hasErrors()) {
-			return "potagerDetail";
+			return "modifPlantation";
 		}
 		
 

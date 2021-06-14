@@ -83,11 +83,11 @@
             <!-- Champs surface -->
             <label for="surface">Surface </label>
             <input id="surface" type="text" th:field="*{surface}" placeholder="Surface">
-            <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span>
+            <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span><br>
 			<!-- Champs type de sol -->
             <label for="sol">Type de sol </label>
             <input id="sol" type="text" th:field="*{sol}" placeholder="Type de sol">
-            <span th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}" class="warning"></span>
+            <span th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}" class="warning"></span><br>
 
 			<!-- Selection exposition -->
             <label for="exposition">Exposition </label>

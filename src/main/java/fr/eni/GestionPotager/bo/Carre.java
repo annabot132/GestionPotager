@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,7 @@ public class Carre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idCarre;
-	private double surface;
+	private Double surface;
 	private String sol;
 	private Exposition exposition;
 

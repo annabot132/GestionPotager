@@ -177,35 +177,35 @@
     </div>
 
     <!-- Modifier plantation -->
-    <div id="DivPrincipale" th:if="${idPlantation}!=null" class="col-md-4">
-        <h4>Modifier plantation</h4>
-        <form th:action="@{/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}" 
-        		th:object="${plantation}" method="post">
+<!--     <div id="DivPrincipale" th:if="${idPlantation}!=null" class="col-md-4"> -->
+<!--         <h4>Modifier plantation</h4> -->
+<!--         <form th:action="@{/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}"  -->
+<!--         		th:object="${plantation}" method="post"> -->
 
-			<!-- Selection plante -->
-            <select th:name="idPlante">
-                <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}"
-                    th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}">
-                </option>
-            </select>
-            <label for="quantite">Quantité</label>
-            <!-- Champs quantité -->
-            <input type="text" th:field="*{quantite}" id="quantite" placeholder="Quantité">
-            <input type="hidden" th:field="*{quantite}" id="quantite" placeholder="Quantité">
-            <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span>
-			<!-- Selection date mise en place -->
-            <label for="dateMiseEnPlace">Date de mise en place</label>
-            <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required>
-            <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span>
-			<!-- Selection date récolte -->
-            <label for="dateDeRecolte">Date de récolte</label>
-            <input type="date" th:field="*{recolte}" id="dateDeRecolte" required>
-            <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br>
+<!-- 			<!-- Selection plante --> -->
+<!--             <select th:name="idPlante"> -->
+<!--                 <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}" -->
+<!--                     th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}"> -->
+<!--                 </option> -->
+<!--             </select> -->
+<!--             <label for="quantite">Quantité</label> -->
+<!--             Champs quantité -->
+<!--             <input type="text" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
+<!--             <input type="hidden" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
+<!--             <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span> -->
+<!-- 			<!-- Selection date mise en place --> -->
+<!--             <label for="dateMiseEnPlace">Date de mise en place</label> -->
+<!--             <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required> -->
+<!--             <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span> -->
+<!-- 			<!-- Selection date récolte --> -->
+<!--             <label for="dateDeRecolte">Date de récolte</label> -->
+<!--             <input type="date" th:field="*{recolte}" id="dateDeRecolte" required> -->
+<!--             <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br> -->
 
-            <input type="submit" value="Modifier plantation">
-            <a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Annuler</a>
-        </form>
-    </div>
+<!--             <input type="submit" value="Modifier plantation"> -->
+<!--             <a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Annuler</a> -->
+<!--         </form> -->
+<!--     </div> -->
      </div>
      </div>
      <div class="footer"><p>Anna Bot  /  Pierre Heydon  /  Clément Bertran</p></div>

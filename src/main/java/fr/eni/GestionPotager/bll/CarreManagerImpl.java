@@ -71,9 +71,19 @@ public class CarreManagerImpl implements CarreManager {
 
 		potagerManager.addPotager(potager);
 		
-		if ((carre.getSurface() <= 0 )) {
+		if (carre.getSol().isEmpty()) {
+			throw new BllException("Pas de sol");
+			}
+			if ((carre.getSurface()==null)) {
+			throw new BllException("Pas de surface");
+			}
+			if ((carre.getSurface() <= 0)) {
 			throw new BllException("La surface de votre carré ne peut être inférieur ou égal à 0.");
-		}
+			}
+		
+//		if (carre.getSurface() <= 0 ) {
+//			throw new BllException("La surface de votre carré ne peut être inférieur ou égal à 0.");
+//		}
 		
 		if ((calculSurfaceCarre(potager) + carre.getSurface()) > potager.getSurface()) {
 			double reste = potager.getSurface() - (calculSurfaceCarre(potager) + carre.getSurface());
@@ -82,7 +92,10 @@ public class CarreManagerImpl implements CarreManager {
 		if (potagerManager.getPotagerById(potager.getIdPotager())== null){
 			potagerManager.addPotager(potager);
 		}
-		carre. setPotager(potager);
+		if (carre.getSol()==null) {
+			throw new BllException("Vous devez donner un type de sol.");
+		}
+		carre.setPotager(potager);
 		
 		potager.getListeCarres().add(carre);
 		createCarre(carre);

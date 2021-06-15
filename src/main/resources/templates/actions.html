@@ -57,7 +57,8 @@
 				<h6 th:if="${#lists.isEmpty(actions)}">Vous n'avez rien à faire
 					dans les deux semaines à venir !</h6>
 
-				<div th:if="${!#lists.isEmpty(actions)}" style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
+				<div th:if="${!#lists.isEmpty(actions)}"
+					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
 
 					<table>
 						<thead>
@@ -70,27 +71,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="action : ${actions}" >
+							<tr th:each="action : ${actions}">
 								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
 								<td th:text="${action.evenement}"></td>
 								<td th:text="${action.potager.nom}"></td>
-								<td>'tous'</td>
+								<td th:if="${action.carre !=null}"
+									th:text="${action.carre.idCarre}"></td>
+								<td th:if="${action.carre ==null}">'tous'</td>
 								<td><a
 									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
 								</td>
 							</tr>
-<!-- 							<tr th:each="action : ${actions}" th:if="${action.carre !=null}"> -->
-<!-- 								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td> -->
-<!-- 								<td th:text="${action.evenement}"></td> -->
-<!-- 								<td th:text="${action.potager.nom}"></td> -->
-<!-- 								<td th:text="${action.carre.idCarre}"></td> -->
-<!-- 								<td><a -->
-<!-- 									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-
 						</tbody>
-
 					</table>
 					<br>
 				</div>
@@ -98,11 +90,10 @@
 
 
 
-			<div id="DivPrincipale"
-				 class="col-md-4">
+			<div id="DivPrincipale" class="col-md-4">
 				<h4>Ajouter une action à un potager</h4>
 				<form th:action="@{/actions/add}" th:object="${action}"
-					method="post" >
+					method="post">
 					<label for="potager">Potager</label> <select id="potager"
 						th:name="idPotager" required>
 						<option th:each="potager : ${listePotagers}"
@@ -149,67 +140,59 @@
 					</tbody>
 				</table>
 			</div>
-		
-		<br> <br>
+
+			<br> <br>
 
 
-		<div id="DivPrincipale" th:if="${#lists.isEmpty(listeActionsByPot)} and ${!#lists.isEmpty(listePotagers)}">
-			<div>
-				<br>
-				<h4 th:text="${nomPotager}">Potager : nomPotager</h4>
-				<h6>Aucune action à faire pour la quinzaine dans ce potager!</h6>
-			</div>
-		</div>
-
-		<div id="DivPrincipale" th:if="${!#lists.isEmpty(listeActionsByPot)} and ${!#lists.isEmpty(listePotagers)}">
-			<div>
-				<br>
-				<h4 th:text="${nomPotager}">Potager : nomPotager</h4>
-				<div
-					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
-					<table>
-
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Action à faire</th>
-								<th>Potager</th>
-								<th>Carré</th>
-								<th>Supprimer</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<tr th:each="action :${listeActionsByPot}"
-								th:if="${action.carre ne null}">
-								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
-								<td th:text="${action.evenement}"></td>
-								<td th:text="${action.potager.nom}"></td>
-								<td>'tous'</td>
-								<td><a
-									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
-								</td>
-							</tr>
-							<tr th:each="action : ${listeActionsByPot}"
-								th:if="${action.carre !=null}">
-								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
-								<td th:text="${action.evenement}"></td>
-								<td th:text="${action.potager.nom}"></td>
-								<td th:text="${action.carre.idCarre}"></td>
-								<td><a
-									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
-								</td>
-
-							</tr>
-
-						</tbody>
-
-					</table>
+			<div id="DivPrincipale"
+				th:if="${#lists.isEmpty(listeActionsByPot)} and ${!#lists.isEmpty(listePotagers)} and  ${potager}">
+				<div>
 					<br>
-
+					<h4 th:text="${nomPotager}">Potager : nomPotager</h4>
+					<h6>Aucune action à faire pour la quinzaine dans ce potager!</h6>
 				</div>
 			</div>
-		</div>
+
+			<div id="DivPrincipale"
+				th:if="${!#lists.isEmpty(listeActionsByPot)} and ${!#lists.isEmpty(listePotagers)} and  ${potager}">
+				<div>
+					<br>
+					<h4 th:text="${nomPotager}">Potager : nomPotager</h4>
+					<div
+						style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
+						<table>
+
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Action à faire</th>
+									<th>Potager</th>
+									<th>Carré</th>
+									<th>Supprimer</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:each="action :${listeActionsByPot}">
+									<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
+									<td th:text="${action.evenement}"></td>
+									<td th:text="${action.potager.nom}"></td>
+									<td th:if="${action.carre !=null}"
+										th:text="${action.carre.idCarre}"></td>
+									<td th:if="${action.carre ==null}">'tous'</td>
+									<td><a
+										th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+						<br>
+
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 

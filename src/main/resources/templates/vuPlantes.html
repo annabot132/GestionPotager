@@ -153,7 +153,7 @@
 							<td th:text="${plantation.carre.idCarre}"></td>
 							<td th:text="${plantation.quantite}"></td>
 							<td><a
-								th:href="@{/potager/{idPotager}(idPotager=${plantation.carre.potager.idPotager})}">visualiser</a></td>
+								th:href="@{/potager/{idPotager}/carre/{idCarre}#where (idPotager=${plantation.carre.potager.idPotager}, idCarre=${plantation.carre.idCarre})}">Visualiser</a></td>
 						</tr>
 					</tbody>
 					</tbody>

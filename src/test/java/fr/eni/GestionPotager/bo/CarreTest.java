@@ -65,9 +65,7 @@ class CarreTest {
 	void testSetSurface() {
 		Potager potager = new Potager("STR", "STR", 25, "STR");
 		Carre carre1 = new Carre(2, "sableux", Exposition.MI_OMBRE, potager);
-
 		carre1.setSurface(12.0);
-
 		assertEquals(12, carre1.getSurface());
 	}
 

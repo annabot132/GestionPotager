@@ -57,8 +57,9 @@
 				<h6 th:if="${#lists.isEmpty(actions)}">Vous n'avez rien à faire
 					dans les deux semaines à venir !</h6>
 
+
 				<div th:if="${!#lists.isEmpty(actions)}"
-					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
+					style="overflow-x: hidden; overflow-y: scroll; border: none; max-height: 400px;">
 
 					<table>
 						<thead>
@@ -101,9 +102,9 @@
 						</option>
 					</select> <label for="evenement">Action à faire</label> <input type="text"
 						th:field="*{evenement}" id="evenement"
-						placeholder="Action à faire" required> <br> <label
-						for="date">Date </label> <input type="date" th:field="*{date}"
-						id="date" required> <span
+						placeholder="Action à faire" required> <br> <br>
+					<label for="date">Date </label> <input type="date"
+						th:field="*{date}" id="date" required> <span
 						th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
 						class="warning"></span> <br> <br> <input type="submit"
 						value="Ajouter une action">
@@ -141,7 +142,7 @@
 				</table>
 			</div>
 
-			<br> <br>
+
 
 
 			<div id="DivPrincipale"

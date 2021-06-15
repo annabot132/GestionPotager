@@ -33,7 +33,7 @@ public class Plante {
 	private String variete;
 
 	@DecimalMin(value = "0.001", message = "La surface occupée par une plante ne peut être inférieure à 0,001 m²!")
-	private double surfaceOccupee;
+	private Double surfaceOccupee;
 
 	@OneToMany(mappedBy = "plante", cascade = CascadeType.ALL)
 	private List<Plantation> listePlantations = new ArrayList<Plantation>();

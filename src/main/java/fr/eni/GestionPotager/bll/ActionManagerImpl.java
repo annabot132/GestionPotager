@@ -1,5 +1,6 @@
 package fr.eni.GestionPotager.bll;
 
+import java.nio.file.FileSystemAlreadyExistsException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -58,6 +59,7 @@ public class ActionManagerImpl implements ActionManager {
 	public List<Action> findAllActionFor2Weeks() {
 		LocalDate dateJour = LocalDate.now();
 		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
+		System.err.println("bllimplAll "+ dao.findActionsByIntervalDate(localDateToDate(dateJour), localDateToDate(dateJourPlus15)));
 		return dao.findActionsByIntervalDate(localDateToDate(dateJour), localDateToDate(dateJourPlus15));
 
 	}
@@ -66,6 +68,9 @@ public class ActionManagerImpl implements ActionManager {
 	public List<Action> findAllActionByPotagerFor2Weeks(Integer idPotager) {
 		LocalDate dateJour = LocalDate.now();
 		LocalDate dateJourPlus15 = LocalDate.now().plusDays(14);
+		System.err.println("bllimplAllByPot "+ dao.findActionsByPotagerByIntervalDate(idPotager, localDateToDate(dateJour),
+				localDateToDate(dateJourPlus15)));
+
 		return dao.findActionsByPotagerByIntervalDate(idPotager, localDateToDate(dateJour),
 				localDateToDate(dateJourPlus15));
 	}

@@ -36,19 +36,20 @@ public class ActionController {
 	PotagerManager potagerMgr;
 
 	@GetMapping("/actions")
-	public String listerActions(Action action, Model model) {
+	public String listerActions(Action action, Model model, Potager potager) {
 		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
 		System.err.println(actionMg.findAllActionFor2Weeks().size());
 		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
 		List<Action> listevide = new ArrayList<Action>();
+		Potager pot = null;
 		model.addAttribute("listeActionsByPot", listevide);
+		model.addAttribute("potager", pot);
 		return "actions";
 	}
 
 	@PostMapping("/actions/add")
 	public String addPotager(@Valid Action action, @RequestParam("idPotager") Integer idPotager, BindingResult result,
 			Model model) throws BllException {
-	
 
 		if (result.hasErrors()) {
 			return "actions";
@@ -58,7 +59,7 @@ public class ActionController {
 			actionMg.addAction(action);
 		} catch (BllException e) {
 			result.addError(new FieldError("action", "date", e.getMessage()));
-			
+
 		}
 		if (result.hasErrors()) {
 			model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
@@ -72,22 +73,19 @@ public class ActionController {
 	}
 
 	@GetMapping("/actions/find/{idPotager}")
-	public String afficherActionsPotager(@PathVariable("idPotager") Integer idPotager, Action action, Potager potager,
-			Carre carre, Integer IdPotager, Model model) {
+	public String afficherActionsPotager(@PathVariable("idPotager") Integer idPotager, Potager potager, Action action, Model model) {
 		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
 		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
-		model.addAttribute("carres", carreMgr.findAll());
 		List<Action> listevide = new ArrayList<Action>();
-		model.addAttribute("listeActionsByPotByCarre", listevide);
 		model.addAttribute("listeActionsByPot", actionMg.findAllActionByPotagerFor2Weeks(idPotager));
-		model.addAttribute("listeCarres", carreMgr.findCarreByPotager(idPotager));
 		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
+		model.addAttribute("potager", potagerMgr.getPotagerById(idPotager));
 		return "actions";
 	}
 
 	@GetMapping("/actions/supprimer/{idAction}")
 	public String supprimerActionsPotager(@PathVariable("idAction") Integer idAction, Action action, Model model) {
-			actionMg.deleteActionById(idAction);
+		actionMg.deleteActionById(idAction);
 		return "redirect:/actions";
 	}
 

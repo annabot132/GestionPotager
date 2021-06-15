@@ -37,26 +37,27 @@
 	</div>
 
 
-	<!-- titre -->
 	<h1>Qu'ai-je donc à faire aux potagers?</h1>
 
 
 	<div class="container-fluid">
 		<div class="row">
-<!-- 		bloc1 -->
-			<!-- tableau general dans un scrollbar -->
 
-			<div id="DivPrincipale" class="col-md-6">
+			<div id="DivPrincipale" th:if="${#lists.isEmpty(listePotagers) }">
+				<h4>Toutes mes actions à faire dans les 15 jours</h4>
+				<h6>Aucun potager n'existe!</h6>
+			</div>
+
+			<div id="DivPrincipale" th:if="${!#lists.isEmpty(listePotagers) }">
+
+
 				<h4>Toutes mes actions à faire dans les 15 jours</h4>
 
-				<!-- 				si nullite ou vide -->
-				<div th:if="${#lists.isEmpty(actions)}">Vous
-					n'avez rien à faire dans les deux semaines à venir !</div>
-				<!-- 				else -->
 
-				<div th:if="${!#lists.isEmpty(actions)}"
-					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
-					>
+				<h6 th:if="${#lists.isEmpty(actions)}">Vous n'avez rien à faire
+					dans les deux semaines à venir !</h6>
+
+				<div th:if="${!#lists.isEmpty(actions)}" style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
 
 					<table>
 						<thead>
@@ -65,136 +66,156 @@
 								<th>Action</th>
 								<th>potager</th>
 								<th>carre</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="action : ${actions}">
+							<tr th:each="action : ${actions}" >
 								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
 								<td th:text="${action.evenement}"></td>
 								<td th:text="${action.potager.nom}"></td>
-								<td th:if="${action.carre ne null}"
-									th:text="${action.carre.idCarre}"></td>
+								<td>'tous'</td>
+								<td><a
+									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
+								</td>
 							</tr>
+<!-- 							<tr th:each="action : ${actions}" th:if="${action.carre !=null}"> -->
+<!-- 								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td> -->
+<!-- 								<td th:text="${action.evenement}"></td> -->
+<!-- 								<td th:text="${action.potager.nom}"></td> -->
+<!-- 								<td th:text="${action.carre.idCarre}"></td> -->
+<!-- 								<td><a -->
+<!-- 									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+
 						</tbody>
 
 					</table>
 					<br>
 				</div>
 			</div>
-		
 
 
-<!-- 		bloc2-->
-		<!-- un formulaire d'ajout d'une action -->
 
-		<div id="DivPrincipale" class="col-md-4">
-			<h4>Ajouter une action à un potager</h4>
-			<!-- choxi d'un potager -->
+			<div id="DivPrincipale"
+				 class="col-md-4">
+				<h4>Ajouter une action à un potager</h4>
+				<form th:action="@{/actions/add}" th:object="${action}"
+					method="post" >
+					<label for="potager">Potager</label> <select id="potager"
+						th:name="idPotager" required>
+						<option th:each="potager : ${listePotagers}"
+							th:value="${potager.idPotager}" th:text="${potager.nom}">
+						</option>
+					</select> <label for="evenement">Action à faire</label> <input type="text"
+						th:field="*{evenement}" id="evenement"
+						placeholder="Action à faire" required> <br> <label
+						for="date">Date </label> <input type="date" th:field="*{date}"
+						id="date" required> <span
+						th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
+						class="warning"></span> <br> <br> <input type="submit"
+						value="Ajouter une action">
+				</form>
+			</div>
+		</div>
 
-			<form th:action="@{/actions/add}" th:object="${action}" method="post">
 
-				<!-- Selection plante -->
-				<label for="potager">Potager</label> <select id="potager"
-					th:name="idPotager">
-					<option th:each="potager : ${listePotagers}"
-						th:value="${potager.idPotager}" th:text="${potager.nom}">
-					</option>
-				</select> <label for="evenement">Action à faire</label> <input type="text"
 
-					th:field="*{evenement}" id="evenement" placeholder="Action à faire" required>
-<!-- 				<span th:if="${#fields.hasErrors('evenement')}" -->
-<!-- 					th:errors="*{evenement}" class="warning"></span> -->
-					 <br> <label
 
-					for="date">Date </label> <input type="date" th:field="*{date}"
-					id="date" required> <span
-					th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
-					class="warning"></span> <br>
+		<div class="row" id="where">
+			<div id="DivPrincipale" th:if="${!#lists.isEmpty(listePotagers) }"
+				class="col-md-4">
 				<br>
-				<input type="submit" value="Ajouter une action">
-			</form>
-
-
-
-
-		</div>
-
-
-	</div>
-
-
-
-
-<!-- 		bloc3 -->
-<div class="row" id="where">
-	<!-- 	<!-- button visulaition des actions pour un potager  -->
-	<div id="DivPrincipale" class="col-md-4">
-
+				<h4>Actions à faire pour un potager</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>Potager</th>
+							<th>voir les actions</th>
+							<th>voir le potager</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Pour chaque carré on va afficher les attributs -->
+						<tr th:each="potager : ${listePotagers}">
+							<td th:text="${potager.nom}"></td>
+							<td><a
+								th:href="@{/actions/find/{idPotager}#where (idPotager=${potager.idPotager})}">+</a>
+							</td>
+							<td><a
+								th:href="@{/potager/{idPotager}(idPotager=${potager.idPotager})}">+</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		
-			<h4>Actions à faire pour un potager</h4>
-			<table>
-				<thead>
-					<tr>
-						<th>Potager</th>
-						<th>Selectionner</th>
-					</tr>
-				</thead>
-				<tbody>
-					<!-- Pour chaque carré on va afficher les attributs -->
-					<tr th:each="potager : ${listePotagers}">
-						<td th:text="${potager.nom}"></td>
-
-						<td><a
-							th:href="@{/actions/find/{idPotager}#where (idPotager=${potager.idPotager})}">+</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
 		<br> <br>
-		
-<!-- 		bloc4 -->
-		<div id="DivPrincipale"  th:if="${!#lists.isEmpty(listeActionsByPot)}">
+
+
+		<div id="DivPrincipale" th:if="${#lists.isEmpty(listeActionsByPot)} and ${!#lists.isEmpty(listePotagers)}">
 			<div>
 				<br>
+				<h4 th:text="${nomPotager}">Potager : nomPotager</h4>
+				<h6>Aucune action à faire pour la quinzaine dans ce potager!</h6>
+			</div>
+		</div>
 
-			
-  <h4 th:text="${nomPotager}">Potager : nomPotager</h4>
-				<div >
-					<h6>pas d'action pour ce potager</h6>
-				</div>
+		<div id="DivPrincipale" th:if="${!#lists.isEmpty(listeActionsByPot)} and ${!#lists.isEmpty(listePotagers)}">
+			<div>
+				<br>
+				<h4 th:text="${nomPotager}">Potager : nomPotager</h4>
 				<div
-
-					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;"
-					>
+					style="overflow-x: hidden; overflow-y: scroll; border: none; height: 400px;">
 					<table>
 
 						<thead>
 							<tr>
 								<th>Date</th>
-								<th>Evenement</th>
-								<th>potager</th>
-								<th>carre</th>
+								<th>Action à faire</th>
+								<th>Potager</th>
+								<th>Carré</th>
+								<th>Supprimer</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="action : ${listeActionsByPot}">
+
+							<tr th:each="action :${listeActionsByPot}"
+								th:if="${action.carre ne null}">
 								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
 								<td th:text="${action.evenement}"></td>
 								<td th:text="${action.potager.nom}"></td>
-								<td th:if="${action.carre ne null}" th:text= "${action.carre.idCarre}"></td>
+								<td>'tous'</td>
+								<td><a
+									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
+								</td>
 							</tr>
+							<tr th:each="action : ${listeActionsByPot}"
+								th:if="${action.carre !=null}">
+								<td th:text="${#dates.format(action.date, 'dd-MM-YYYY')}"></td>
+								<td th:text="${action.evenement}"></td>
+								<td th:text="${action.potager.nom}"></td>
+								<td th:text="${action.carre.idCarre}"></td>
+								<td><a
+									th:href="@{/actions/supprimer/{idAction} (idAction=${action.idAction})}">-</a>
+								</td>
+
+							</tr>
+
 						</tbody>
 
 					</table>
+					<br>
+
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
+
+
+	<div class="footer">
+		<p>Anna Bot / Pierre Heydon / Clément Bertran</p>
 	</div>
-	<!-- button visualisation des actions pour un carre
-	-->
-	<div class="footer"><p>Anna Bot  /  Pierre Heydon  /  Clément Bertran</p></div>
 </body>
 </html>

@@ -247,6 +247,9 @@ public class PotagerController {
 			return "modifPlantation";
 		}
 		try {
+			System.err.println(plantation);
+			System.err.println(carre);
+			System.err.println(plante);
 			carreMgr.modifierPlantationOfCarre(plantation, carre, plante);
 		} catch (BllException e) {
 			result.addError(new FieldError("plantation", "quantite", e.getMessage()));

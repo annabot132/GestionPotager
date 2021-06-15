@@ -50,7 +50,7 @@ public class CarreManagerImpl implements CarreManager {
 
 	@Override
 	public void updateCarre(Carre carre) throws BllException {
-		
+
 		if ((carre.getSurface() == null)) {
 			throw new BllException("Veuillez indiquer une surface à votre carré.");
 		}
@@ -60,8 +60,7 @@ public class CarreManagerImpl implements CarreManager {
 		if (carre.getSol().isEmpty()) {
 			throw new BllException("Vous devez donner un type de sol.");
 		}
-		
-		
+
 		carreDao.save(carre);
 	}
 
@@ -75,7 +74,6 @@ public class CarreManagerImpl implements CarreManager {
 
 		return (List<Carre>) carreDao.findAll();
 	}
-	
 
 	@Override
 	@Transactional
@@ -134,17 +132,16 @@ public class CarreManagerImpl implements CarreManager {
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
 		List<Plantation> lstPlantationDuCarreInBdd = findById(carre.getIdCarre()).getListePlantations();
 		List<String> lstNomPlante = new ArrayList<String>();
-		
+
 		System.err.println("/////////////////");
-		System.err.println(carre);	
+		System.err.println(carre);
 		System.err.println(plante);
 		System.err.println(plantation);
-		
 
 		if (plantation.getQuantite() == null) {
 			throw new BllException("Il manque une quantité !");
 		}
-		if(plantation.getQuantite()<=0) {
+		if (plantation.getQuantite() <= 0) {
 			throw new BllException("Quantité minimal : 1.");
 		}
 		for (Plantation p : lstPlantationDuCarreInBdd) {
@@ -173,18 +170,19 @@ public class CarreManagerImpl implements CarreManager {
 //		System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
 
 		// contrainte surface
-		Double surfaceRestanteDuCarre = (Double)carre.getSurface();
+		Double surfaceRestanteDuCarre = (Double) carre.getSurface();
 		// recupere surface total des plantation lié au carré
 		Double surfaceTotalDesPlantationsDuCarreInBdd = 0.0;
 		for (Plantation p : lstPlantationDuCarreInBdd) {
 			// System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
 
-			surfaceTotalDesPlantationsDuCarreInBdd += (Double)((Double)(p.getPlante().getSurfaceOccupee())) * p.getQuantite();
+			surfaceTotalDesPlantationsDuCarreInBdd += (Double) ((Double) (p.getPlante().getSurfaceOccupee()))
+					* p.getQuantite();
 		}
 
-		surfaceRestanteDuCarre -= (Double)surfaceTotalDesPlantationsDuCarreInBdd;
+		surfaceRestanteDuCarre -= (Double) surfaceTotalDesPlantationsDuCarreInBdd;
 
-		Double surfaceAAdd =(Double)(((Double)plante.getSurfaceOccupee()) * plantation.getQuantite());
+		Double surfaceAAdd = (Double) (((Double) plante.getSurfaceOccupee()) * plantation.getQuantite());
 
 		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon
 		// ajoute
@@ -204,10 +202,10 @@ public class CarreManagerImpl implements CarreManager {
 
 			plantation.setPlante(planteMgr.findPlanteById(plante.getIdPlante()));
 			plantation.setCarre(findById(carre.getIdCarre()));
-			
+
 			plantationDao.save(plantation);
 			carreDao.save(carre);
-			
+
 			// J'ai mis les actions ICI
 			Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite() + " "
 					+ plantation.getPlante().getNom() + "(s) '" + plantation.getPlante().getVariete() + "' à Planter",
@@ -218,7 +216,6 @@ public class CarreManagerImpl implements CarreManager {
 			actionMg.addAction(action);
 			actionMg.addAction(action2);
 
-		
 		}
 
 //		/////////////////////Ajout Anna => Déplacé plus haut
@@ -268,16 +265,48 @@ public class CarreManagerImpl implements CarreManager {
 	public void modifierPlantationOfCarre(Plantation plantation, Carre carre, Plante plante) throws BllException {
 		Integer idPlantation = plantationDao.findById(plantation.getIdPlantation()).get().getIdPlantation();
 		plantation.setIdPlantation(idPlantation);
+		plantation.setCarre(carre);
+		plantation.setPlante(plante);
 
-//		plantation.setCarre(carre);
-//		plantation.setPlante(plante);
-		
-		
-//		plantationDao.save(plantation);
+		if (plantation.getQuantite() == null) {
+			throw new BllException("Il manque une quantitÃ© !");
+		}
+		if (plantation.getQuantite() <= 0) {
+			throw new BllException("Quantité minimal : 1.");
+		}
+		List<String> lstNomPlante = new ArrayList<String>();
+		List<Plantation> lstPlantationDuCarreInBdd = findById(carre.getIdCarre()).getListePlantations();
+		for (Plantation p : lstPlantationDuCarreInBdd) {
+			if (lstNomPlante.contains(p.getPlante().getNom())) {
 
-//		carre.getListePlantations().add(plantation);
+			} else {
+				lstNomPlante.add(p.getPlante().getNom());
+			}
+		}
 
-		ajouterPlantationAuCarre(carre, plante, plantation);
+		if (lstNomPlante.size() == 3 && !lstNomPlante.contains(plante.getNom())) {
+
+			throw new BllException("Il y a dÃ©jÃ  3 plantes dans votre carrÃ©");
+		}
+
+		// contrainte surface
+		double surfaceRestanteDuCarre = carre.getSurface();
+		// recupere surface total des plantation liÃ© au carrÃ©
+		double surfaceTotalDesPlantationsDuCarreInBdd = 0;
+		for (Plantation p : lstPlantationDuCarreInBdd) {
+			// System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
+
+			surfaceTotalDesPlantationsDuCarreInBdd += (p.getPlante().getSurfaceOccupee()) * p.getQuantite();
+		}
+
+		surfaceRestanteDuCarre -= surfaceTotalDesPlantationsDuCarreInBdd;
+
+		double surfaceAAdd = (double) (plante.getSurfaceOccupee() * plantation.getQuantite());
+
+		if ((surfaceRestanteDuCarre - surfaceAAdd) < 0) {
+			throw new BllException("Pas assez de place dans le carrÃ©");
+		}
+		plantationDao.save(plantation);
 
 	}
 

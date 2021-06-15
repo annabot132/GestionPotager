@@ -195,6 +195,9 @@ table tr {
 	height: 50px;
 	display: flex;
 	justify-content: center;
+	position:static;
+	bottom:0;
+	width:100%;
 }
 
 .footer p {

@@ -1,5 +1,6 @@
 package fr.eni.GestionPotager.ihm;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -107,13 +108,16 @@ ActionManager actionMg;
 
 		
 		
-		
-		
-		Date date2 = new Date(2021, 5, 18);
-		Action ac = new Action(date2, "Arroser", potager1, carre2);
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 5, 18);
+		Date date2 = cal.getTime();
+				Action ac = new Action(date2, "Arroser", potager1, carre2);
 		Action ac2 = new Action(date2, "Arroser", potager1, carre3);
 		
-		Date date3 = new Date(2021, 5, 20);
+
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(2021, 5, 20);
+		Date date3 = cal.getTime();
 		Action ac3 = new Action(date3, "Désherber", potager2, carre4);
 		Action ac24 = new Action(date3, "Désherber", potager2, carre5);
 		
@@ -124,11 +128,18 @@ ActionManager actionMg;
 
 		
 		
+		Calendar cal3 = Calendar.getInstance();
+		cal3.set(2021, 5, 1);
+		Date dateplant = cal.getTime();
 		
-		Date dateplant = new Date(2021, 5, 1);
-		Date daterec1 = new Date(2021, 5, 25);
-		Date daterec2 = new Date(2021, 5, 20);
-		Date daterec3 = new Date(2021, 8, 20);
+		cal3.set(2021, 5, 25);
+		Date daterec1 = cal.getTime();
+		
+		cal3.set(2021, 5, 20);
+		Date daterec2 = cal.getTime();
+		
+		cal3.set(2021, 8, 20);
+		Date daterec3 = cal.getTime();
 		Plantation plantation = new Plantation(dateplant, daterec2, 2, carre3, plante2);
 		Plantation plantation2 = new Plantation(dateplant, daterec1, 2, carre2, plante);
 		Plantation plantation3 = new Plantation(daterec1, daterec3, 2, carre2, plante6);

@@ -2,211 +2,235 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Détail du potager</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Détail du potager</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="navbar">
-        <div class="container">
-            <div class="row">
-                <nav class="col navbar navbar-expand-lg navbar-dark">
-                    <div class="navbar-brand">Gestion Potager</div>
-<!--                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"> -->
-<!--                         <span class="navbar-toggler-icon"></span> -->
-<!--                     </button> -->
-<!--                     <div id="navbarContent" class="collapse navbar-collapse"> -->
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/accueil">Mes Potagers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/plante/add">Mes Plantes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/actions">Mes Actions</a>
-                            </li>
-                        </ul>
-<!--                     </div> -->
-                </nav>
-            </div>
-        </div>
-    </div>
+	<div class="navbar">
+		<div class="container">
+			<div class="row">
+				<nav class="col navbar navbar-expand-lg navbar-dark">
+					<div class="navbar-brand">Gestion Potager</div>
+					<!--                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"> -->
+					<!--                         <span class="navbar-toggler-icon"></span> -->
+					<!--                     </button> -->
+					<!--                     <div id="navbarContent" class="collapse navbar-collapse"> -->
+					<ul class="navbar-nav">
+						<li class="nav-item active"><a class="nav-link"
+							href="/accueil">Mes Potagers</a></li>
+						<li class="nav-item"><a class="nav-link" href="/plante/add">Mes
+								Plantes</a></li>
+						<li class="nav-item"><a class="nav-link" href="/actions">Mes
+								Actions</a></li>
+					</ul>
+					<!--                     </div> -->
+				</nav>
+			</div>
+		</div>
+	</div>
 
-    <h1 th:text="${nomPotager}">Potager : nomPotager</h1>
+	<h1 th:text="${nomPotager}">Potager : nomPotager</h1>
 
 	<div class="container-fluid">
 		<div class="row">
 
-    <div id="DivPrincipale" class="col-md-6">
-        <h4>Liste des carrés de mon potager</h4>
-        <table>
-            <p th:if="${#lists.isEmpty(lstCarres)}" class="vide">Vous n'avez pas de carré dans votre potager.</p>
-            <thead>
-                <tr th:unless="${#lists.isEmpty(lstCarres)}">
-                    <th>Surface</th>
-                    <th>Type de sol</th>
-                    <th>Exposition</th>
-                    <th>Supprimer</th>
-                    <th>Visualiser</th>
-                    <th>Modifier</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Pour chaque carré on va afficher les attributs -->
-                <tr th:each="carre : ${lstCarres}">
-                    <td th:text="${carre.surface}"></td>
-                    <td th:text="${carre.sol}"></td>
-                    <td th:text="${carre.exposition}"></td>
-                    <td>
-                        <a th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a>
-                    </td>
+			<div id="DivPrincipale" class="col-md-6">
+				<h4>Liste des carrés de mon potager</h4>
 
-                    <td>
-                        <a th:href="@{/potager/{idPotager}/carre/{idCarre}#where (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a>
-                    </td>
-                    <td>
-                        <a th:href="@{/potager/{idPotager}/carre/editCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Modifier</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+				<table>
+					<p th:if="${#lists.isEmpty(lstCarres)}" class="vide">Vous
+						n'avez pas de carré dans votre potager.</p>
+					<thead>
+						<tr th:unless="${#lists.isEmpty(lstCarres)}">
+							<th>Surface</th>
+							<th>Type de sol</th>
+							<th>Exposition</th>
+							<th>Supprimer</th>
+							<th>Visualiser</th>
+							<th>Modifier</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Pour chaque carré on va afficher les attributs -->
+						<tr th:each="carre : ${lstCarres}">
+							<td th:text="${carre.surface}"></td>
+							<td th:text="${carre.sol}"></td>
+							<td th:text="${carre.exposition}"></td>
+							<td><a
+								th:href="@{/potager/{idPotager}/deleteCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Supprimer</a>
+							</td>
 
-    <!-- ajouter carré au potager -->
-    <div id="DivPrincipale" th:unless="${idPlantation}!=null" class="col-md-4">
-        <form th:action="@{/potager/{idPotager}/addCarre(idPotager=${idPotager})}" th:object="${carre}" method="post">
-            <h4>Ajouter un carré</h4>
-            <!-- Champs surface -->
-            <label for="surface">Surface </label>
-            <input id="surface" type="text" th:field="*{surface}" placeholder="Surface">
-<!--             <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span><br> -->
-			<!-- Champs type de sol -->
-            <label for="sol">Type de sol </label>
-            <input id="sol" type="text" th:field="*{sol}" placeholder="Type de sol">
-            <p th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}" class="warning"></p><br>
+							<td><a
+								th:href="@{/potager/{idPotager}/carre/{idCarre}#where (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Visualiser</a>
+							</td>
+							<td><a
+								th:href="@{/potager/{idPotager}/carre/editCarre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Modifier</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br> <a
+					th:href="@{/actions/find/{idPotager}#where (idPotager=${idPotager})}">voir les actions à faire</a>
+				<br>
+			</div>
 
-			<!-- Selection exposition -->
-            <label for="exposition">Exposition </label>
-            <select id="exposition" name="exposition">
-                <!-- Va chercher les valeurs de l'enum -->
-                <option th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
-                    th:value="${exposition}" th:text="${exposition.displayValue}">
-                </option>
-            </select><br> <br>
-            
-            <input type="submit" value="Ajouter le carré">
-        </form>
-    </div>
- </div>
- <div class="row" id="where">
+			<!-- ajouter carré au potager -->
+			<div id="DivPrincipale" th:unless="${idPlantation}!=null"
+				class="col-md-4">
+				<form
+					th:action="@{/potager/{idPotager}/addCarre(idPotager=${idPotager})}"
+					th:object="${carre}" method="post">
+					<h4>Ajouter un carré</h4>
+					<!-- Champs surface -->
+					<label for="surface">Surface </label> <input id="surface"
+						type="text" th:field="*{surface}" placeholder="Surface">
+					<!--             <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span><br> -->
+					<!-- Champs type de sol -->
+					<label for="sol">Type de sol </label> <input id="sol" type="text"
+						th:field="*{sol}" placeholder="Type de sol">
+					<p th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}"
+						class="warning"></p>
+					<br>
 
-    <!-- Détail de mon carré -->
-    <div id="DivPrincipale" th:unless="${#lists.isEmpty(lstCarres)}" class="col-md-6">
-        <h4>Mes plantations dans mon carré</h4>
-        <p th:if="${idCarre}==null" class="vide">Selectionnez un carré pour voir vos plantations.</p>
-        <table>
-            <thead>
-                <p th:if="${carre.idCarre}!=null and ${#lists.isEmpty(lstPlantations)}" class="vide"> Vous n'avez pas de plantation
-                    dans ce carré.</p>
-                <tr th:unless="${#lists.isEmpty(lstPlantations)}">
-                    <th>Plante</th>
-                    <th>Variété</th>
-                    <th>Quantité</th>
-                    <th>Date mise en place</th>
-                    <th>Date récolte</th>
-                    <th>ID</th>
-                    <th>Supprimer</th>
-                    <th>Modifier</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="plantation : ${lstPlantations} " th:name="idPlantation">
-                    <td th:text="${plantation.plante.nom}"></td>
-                    <td th:text="${plantation.plante.variete}"></td>
-                    <td th:text="${plantation.quantite}"></td>
-                    <td th:text="${#dates.format(plantation.miseEnPlace, 'dd-MM-YYYY')}"></td>
-                    <td th:text="${#dates.format(plantation.recolte, 'dd-MM-YYYY')}"></td>
-                    <td th:text="${plantation.idPlantation}"></td>
-                    <td>
-                    	<a th:href="@{/potager/{idPotager}/carre/{idCarre}/deletePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}">Supprimer</a>
-                    </td>
-                    <td>
-                    	<a th:href="@{/potager/{idPotager}/carre/{idCarre}/editPlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}">Modifier</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+					<!-- Selection exposition -->
+					<label for="exposition">Exposition </label> <select id="exposition"
+						name="exposition">
+						<!-- Va chercher les valeurs de l'enum -->
+						<option
+							th:each="exposition : ${T(fr.eni.GestionPotager.bo.Exposition).values()}"
+							th:value="${exposition}" th:text="${exposition.displayValue}">
+						</option>
+					</select><br> <br> <input type="submit" value="Ajouter le carré">
+				</form>
+			</div>
+		</div>
+		<div class="row" id="where">
 
-<!-- ajouter plantation au carré -->
-    <div id="DivPrincipale" th:if="${carre.idCarre} !=null" class="col-md-4">
-        <!-- th:unless="${plantation.idPlantation}!=null -->
-        <h4>Ajouter une plantation au carré</h4>
-        <!-- Formulaire ajout plantation au carré -->
-        <form
-            th:action="@{/potager/{idPotager}/carre/{idCarre}/addPlantation (idPotager=${idPotager}, idCarre=${carre.idCarre})}"
-            th:object="${plantation}" method="post">
-			
-			<!-- Selection plante -->
-            <label for="plante">Plante</label>
-            <select id="plante" th:name="idPlante">
-                <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}"
-                    th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}">
-                </option>
-            </select>
-			<!-- Champs quantité -->
-            <label for="quantite">Quantité</label>
-            <input id="quantite" type="text" th:field="*{quantite}" placeholder="Quantité">
-            <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span><br><br>  
-			<!-- Selection date de mise en place -->
-            <label for="dateMiseEnPlace">Date de mise en place</label>
-            <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required>
-            <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span><br><br> 
-			<!-- Selection date de récolte -->
-            <label for="dateDeRecolte">Date de récolte</label>
-            <input type="date" th:field="*{recolte}" id="dateDeRecolte" required>
-            <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br>
-			<p th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></p>
-            <input type="submit" value="Ajouter plantation">
-        </form>
-    </div>
+			<!-- Détail de mon carré -->
+			<div id="DivPrincipale" th:unless="${#lists.isEmpty(lstCarres)}"
+				class="col-md-6">
+				<h4>Mes plantations dans mon carré</h4>
+				<p th:if="${idCarre}==null" class="vide">Selectionnez un carré
+					pour voir vos plantations.</p>
+				<table>
+					<thead>
+						<p
+							th:if="${carre.idCarre}!=null and ${#lists.isEmpty(lstPlantations)}"
+							class="vide">Vous n'avez pas de plantation dans ce carré.</p>
+						<tr th:unless="${#lists.isEmpty(lstPlantations)}">
+							<th>Plante</th>
+							<th>Variété</th>
+							<th>Quantité</th>
+							<th>Date mise en place</th>
+							<th>Date récolte</th>
+							<th>ID</th>
+							<th>Supprimer</th>
+							<th>Modifier</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="plantation : ${lstPlantations} "
+							th:name="idPlantation">
+							<td th:text="${plantation.plante.nom}"></td>
+							<td th:text="${plantation.plante.variete}"></td>
+							<td th:text="${plantation.quantite}"></td>
+							<td
+								th:text="${#dates.format(plantation.miseEnPlace, 'dd-MM-YYYY')}"></td>
+							<td th:text="${#dates.format(plantation.recolte, 'dd-MM-YYYY')}"></td>
+							<td th:text="${plantation.idPlantation}"></td>
+							<td><a
+								th:href="@{/potager/{idPotager}/carre/{idCarre}/deletePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}">Supprimer</a>
+							</td>
+							<td><a
+								th:href="@{/potager/{idPotager}/carre/{idCarre}/editPlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}">Modifier</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-    <!-- Modifier plantation -->
-<!--     <div id="DivPrincipale" th:if="${idPlantation}!=null" class="col-md-4"> -->
-<!--         <h4>Modifier plantation</h4> -->
-<!--         <form th:action="@{/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}"  -->
-<!--         		th:object="${plantation}" method="post"> -->
+			<!-- ajouter plantation au carré -->
+			<div id="DivPrincipale" th:if="${carre.idCarre} !=null"
+				class="col-md-4">
+				<!-- th:unless="${plantation.idPlantation}!=null -->
+				<h4>Ajouter une plantation au carré</h4>
+				<!-- Formulaire ajout plantation au carré -->
+				<form
+					th:action="@{/potager/{idPotager}/carre/{idCarre}/addPlantation (idPotager=${idPotager}, idCarre=${carre.idCarre})}"
+					th:object="${plantation}" method="post">
 
-<!-- 			<!-- Selection plante --> 
-<!--             <select th:name="idPlante"> -->
-<!--                 <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}" -->
-<!--                     th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}"> -->
-<!--                 </option> -->
-<!--             </select> -->
-<!--             <label for="quantite">Quantité</label> -->
-<!--             Champs quantité -->
-<!--             <input type="text" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
-<!--             <input type="hidden" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
-<!--             <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span> -->
-<!-- 			<!-- Selection date mise en place --> 
-<!--             <label for="dateMiseEnPlace">Date de mise en place</label> -->
-<!--             <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required> -->
-<!--             <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span> -->
-<!-- 			<!-- Selection date récolte -->  
-<!--             <label for="dateDeRecolte">Date de récolte</label> -->
-<!--             <input type="date" th:field="*{recolte}" id="dateDeRecolte" required> -->
-<!--             <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br> -->
+					<!-- Selection plante -->
+					<label for="plante">Plante</label> <select id="plante"
+						th:name="idPlante">
+						<option th:each="plante : ${lstPlantes}"
+							th:value="${plante.idPlante}"
+							th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}">
+						</option>
+					</select>
+					<!-- Champs quantité -->
+					<label for="quantite">Quantité</label> <input id="quantite"
+						type="text" th:field="*{quantite}" placeholder="Quantité">
+					<span th:if="${#fields.hasErrors('quantite')}"
+						th:errors="*{quantite}" class="warning"></span><br>
+					<br>
+					<!-- Selection date de mise en place -->
+					<label for="dateMiseEnPlace">Date de mise en place</label> <input
+						type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace"
+						required> <span
+						th:if="${#fields.hasErrors('miseEnPlace')}"
+						th:errors="*{miseEnPlace}" class="warning"></span><br>
+					<br>
+					<!-- Selection date de récolte -->
+					<label for="dateDeRecolte">Date de récolte</label> <input
+						type="date" th:field="*{recolte}" id="dateDeRecolte" required>
+					<span th:if="${#fields.hasErrors('recolte')}"
+						th:errors="*{recolte}" class="warning"></span><br> <br>
+					<p th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}"
+						class="warning"></p>
+					<input type="submit" value="Ajouter plantation">
+				</form>
+			</div>
 
-<!--             <input type="submit" value="Modifier plantation"> -->
-<!--             <a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Annuler</a> -->
-<!--         </form> -->
-<!--     </div> -->
-     </div>
-     </div>
-     <div class="footer"><p>Anna Bot  /  Pierre Heydon  /  Clément Bertran</p></div>
+			<!-- Modifier plantation -->
+			<!--     <div id="DivPrincipale" th:if="${idPlantation}!=null" class="col-md-4"> -->
+			<!--         <h4>Modifier plantation</h4> -->
+			<!--         <form th:action="@{/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}"  -->
+			<!--         		th:object="${plantation}" method="post"> -->
+
+			<!-- 			<!-- Selection plante -->
+			<!--             <select th:name="idPlante"> -->
+			<!--                 <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}" -->
+			<!--                     th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}"> -->
+			<!--                 </option> -->
+			<!--             </select> -->
+			<!--             <label for="quantite">Quantité</label> -->
+			<!--             Champs quantité -->
+			<!--             <input type="text" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
+			<!--             <input type="hidden" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
+			<!--             <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span> -->
+			<!-- 			<!-- Selection date mise en place -->
+			<!--             <label for="dateMiseEnPlace">Date de mise en place</label> -->
+			<!--             <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required> -->
+			<!--             <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span> -->
+			<!-- 			<!-- Selection date récolte -->
+			<!--             <label for="dateDeRecolte">Date de récolte</label> -->
+			<!--             <input type="date" th:field="*{recolte}" id="dateDeRecolte" required> -->
+			<!--             <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br> -->
+
+			<!--             <input type="submit" value="Modifier plantation"> -->
+			<!--             <a th:href="@{/potager/{idPotager}/carre/{idCarre} (idPotager=${idPotager}, idCarre=${carre.idCarre})}">Annuler</a> -->
+			<!--         </form> -->
+			<!--     </div> -->
+		</div>
+	</div>
+	<div class="footer">
+		<p>Anna Bot / Pierre Heydon / Clément Bertran</p>
+	</div>
 </body>
 </html>

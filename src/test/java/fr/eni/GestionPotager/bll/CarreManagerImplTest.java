@@ -66,7 +66,12 @@ class CarreManagerImplTest {
 		List<Carre> listeCarreTest = (List<Carre>) carremgr.findAll();
 		Carre carreTest2 = carremgr.findById(listeCarreTest.get(0).getIdCarre());
 
-		carremgr.updateCarre(carreTest);
+		try {
+			carremgr.updateCarre(carreTest);
+		} catch (BllException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		assertEquals(carreTest2.getSol(), carreTest.getSol());
 

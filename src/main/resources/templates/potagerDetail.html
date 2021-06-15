@@ -161,15 +161,15 @@
 			<!-- Champs quantité -->
             <label for="quantite">Quantité</label>
             <input id="quantite" type="text" th:field="*{quantite}" placeholder="Quantité">
-<!--             <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span><br><br>   -->
+            <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span><br><br>  
 			<!-- Selection date de mise en place -->
             <label for="dateMiseEnPlace">Date de mise en place</label>
             <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required>
-<!--             <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span><br><br>  -->
+            <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span><br><br> 
 			<!-- Selection date de récolte -->
             <label for="dateDeRecolte">Date de récolte</label>
             <input type="date" th:field="*{recolte}" id="dateDeRecolte" required>
-<!--             <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br> -->
+            <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br>
 			<p th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></p>
             <input type="submit" value="Ajouter plantation">
         </form>

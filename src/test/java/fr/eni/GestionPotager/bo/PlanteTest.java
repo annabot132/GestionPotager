@@ -74,7 +74,7 @@ class PlanteTest {
 	@Test
 	void testSetSurfaceOccupee() {
 		Plante plante1 = new Plante("TEST", TypePlante.FRUIT, "TEST2", 0.75);
-		plante1.setSurfaceOccupee(2);
+		plante1.setSurfaceOccupee((double) 2);
 		assertEquals(2, plante1.getSurfaceOccupee());
 	}
 

@@ -253,8 +253,10 @@ public class PotagerController {
 			return "modifPlantation";
 		}
 		try {
+
 			carreMgr.modifierPlantationOfCarre(plantation, carreMgr.findById(idCarre), planteMgr.findPlanteById(idPlante));
 			
+
 		} catch (BllException e) {
 			
 			result.addError(new FieldError("plantation", "quantite", e.getMessage()));

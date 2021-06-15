@@ -38,21 +38,18 @@ public class ActionController {
 	@GetMapping("/actions")
 	public String listerActions(Action action, Model model) {
 		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
+		System.err.println(actionMg.findAllActionFor2Weeks().size());
 		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
-		List<Action>  listevide = new ArrayList<Action>();
-		model.addAttribute("listeActionsByPot", listevide);	
+		List<Action> listevide = new ArrayList<Action>();
+		model.addAttribute("listeActionsByPot", listevide);
 		return "actions";
 	}
 
-
-
 	@PostMapping("/actions/add")
-	public String addPotager(@Valid Action action, @RequestParam("idPotager") Integer idPotager,  BindingResult result,  Model model) throws BllException {
-		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
-		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
-		List<Action>  listevide = new ArrayList<Action>();
-		model.addAttribute("listeActionsByPot", listevide);	
-		
+	public String addPotager(@Valid Action action, @RequestParam("idPotager") Integer idPotager, BindingResult result,
+			Model model) throws BllException {
+	
+
 		if (result.hasErrors()) {
 			return "actions";
 		}
@@ -61,28 +58,37 @@ public class ActionController {
 			actionMg.addAction(action);
 		} catch (BllException e) {
 			result.addError(new FieldError("action", "date", e.getMessage()));
+			
 		}
 		if (result.hasErrors()) {
+			model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
+			model.addAttribute("listePotagers", potagerMgr.getAllPotager());
+			List<Action> listevide = new ArrayList<Action>();
+			model.addAttribute("listeActionsByPot", listevide);
 			return "actions";
 		}
-		
-		return "actions";
+
+		return "redirect:/actions";
 	}
 
 	@GetMapping("/actions/find/{idPotager}")
-	public String afficherActionsPotager(@PathVariable("idPotager") Integer idPotager,  Action action, Potager potager, Carre carre, Integer IdPotager,  
-			Model model) {
+	public String afficherActionsPotager(@PathVariable("idPotager") Integer idPotager, Action action, Potager potager,
+			Carre carre, Integer IdPotager, Model model) {
 		model.addAttribute("actions", actionMg.findAllActionFor2Weeks());
 		model.addAttribute("listePotagers", potagerMgr.getAllPotager());
 		model.addAttribute("carres", carreMgr.findAll());
-		List<Action>  listevide = new ArrayList<Action>();
+		List<Action> listevide = new ArrayList<Action>();
 		model.addAttribute("listeActionsByPotByCarre", listevide);
 		model.addAttribute("listeActionsByPot", actionMg.findAllActionByPotagerFor2Weeks(idPotager));
 		model.addAttribute("listeCarres", carreMgr.findCarreByPotager(idPotager));
 		model.addAttribute("nomPotager", potagerMgr.getPotagerById(idPotager).getNom());
 		return "actions";
 	}
-	
-	
-	
+
+	@GetMapping("/actions/supprimer/{idAction}")
+	public String supprimerActionsPotager(@PathVariable("idAction") Integer idAction, Action action, Model model) {
+			actionMg.deleteActionById(idAction);
+		return "redirect:/actions";
+	}
+
 }

@@ -132,12 +132,6 @@ public class CarreManagerImpl implements CarreManager {
 	public void ajouterPlantationAuCarre(Carre carre, Plante plante, Plantation plantation) throws BllException {
 		List<Plantation> lstPlantationDuCarreInBdd = findById(carre.getIdCarre()).getListePlantations();
 		List<String> lstNomPlante = new ArrayList<String>();
-
-		System.err.println("/////////////////");
-		System.err.println(carre);
-		System.err.println(plante);
-		System.err.println(plantation);
-
 		if (plantation.getQuantite() == null) {
 			throw new BllException("Il manque une quantité !");
 		}
@@ -160,21 +154,14 @@ public class CarreManagerImpl implements CarreManager {
 		 * exception
 		 */
 		if (lstNomPlante.size() == 3 && !lstNomPlante.contains(plante.getNom())) {
-//			System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\dans if exception/////////////////////////");
-//			System.err.println("lstNomPlante : " + lstNomPlante);
-//			System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
 			throw new BllException("Il y a déjà 3 plantes dans votre carré");
 		}
-
-//		System.err.println("lstNomPlante : " + lstNomPlante);
-//		System.out.println("lstPlantation : " +lstPlantationDuCarreInBdd);
 
 		// contrainte surface
 		Double surfaceRestanteDuCarre = (Double) carre.getSurface();
 		// recupere surface total des plantation lié au carré
 		Double surfaceTotalDesPlantationsDuCarreInBdd = 0.0;
 		for (Plantation p : lstPlantationDuCarreInBdd) {
-			// System.out.println(p.getPlante().getSurfaceOccupee() * p.getQuantite());
 
 			surfaceTotalDesPlantationsDuCarreInBdd += (Double) ((Double) (p.getPlante().getSurfaceOccupee()))
 					* p.getQuantite();
@@ -187,16 +174,9 @@ public class CarreManagerImpl implements CarreManager {
 		// si surface restante sur le carré - la surface a ajouté < 0 => exception sinon
 		// ajoute
 
-///////////////////// OK
-
 		if ((surfaceRestanteDuCarre - surfaceAAdd) < 0) {
-//			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
-//			System.err.println("surfaceAAdd : " + surfaceAAdd);
 			throw new BllException("Pas assez de place dans le carré");
 		} else {
-//			System.out.println("il y a de la place");
-//			System.err.println("surfaceRestanteDuCarre : " + surfaceRestanteDuCarre);
-//			System.err.println("surfaceAAdd : " + surfaceAAdd);
 
 			carre.getListePlantations().add(plantation);
 
@@ -206,7 +186,6 @@ public class CarreManagerImpl implements CarreManager {
 			plantationDao.save(plantation);
 			carreDao.save(carre);
 
-			// J'ai mis les actions ICI
 			Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite() + " "
 					+ plantation.getPlante().getNom() + "(s) '" + plantation.getPlante().getVariete() + "' à Planter",
 					carre.getPotager(), carre);
@@ -217,19 +196,6 @@ public class CarreManagerImpl implements CarreManager {
 			actionMg.addAction(action2);
 
 		}
-
-//		/////////////////////Ajout Anna => Déplacé plus haut
-//		Action action = new Action(plantation.getMiseEnPlace(), plantation.getQuantite()+" "+plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Planter" , carre.getPotager(), carre);
-//		Action action2 = new Action(plantation.getRecolte(), plantation.getPlante().getNom()+"(s) '"+plantation.getPlante().getVariete()+"' à Récolter" , carre.getPotager(), carre);
-//		actionMg.addAction(action);
-//		actionMg.addAction(action2);
-//		////////////////////////////
-//		
-//		plantationDao.save(plantation);
-//		carreDao.save(carre);
-
-///////////////////// OK
-
 	}
 
 	@Override
@@ -249,9 +215,6 @@ public class CarreManagerImpl implements CarreManager {
 
 		Integer idPlantation = plantationDao.findById(plantation.getIdPlantation()).get().getIdPlantation();
 		plantationDao.deleteById(idPlantation);
-//		System.out.println("*******deletePlantationOfCarre()*******");
-//		System.out.println("idPlantzadadaation : "+carreDao.findById(carre.getIdCarre()));
-//		System.out.println("idCarre : "+carreDao.findById(carre.getIdCarre()));
 
 		carre.setPotager(carreDao.findById(carre.getIdCarre()).get().getPotager());
 		carre.setExposition(carreDao.findById(carre.getIdCarre()).get().getExposition());

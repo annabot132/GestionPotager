@@ -67,51 +67,76 @@ ActionManager actionMg;
 //	}
 	@PostConstruct
 	void init() throws BllException {
+		Plante plante = new Plante("Radis", TypePlante.RACINE, "Flamboyant", 0.1);
+		Plante plante2 = new Plante("Navet", TypePlante.RACINE, "Globe", 0.2);
+		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "Cerise",  0.75);
+		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "Boeuf", 0.75);
+		Plante plante4 = new Plante("Epinars", TypePlante.FEUILLE, "Géant d'hivers", 0.2);
+		Plante plante5 = new Plante("Petit pois", TypePlante.FRUIT, "Vert", 0.2);
+		Plante plante6 = new Plante("courgette", TypePlante.FRUIT, "Jaune",  1);
+		Plante plante7 = new Plante("Courgette", TypePlante.FRUIT, "Ronde de Nice", 0.75);
+		manager.createPlante(plante1);
+		manager.createPlante(plante3);
+		manager.createPlante(plante);
+		manager.createPlante(plante2);
+		manager.createPlante(plante4);
+		manager.createPlante(plante5);
+		manager.createPlante(plante6);
+		manager.createPlante(plante7);
+		
+		
+		
 		Potager potager1 = new Potager("devant la maison", "mon potager de la maison", 50, "Quimper");
-		Potager potager2 = new Potager("devant", "j'ai le carre3", 50, "Quimper");
-		Carre carre = new Carre(16, "j'ai des plantations", Exposition.SOLEIL, potager1);
-		Carre carre2 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
-		Carre carre3 = new Carre(8, "no plantation", Exposition.SOLEIL, potager1);
+		Potager potager2 = new Potager("derrière la maison", "Serre", 50, "Quimper");
+		
+		
+		Carre carre = new Carre(16, "argileux", Exposition.SOLEIL, potager1);
+		Carre carre2 = new Carre(8, "argileux", Exposition.MI_OMBRE, potager1);
+		Carre carre3 = new Carre(8, "argileux", Exposition.MI_OMBRE, potager1);
 
+		Carre carre4 = new Carre(10, "limoneux", Exposition.SOLEIL, potager2);
+		Carre carre5 = new Carre(10, "limoneux", Exposition.SOLEIL, potager2);
+		
+		
 		carreMg.ajouterCarrePotager(potager1, carre);
 		carreMg.ajouterCarrePotager(potager1, carre2);
-		carreMg.ajouterCarrePotager(potager2, carre3);
+		carreMg.ajouterCarrePotager(potager1, carre3);
+		
+		carreMg.ajouterCarrePotager(potager2, carre4);
+		carreMg.ajouterCarrePotager(potager2, carre5);
 
-		Date date2 = new Date(2021, 5, 15);
-
-		Action ac = new Action(date2, "a1", potager1, carre2);
-		Action ac2 = new Action(date2, "a2", potager1, carre2);
-		Action ac3 = new Action(date2, "a13", potager1, carre);
-		Action ac24 = new Action(date2, "a23", potager1, carre);
+		
+		
+		
+		
+		Date date2 = new Date(2021, 5, 18);
+		Action ac = new Action(date2, "Arroser", potager1, carre2);
+		Action ac2 = new Action(date2, "Arroser", potager1, carre3);
+		
+		Date date3 = new Date(2021, 5, 20);
+		Action ac3 = new Action(date3, "Désherber", potager2, carre4);
+		Action ac24 = new Action(date3, "Désherber", potager2, carre5);
 		
 		actionMg.addAction(ac3);
 		actionMg.addAction(ac);
 		actionMg.addAction(ac2);
 		actionMg.addAction(ac24);
 
-		Plante plante = new Plante("Plante1", TypePlante.FEUILLE, "varPlante1", 2);
-		Plante plante2 = new Plante("Plante2", TypePlante.FEUILLE, "varPlante2", 2);
-		manager.createPlante(plante);
-		manager.createPlante(plante2);
 		
 		
 		
-		Date date = new Date();
+		Date dateplant = new Date(2021, 5, 1);
+		Date daterec1 = new Date(2021, 5, 25);
+		Date daterec2 = new Date(2021, 5, 20);
+		Date daterec3 = new Date(2021, 8, 20);
+		Plantation plantation = new Plantation(dateplant, daterec2, 2, carre3, plante2);
+		Plantation plantation2 = new Plantation(dateplant, daterec1, 2, carre2, plante);
+		Plantation plantation3 = new Plantation(daterec1, daterec3, 2, carre2, plante6);
 		
-		Plantation plantation = new Plantation(date, date, 2, carre3, plante2);
-		Plantation plantation2 = new Plantation(date, date, 2, carre2, plante);
 		
-		
-		
-		carreMg.ajouterPlantationAuCarre(carre, plante, plantation);
-		carreMg.ajouterPlantationAuCarre(carre, plante2, plantation2);
-
-		Plante plante1 = new Plante("tomate", TypePlante.FRUIT, "cerise",  0.75);
-		Plante plante3 = new Plante("tomate", TypePlante.FRUIT, "boeuf", 0.75);
-		manager.createPlante(plante1);
-		manager.createPlante(plante3);
-
-		carreMg.ajouterPlantationAuCarre(carre3, plante3, plantation);
+		carreMg.ajouterPlantationAuCarre(carre, plante2, plantation);
+		carreMg.ajouterPlantationAuCarre(carre, plante, plantation2);
+		carreMg.ajouterPlantationAuCarre(carre, plante6, plantation3);
 
 	}
 

@@ -83,11 +83,11 @@
             <!-- Champs surface -->
             <label for="surface">Surface </label>
             <input id="surface" type="text" th:field="*{surface}" placeholder="Surface">
-            <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span><br>
+<!--             <span th:if="${#fields.hasErrors('surface')}" th:errors="*{surface}" class="warning"></span><br> -->
 			<!-- Champs type de sol -->
             <label for="sol">Type de sol </label>
             <input id="sol" type="text" th:field="*{sol}" placeholder="Type de sol">
-            <span th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}" class="warning"></span><br>
+            <p th:if="${#fields.hasErrors('sol')}" th:errors="*{sol}" class="warning"></p><br>
 
 			<!-- Selection exposition -->
             <label for="exposition">Exposition </label>
@@ -161,17 +161,16 @@
 			<!-- Champs quantité -->
             <label for="quantite">Quantité</label>
             <input id="quantite" type="text" th:field="*{quantite}" placeholder="Quantité">
-            <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span><br><br>  
-
+<!--             <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span><br><br>   -->
 			<!-- Selection date de mise en place -->
             <label for="dateMiseEnPlace">Date de mise en place</label>
             <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required>
-            <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span><br><br> 
+<!--             <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span><br><br>  -->
 			<!-- Selection date de récolte -->
             <label for="dateDeRecolte">Date de récolte</label>
             <input type="date" th:field="*{recolte}" id="dateDeRecolte" required>
-            <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br>
-
+<!--             <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br> -->
+			<p th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></p>
             <input type="submit" value="Ajouter plantation">
         </form>
     </div>
@@ -182,7 +181,7 @@
 <!--         <form th:action="@{/potager/{idPotager}/carre/{idCarre}/updatePlantation/{idPlantation} (idPotager=${idPotager},idCarre=${carre.idCarre}, idPlantation=${plantation.idPlantation})}"  -->
 <!--         		th:object="${plantation}" method="post"> -->
 
-<!-- 			<!-- Selection plante --> -->
+<!-- 			<!-- Selection plante --> 
 <!--             <select th:name="idPlante"> -->
 <!--                 <option th:each="plante : ${lstPlantes}" th:value="${plante.idPlante}" -->
 <!--                     th:text="${plante.nom.toUpperCase()} +' '+ ${plante.variete}"> -->
@@ -193,11 +192,11 @@
 <!--             <input type="text" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
 <!--             <input type="hidden" th:field="*{quantite}" id="quantite" placeholder="Quantité"> -->
 <!--             <span th:if="${#fields.hasErrors('quantite')}" th:errors="*{quantite}" class="warning"></span> -->
-<!-- 			<!-- Selection date mise en place --> -->
+<!-- 			<!-- Selection date mise en place --> 
 <!--             <label for="dateMiseEnPlace">Date de mise en place</label> -->
 <!--             <input type="date" th:field="*{miseEnPlace}" id="dateMiseEnPlace" required> -->
 <!--             <span th:if="${#fields.hasErrors('miseEnPlace')}" th:errors="*{miseEnPlace}" class="warning"></span> -->
-<!-- 			<!-- Selection date récolte --> -->
+<!-- 			<!-- Selection date récolte -->  
 <!--             <label for="dateDeRecolte">Date de récolte</label> -->
 <!--             <input type="date" th:field="*{recolte}" id="dateDeRecolte" required> -->
 <!--             <span th:if="${#fields.hasErrors('recolte')}" th:errors="*{recolte}" class="warning"></span><br> <br> -->
